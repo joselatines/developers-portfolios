@@ -19,3 +19,13 @@ export const createPortfolio = async (
 
 	return { success: true, message: "Portfolio created" };
 };
+
+export async function getAllPortfolios() {
+	const res = await fetch("http://localhost:3000/api/portfolios");
+
+	if (!res.ok) {
+		throw new Error("Failed to fetch data");
+	}
+
+	return res.json();
+}
