@@ -94,4 +94,24 @@ export class PortfoliosModel extends AbstractModel {
 
 		return { success: true, message };
 	}
+
+	async get(id: string): Promise<ModelResponse<Item>> {
+		const portfolioFound = await Portfolio.findByPk(id);
+
+		if (!portfolioFound)
+			return { success: false, message: "not found in database" };
+
+		return { success: true, body: portfolioFound as any };
+	}
+
+	async edit(
+		id: string,
+		body: Partial<BodyPortfolio>
+	): Promise<ModelResponse<null>> {
+		const [portfolioEdited] = await Portfolio.update(body, {
+			where: { id: id },
+		});
+
+		return { success: portfolioEdited > 0 };
+	}
 }

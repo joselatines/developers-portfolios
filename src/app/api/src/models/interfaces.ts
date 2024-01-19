@@ -4,7 +4,6 @@ export interface ModelResponse<T> {
 	body?: T;
 }
 
-
 export interface Model<T> {
 	get(id: string): Promise<ModelResponse<T>>;
 	getAll(): Promise<ModelResponse<T[]>>;
