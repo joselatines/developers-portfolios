@@ -1,11 +1,13 @@
+import { useFormik } from "formik";
+import { Button, useToast } from "@chakra-ui/react";
+import { useState } from "react";
 import TextareaField from "@/app/components/Forms/components/TextareaField";
 import TextField from "../../../Forms/components/TextField";
 import { formConfig } from "./config";
-import { useFormik } from "formik";
 import SelectionField from "@/app/components/Forms/components/SelectionField";
-import { Button } from "@chakra-ui/react";
 import ImageUploader from "@/app/components/Forms/components/ImageUploader";
-import { useState } from "react";
+import { CreatePortfolio } from "@/app/lib/types";
+import { createPortfolio } from "@/app/services/portfolios.service";
 
 const initialValues = formConfig.getInitialValues();
 const validationSchema = formConfig.getValidationSchema();
@@ -13,15 +15,39 @@ const textFields = formConfig.getTextFields();
 const selectionFields = formConfig.getSelectionFields();
 const textareaFields = formConfig.getTextareaField();
 
+const submitForm = async (
+	values: any,
+	images: { data_url: string }[],
+	toast: any
+) => {
+	const body = {
+		...values,
+		thumbnail: images[0].data_url,
+	};
+
+	const response = createPortfolio(body);
+
+	toast.promise(response, {
+		success: (e: any) => {
+			console.log("Action ready", e);
+			return { title: "Portfolio", description: e.message };
+		},
+		error: (e: any) => {
+			console.error("Server error", e);
+			return { title: "Portfolio", description: e.message };
+		},
+		loading: { title: "Portfolio", description: "Please wait" },
+	});
+};
+
 function CreatePortfolioForm() {
-	const [images, setImages] = useState([]);
+	const [images, setImages] = useState<{ data_url: string }[]>([]);
+	const toast = useToast();
 
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: async values => {
-			console.log(values, images);
-		},
+		onSubmit: async values => submitForm(values, images, toast),
 	});
 
 	return (
@@ -44,7 +70,13 @@ function CreatePortfolioForm() {
 			))}
 
 			<ImageUploader images={images} setImages={setImages} maxImages={1} />
-			<Button type="submit">Create</Button>
+			<Button
+				disabled={formik.isSubmitting}
+				isLoading={formik.isSubmitting}
+				type="submit"
+			>
+				Create
+			</Button>
 		</form>
 	);
 }

@@ -1,8 +1,8 @@
 import AbstractModel from "../models";
-import { Controller, ControllerResponse, Item } from "./controllers.interface";
+import { Controller, ControllerResponse, Item } from "./interfaces";
 
 abstract class AbstractController implements Controller {
-	constructor(private model: AbstractModel) {}
+	constructor(protected model: AbstractModel) {}
 
 	async get(id: string): Promise<ControllerResponse<Item>> {
 		const item = await this.model.get(id);

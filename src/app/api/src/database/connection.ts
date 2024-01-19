@@ -4,6 +4,7 @@ import { Sequelize } from "sequelize";
 const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = envVariables;
 
 export const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+	logging: false,
 	host: DB_HOST,
 	dialect: "mysql",
 	dialectModule: require("mysql2"),

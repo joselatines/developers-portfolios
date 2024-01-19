@@ -2,5 +2,10 @@
 import CreatePortfolioForm from "@/app/components/Portfolio/Forms/CreatePortfolioForm";
 
 export default async function Page() {
-	return <CreatePortfolioForm />;
+	return (
+		<>
+			Create portfolio
+			<CreatePortfolioForm />
+		</>
+	);
 }

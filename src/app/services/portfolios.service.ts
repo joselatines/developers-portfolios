@@ -1,39 +1,21 @@
-import { envVariables } from "../lib/env";
+import { CreatePortfolio } from "../lib/types";
+import { Response } from "./types";
 
-const { API_URL } = envVariables;
-
-export const createPortfolio = async (bodyData: any): Promise<Response> => {
-	const formData = new FormData();
-	for (const key in bodyData) {
-		formData.append(key, bodyData[key]);
-	}
-
-	const res = await fetch(`${API_URL}/portfolios`, {
-		method: "POST",
-		body: formData,
-	});
-	return res;
-};
-
-export const editPortfolio = async (
-	bodyData: any,
-	id: string
+export const createPortfolio = async (
+	portfolio: CreatePortfolio
 ): Promise<Response> => {
-	const formData = new FormData();
+	/* 	const formData = new FormData();
 	for (const key in bodyData) {
 		formData.append(key, bodyData[key]);
 	}
+ */
 
-	const res = await fetch(`${API_URL}/portfolios/${id}`, {
-		method: "PUT",
-		body: formData,
+	const res = await fetch(`/api/portfolios`, {
+		method: "POST",
+		body: JSON.stringify(portfolio),
 	});
-	return res;
-};
 
-export const deletePortfolio = async (id: string): Promise<Response> => {
-	const res = await fetch(`${API_URL}/portfolios/${id}`, {
-		method: "DELETE",
-	});
-	return res;
+	if (!res.ok) throw new Error("Failed to create portfolio");
+
+	return { success: true, message: "Portfolio created" };
 };

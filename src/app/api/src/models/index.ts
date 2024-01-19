@@ -1,5 +1,5 @@
-import { Item } from "../controllers/controllers.interface";
-import { Model } from "./models.interface";
+import { Item } from "../controllers/interfaces";
+import { Model } from "./interfaces";
 
 abstract class AbstractModel implements Model<Item> {
 	async create(body: any): Promise<Item> {

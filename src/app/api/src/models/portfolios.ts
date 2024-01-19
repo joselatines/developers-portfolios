@@ -1,9 +1,9 @@
 import AbstractModel from ".";
-import { Item } from "../controllers/controllers.interface";
+import { Item } from "../controllers/interfaces";
 import { sequelize } from "../database/connection";
 import { PortfolioDocument } from "../database/models/interfaces";
-import { Portfolio, Ratings } from "../database/models/rating-portfolio.model";
-import { User } from "../database/models/user.model";
+import { Portfolio, Ratings } from "../database/models/rating-portfolio";
+import { User } from "../database/models/user";
 import { buildImageName } from "../utils";
 import { firebase } from "../utils/firebase/firebase";
 
@@ -63,13 +63,10 @@ export class PortfoliosModel extends AbstractModel {
 			ImageBase64: thumbnail,
 		});
 
-		body.thumbnail = imgUrl;
-
 		const portfolio = {
 			...body,
 			thumbnail: imgUrl,
 			file_name: name,
-			created_by: body.createdBy,
 		};
 
 		const portfolioCreated = await Portfolio.create(portfolio);

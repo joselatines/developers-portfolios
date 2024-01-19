@@ -1,7 +1,7 @@
 import { DataTypes, UUID, UUIDV4 } from "sequelize";
 import { sequelize } from "../connection";
-import { User } from "./user.model";
-import { PORTFOLIO_TYPES } from "./interfaces";
+import { User } from "./user";
+import { PORTFOLIO_TYPES } from "@/app/lib/types";
 
 // IMPORTANT: The Portfolio model is defined in the same file as Ratings due to a webpack limitation.
 // Webpack encounters difficulties properly importing it, resulting in a 'use before initialization' error.
