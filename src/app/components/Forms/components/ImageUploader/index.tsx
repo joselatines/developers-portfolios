@@ -1,45 +1,37 @@
 import { Button, Text } from "@chakra-ui/react";
-import ImageUploading, { ImageListType } from "react-images-uploading";
+import ReactImageUploading, { ImageListType } from "react-images-uploading";
 import { MdDelete } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
+import { Props } from "./types";
 
-interface IProps {
-	images: ImageListType;
-	setImages: (images: ImageListType | any) => void; // initialize in []
-	maxNumber?: number;
-	note?: string;
-}
-
-export function ImageUploader({
+function ImageUploader({
 	images,
 	setImages,
-	maxNumber = 10,
+	maxImages = 10,
 	note = "Recommended up to 1320x720",
-}: IProps) {
-	// 	const [images, setImages] = useState([]);
-
+}: Props) {
 	const onChange = (imageList: ImageListType, addUpdateIndex: any) => {
-		// data for submit
 		console.info({ onChange: { imageList, addUpdateIndex } });
 		setImages(imageList);
 	};
 
-	const multipleImagesAllowed = maxNumber > 1 ? true : false;
+	const multipleImagesAllowed = maxImages > 1;
 
 	return (
 		<div className="App">
 			{images.length <= 0 && (
 				<span className="text-red-600">Thumbnail is required</span>
 			)}
-			<Text fontWeight={"medium"} fontSize={"md"} marginBottom={2}>
+			<Text fontWeight="medium" fontSize="md" marginBottom={2}>
 				Thumbnails
 			</Text>
 
-			<ImageUploading
+			<ReactImageUploading
 				multiple={multipleImagesAllowed}
 				value={images}
 				onChange={onChange}
-				maxNumber={maxNumber}
+				maxNumber={maxImages}
+				// TODO: ADD MAX SIZE
 				dataURLKey="data_url"
 			>
 				{({
@@ -73,7 +65,7 @@ export function ImageUploader({
 									<div className="bg-indigo-30">
 										<img
 											className="object-cover h-32 w-32"
-											src={image["data_url"]}
+											src={image.data_url}
 											alt={image.file?.name}
 										/>
 									</div>
@@ -99,7 +91,9 @@ export function ImageUploader({
 						</section>
 					</div>
 				)}
-			</ImageUploading>
+			</ReactImageUploading>
 		</div>
 	);
 }
+
+export default ImageUploader;

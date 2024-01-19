@@ -4,6 +4,8 @@ import { formConfig } from "./config";
 import { useFormik } from "formik";
 import SelectionField from "@/app/components/Forms/components/SelectionField";
 import { Button } from "@chakra-ui/react";
+import ImageUploader from "@/app/components/Forms/components/ImageUploader";
+import { useState } from "react";
 
 const initialValues = formConfig.getInitialValues();
 const validationSchema = formConfig.getValidationSchema();
@@ -12,11 +14,13 @@ const selectionFields = formConfig.getSelectionFields();
 const textareaFields = formConfig.getTextareaField();
 
 function CreatePortfolioForm() {
+	const [images, setImages] = useState([]);
+
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
 		onSubmit: async values => {
-			console.table(values);
+			console.log(values, images);
 		},
 	});
 
@@ -38,6 +42,8 @@ function CreatePortfolioForm() {
 					{...field}
 				/>
 			))}
+
+			<ImageUploader images={images} setImages={setImages} maxImages={1} />
 			<Button type="submit">Create</Button>
 		</form>
 	);
