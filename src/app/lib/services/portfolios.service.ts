@@ -1,4 +1,4 @@
-import { CreatePortfolio } from "../lib/types";
+import { CreatePortfolio } from "../types";
 import { Response } from "./types";
 
 export const createPortfolio = async (

@@ -7,7 +7,7 @@ import { formConfig } from "./config";
 import SelectionField from "@/app/components/Forms/components/SelectionField";
 import ImageUploader from "@/app/components/Forms/components/ImageUploader";
 import { CreatePortfolio } from "@/app/lib/types";
-import { createPortfolio } from "@/app/services/portfolios.service";
+import { createPortfolio } from "@/app/lib/services/portfolios.service";
 
 const initialValues = formConfig.getInitialValues();
 const validationSchema = formConfig.getValidationSchema();
@@ -29,7 +29,6 @@ const submitForm = async (
 
 	toast.promise(response, {
 		success: (e: any) => {
-			console.log("Action ready", e);
 			return { title: "Portfolio", description: e.message };
 		},
 		error: (e: any) => {

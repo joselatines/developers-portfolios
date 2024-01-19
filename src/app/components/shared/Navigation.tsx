@@ -14,7 +14,7 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 import RouterLink from "next/link";
-import { AuthContext } from "../contexts/auth/AuthContext";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 import { redirect } from "next/navigation";
 
 export default function Navigation() {
