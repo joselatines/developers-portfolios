@@ -1,10 +1,10 @@
 import { envVariables } from "@/app/lib/env";
 import { Sequelize } from "sequelize";
 
-const { NEXT_PUBLIC_DB_HOST, NEXT_PUBLIC_DB_NAME, NEXT_PUBLIC_DB_USER, NEXT_PUBLIC_DB_PASSWORD } = envVariables;
+const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = envVariables;
 
-export const sequelize = new Sequelize(NEXT_PUBLIC_DB_NAME, NEXT_PUBLIC_DB_USER, NEXT_PUBLIC_DB_PASSWORD, {
-	host: NEXT_PUBLIC_DB_HOST,
+export const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+	host: DB_HOST,
 	dialect: "mysql",
 	dialectModule: require("mysql2"),
 });

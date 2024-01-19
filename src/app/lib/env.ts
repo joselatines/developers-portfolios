@@ -1,27 +1,51 @@
-export const envVariables = {
-	NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL || "",
-	NEXT_PUBLIC_NEXTAUTH_SECRET: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET || "",
-	NEXT_PUBLIC_GITHUB_ID: process.env.NEXT_PUBLIC_GITHUB_ID || "",
-	NEXT_PUBLIC_GITHUB_SECRET: process.env.NEXT_PUBLIC_GITHUB_SECRET || "",
-	NEXT_PUBLIC_USER_KEY_LOCAL_STORAGE:
-		process.env.NEXT_PUBLIC_USER_KEY_LOCAL_STORAGE || "",
-	NEXT_PUBLIC_TOKEN_KEY_LOCAL_STORAGE:
-		process.env.NEXT_PUBLIC_TOKEN_KEY_LOCAL_STORAGE || "",
-	NEXT_PUBLIC_DB_USER: process.env.NEXT_PUBLIC_DB_USER || "",
-	NEXT_PUBLIC_DB_PASSWORD: process.env.NEXT_PUBLIC_DB_PASSWORD || "",
-	NEXT_PUBLIC_DB_NAME: process.env.NEXT_PUBLIC_DB_NAME || "",
-	NEXT_PUBLIC_DB_HOST: process.env.NEXT_PUBLIC_DB_HOST || "",
-	NEXT_PUBLIC_PORT:
-		parseInt(process.env.NEXT_PUBLIC_PORT || "3000", 10) || 3000,
-	NEXT_PUBLIC_JWT_SECRET: process.env.NEXT_PUBLIC_JWT_SECRET || "",
-	NEXT_PUBLIC_ADMIN_ROLE: process.env.NEXT_PUBLIC_ADMIN_ROLE || "",
-	NEXT_PUBLIC_PRODUCTION_URL: process.env.NEXT_PUBLIC_PRODUCTION_URL || "",
-	NEXT_PUBLIC_GITHUB_CLIENT_SECRET:
-		process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET || "",
-	NEXT_PUBLIC_GITHUB_CLIENT_ID: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID || "",
-	NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || "",
-	NEXT_PUBLIC_TYPE: process.env.NEXT_PUBLIC_TYPE || "",
-	NEXT_PUBLIC_PROJECT_ID: process.env.NEXT_PUBLIC_PROJECT_ID || "",
-	NEXT_PUBLIC_PRIVATE_KEY_ID: process.env.NEXT_PUBLIC_PRIVATE_KEY_ID || "",
-	NEXT_PUBLIC_PRIVATE_KEY: process.env.NEXT_PUBLIC_PRIVATE_KEY || "",
-};
+import { z } from "zod";
+
+const envSchema = z.object({
+	NEXTAUTH_URL: z.string(),
+	NEXTAUTH_SECRET: z.string(),
+	GITHUB_ID: z.string(),
+	GITHUB_SECRET: z.string(),
+	USER_KEY_LOCAL_STORAGE: z.string(),
+	TOKEN_KEY_LOCAL_STORAGE: z.string(),
+	DB_USER: z.string(),
+	DB_PASSWORD: z.string(),
+	DB_NAME: z.string(),
+	DB_HOST: z.string(),
+	PORT: z.string(),
+	JWT_SECRET: z.string(),
+	NEXT_PUBLIC_ADMIN_ROLE: z.string(),
+	PRODUCTION_URL: z.string(),
+	GITHUB_CLIENT_SECRET: z.string(),
+	GITHUB_CLIENT_ID: z.string(),
+	API_URL: z.string(),
+	TYPE: z.string(),
+	PROJECT_ID: z.string(),
+	PRIVATE_KEY_ID: z.string(),
+	PRIVATE_KEY: z.string(),
+});
+
+/* export const envVariables = EnvVariablesSchema.parse({
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL || "",
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || "",
+  GITHUB_ID: process.env.GITHUB_ID || "",
+  GITHUB_SECRET: process.env.GITHUB_SECRET || "",
+  USER_KEY_LOCAL_STORAGE: process.env.USER_KEY_LOCAL_STORAGE || "",
+  TOKEN_KEY_LOCAL_STORAGE: process.env.TOKEN_KEY_LOCAL_STORAGE || "",
+  DB_USER: process.env.DB_USER || "",
+  DB_PASSWORD: process.env.DB_PASSWORD || "",
+  DB_NAME: process.env.DB_NAME || "",
+  DB_HOST: process.env.DB_HOST || "",
+  PORT: process.env.PORT || "3000",
+  JWT_SECRET: process.env.JWT_SECRET || "",
+  NEXT_PUBLIC_ADMIN_ROLE: process.env.NEXT_PUBLIC_ADMIN_ROLE || "",
+  PRODUCTION_URL: process.env.PRODUCTION_URL || "",
+  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET || "",
+  GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID || "",
+  API_URL: process.env.API_URL || "",
+  TYPE: process.env.TYPE || "",
+  PROJECT_ID: process.env.PROJECT_ID || "",
+  PRIVATE_KEY_ID: process.env.PRIVATE_KEY_ID || "",
+  PRIVATE_KEY: process.env.PRIVATE_KEY || "",
+}); */
+
+export const envVariables = envSchema.parse(process.env);

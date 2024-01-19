@@ -2,34 +2,34 @@ import { envVariables } from "@/app/lib/env";
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 const {
-	NEXT_PUBLIC_TYPE,
-	NEXT_PUBLIC_PROJECT_ID,
-	NEXT_PUBLIC_PRIVATE_KEY_ID,
-	NEXT_PUBLIC_PRIVATE_KEY,
-	NEXT_PUBLIC_CLIENT_ID,
-	NEXT_PUBLIC_AUTH_URI,
-	NEXT_PUBLIC_TOKEN_URI,
-	NEXT_PUBLIC_CLIENT_EMAIL,
-	NEXT_PUBLIC_AUTH_PROVIDER_X509_CERT_URL,
-	NEXT_PUBLIC_CLIENT_X509_CERT_URL,
-	NEXT_PUBLIC_UNIVERSE_DOMAIN,
-	NEXT_PUBLIC_STORAGEBUCKET,
+	TYPE,
+	PROJECT_ID,
+	PRIVATE_KEY_ID,
+	PRIVATE_KEY,
+	CLIENT_ID,
+	AUTH_URI,
+	TOKEN_URI,
+	CLIENT_EMAIL,
+	AUTH_PROVIDER_X509_CERT_URL,
+	CLIENT_X509_CERT_URL,
+	UNIVERSE_DOMAIN,
+	STORAGEBUCKET,
 } = envVariables;
 
 const firebaseConfig = {
-	type: NEXT_PUBLIC_TYPE,
-	project_id: NEXT_PUBLIC_PROJECT_ID,
-	private_key_id: NEXT_PUBLIC_PRIVATE_KEY_ID,
-	private_key: NEXT_PUBLIC_PRIVATE_KEY,
-	client_email: NEXT_PUBLIC_CLIENT_EMAIL,
-	client_id: NEXT_PUBLIC_CLIENT_ID,
-	auth_uri: NEXT_PUBLIC_AUTH_URI,
-	token_uri: NEXT_PUBLIC_TOKEN_URI,
+	type: TYPE,
+	project_id: PROJECT_ID,
+	private_key_id: PRIVATE_KEY_ID,
+	private_key: PRIVATE_KEY,
+	client_email: CLIENT_EMAIL,
+	client_id: CLIENT_ID,
+	auth_uri: AUTH_URI,
+	token_uri: TOKEN_URI,
 
-	auth_provider_x509_cert_url: NEXT_PUBLIC_AUTH_PROVIDER_X509_CERT_URL,
-	client_x509_cert_url: NEXT_PUBLIC_CLIENT_X509_CERT_URL,
-	universe_domain: NEXT_PUBLIC_UNIVERSE_DOMAIN,
-	storageBucket: NEXT_PUBLIC_STORAGEBUCKET,
+	auth_provider_x509_cert_url: AUTH_PROVIDER_X509_CERT_URL,
+	client_x509_cert_url: CLIENT_X509_CERT_URL,
+	universe_domain: UNIVERSE_DOMAIN,
+	storageBucket: STORAGEBUCKET,
 };
 
 const app = initializeApp(firebaseConfig);

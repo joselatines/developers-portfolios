@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { API_URL, NEXT_PUBLIC_TOKEN_KEY_LOCAL_STORAGE } from "../CONST";
+import { API_URL, TOKEN_KEY_LOCAL_STORAGE } from "../CONST";
 import { getValueFromLocalStorage } from "../contexts/auth/helper";
 
 export const deleteComment = async (
@@ -11,7 +11,7 @@ export const deleteComment = async (
 export const getComments = async (
 	portfolioId: string
 ): Promise<AxiosResponse> => {
-	const token = getValueFromLocalStorage(NEXT_PUBLIC_TOKEN_KEY_LOCAL_STORAGE);
+	const token = getValueFromLocalStorage(TOKEN_KEY_LOCAL_STORAGE);
 
 	if (!token) {
 		const res = await axios.get(

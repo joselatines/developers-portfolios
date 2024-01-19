@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { getValueFromLocalStorage } from "../contexts/auth/helper";
-import { NEXT_PUBLIC_TOKEN_KEY_LOCAL_STORAGE } from "../CONST";
+import { TOKEN_KEY_LOCAL_STORAGE } from "../CONST";
 
 // Define the state shape
 interface State {
@@ -14,7 +14,7 @@ export const useFetchWithJWT = (url: string, options?: RequestInit) => {
 	const [res, setResponse] = useState<State>({});
 
 	// Get token information from local storage
-	const token = getValueFromLocalStorage(NEXT_PUBLIC_TOKEN_KEY_LOCAL_STORAGE);
+	const token = getValueFromLocalStorage(TOKEN_KEY_LOCAL_STORAGE);
 
 	// Function to fetch data from the specified URL
 	const fetchData = useCallback(async () => {
