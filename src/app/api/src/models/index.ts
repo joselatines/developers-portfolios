@@ -1,24 +1,24 @@
 import { Item } from "../controllers/interfaces";
-import { Model } from "./interfaces";
+import { Model, ModelResponse } from "./interfaces";
 
 abstract class AbstractModel implements Model<Item> {
-	async create(body: any): Promise<Item> {
-		return { id: "" };
+	async create(body: any): Promise<ModelResponse<Item>> {
+		return { success: false, message: "", body: { id: "" } };
 	}
-	async get(id: string): Promise<Item> {
-		return { id: "" };
-	}
-
-	async getAll(): Promise<Item[]> {
-		return [{ id: "" }];
+	async get(id: string): Promise<ModelResponse<Item>> {
+		return { success: false, message: "", body: { id: "" } };
 	}
 
-	async edit(id: string, body: any): Promise<boolean> {
-		return false;
+	async getAll(): Promise<ModelResponse<Item[]>> {
+		return { success: false, message: "", body: [{ id: "" }] };
 	}
 
-	async delete(id: string): Promise<boolean> {
-		return false;
+	async edit(id: string, body: any): Promise<ModelResponse<null>> {
+		return { success: false, message: "" };
+	}
+
+	async delete(id: string): Promise<ModelResponse<null>> {
+		return { success: false, message: "" };
 	}
 }
 

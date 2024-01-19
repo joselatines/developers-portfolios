@@ -11,21 +11,22 @@ export class PortfoliosController extends AbstractController {
 
 		const userEmail = session?.user?.email;
 
-		if (!userEmail) return { message: "user not logged" };
+		if (!userEmail) return { success: false, message: "user not logged" };
 
 		const userModel = new UsersModel();
 		const userController = new UsersController(userModel);
 
 		const user = await userController.get(userEmail);
 
-		if (!user) return { message: "user not in database" };
+		if (!user) return { success: false, message: "user not in database" };
 
 		const portfolioToCreate = { ...body, created_by: user.body?.id };
 		const createdItem = await this.model.create(portfolioToCreate);
+		const x: any = createdItem;
 
 		return {
-			body: createdItem,
-			message: "success",
+			body: x,
+			success: true,
 		};
 	}
 }

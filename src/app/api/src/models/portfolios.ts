@@ -6,13 +6,14 @@ import { Portfolio, Ratings } from "../database/models/rating-portfolio";
 import { User } from "../database/models/user";
 import { buildImageName } from "../utils";
 import { firebase } from "../utils/firebase/firebase";
+import { ModelResponse } from "./interfaces";
 
 interface BodyPortfolio extends PortfolioDocument {
 	createdBy: string;
 }
 
 export class PortfoliosModel extends AbstractModel {
-	async getAll(): Promise<Item[]> {
+	async getAll(): Promise<ModelResponse<Item[]>> {
 		const portfolios = await Portfolio.findAll({
 			include: [
 				{
@@ -27,8 +28,7 @@ export class PortfoliosModel extends AbstractModel {
 		const portfoliosWithAverageRating = await this.getPortfoliosWithRatings(
 			portfolios as any
 		);
-
-		return portfoliosWithAverageRating;
+		return { success: true, body: portfoliosWithAverageRating };
 	}
 
 	getPortfoliosWithRatings = async (portfolios: PortfolioDocument[]) => {
@@ -54,7 +54,7 @@ export class PortfoliosModel extends AbstractModel {
 		return Promise.all(portfolioPromises);
 	};
 
-	async create(body: BodyPortfolio): Promise<Item> {
+	async create(body: BodyPortfolio): Promise<ModelResponse<Item>> {
 		const thumbnail = body.thumbnail;
 
 		const name = buildImageName(body.title, thumbnail);
@@ -71,6 +71,27 @@ export class PortfoliosModel extends AbstractModel {
 
 		const portfolioCreated = await Portfolio.create(portfolio);
 
-		return portfolioCreated.dataValues;
+		return { success: true, body: portfolioCreated.dataValues };
+	}
+
+	async delete(id: string): Promise<ModelResponse<null>> {
+		const portfolioFound = await Portfolio.findByPk(id);
+
+		if (!portfolioFound)
+			return { success: false, message: "not found in database" };
+
+		const imgFileName = portfolioFound.dataValues.file_name;
+
+		const portfolioDeleted = await Portfolio.destroy({
+			where: { id },
+		});
+
+		// TODO: FIRABASE FAILING
+		//await firebase.deleteFile(imgFileName);
+
+		const message =
+			portfolioDeleted > 0 ? `${id} deleted` : `${id} couldn't be deleted`;
+
+		return { success: true, message };
 	}
 }
