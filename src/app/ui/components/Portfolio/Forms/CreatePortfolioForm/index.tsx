@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
 import { Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import TextareaField from "@/app/components/Forms/components/TextareaField";
+import TextareaField from "@/app/ui/components/Forms/components/TextareaField";
 import TextField from "../../../Forms/components/TextField";
 import { formConfig } from "./config";
-import SelectionField from "@/app/components/Forms/components/SelectionField";
-import ImageUploader from "@/app/components/Forms/components/ImageUploader";
+import SelectionField from "@/app/ui/components/Forms/components/SelectionField";
+import ImageUploader from "@/app/ui/components/Forms/components/ImageUploader";
 import { createPortfolio } from "@/app/lib/services/portfolios.service";
 
 const initialValues = formConfig.getInitialValues();

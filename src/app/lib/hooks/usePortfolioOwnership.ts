@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../contexts/auth/AuthContext";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 
 // TODO: change hook name cause we are using it to only check the current user and put "You" instead of "User.name"
 // Custom hook to check if the current user using the app owns the portfolio

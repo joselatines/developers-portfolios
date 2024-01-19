@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../contexts/auth/AuthContext";
-import { IRoles } from "../contexts/auth/types";
+import { AuthContext } from "../../contexts/auth/AuthContext";
+import { IRoles } from "../../contexts/auth/types";
 
 export function useCurrentRole() {
 	const [currentRole, setCurrentRole] = useState<IRoles | null>(null);
@@ -8,8 +8,7 @@ export function useCurrentRole() {
 	useEffect(() => {
 		if (user) setCurrentRole(user.role);
 
-	
-		console.info('currentRole: ',currentRole)
+		console.info("currentRole: ", currentRole);
 	}, [user]);
 
 	return currentRole;
