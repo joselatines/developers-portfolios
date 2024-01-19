@@ -1,8 +1,8 @@
+import { envVariables } from "@/app/lib/env";
 import jwt from "jsonwebtoken";
 
-const { JWT_SECRET } = process.env;
+const { NEXT_PUBLIC_JWT_SECRET } = envVariables;
 
-const JWT_SECRET_ = JWT_SECRET || "";
 interface IData {
 	id: string;
 	role: string;
@@ -10,14 +10,14 @@ interface IData {
 }
 
 export function generateJWT(secretData: IData, expiresIn = "48h"): string {
-	return jwt.sign(secretData, JWT_SECRET_, {
+	return jwt.sign(secretData, NEXT_PUBLIC_JWT_SECRET, {
 		expiresIn,
 	});
 }
 
 export function verifyToken(token: string) {
 	try {
-		const decoded = jwt.verify(token, JWT_SECRET_);
+		const decoded = jwt.verify(token, NEXT_PUBLIC_JWT_SECRET);
 		return decoded; // {role: example123, id: example123}
 	} catch (error) {
 		console.error(error);

@@ -1,18 +1,10 @@
+import { envVariables } from "@/app/lib/env";
 import { Sequelize } from "sequelize";
 
-const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
+const { NEXT_PUBLIC_DB_HOST, NEXT_PUBLIC_DB_NAME, NEXT_PUBLIC_DB_USER, NEXT_PUBLIC_DB_PASSWORD } = envVariables;
 
-if ([DB_HOST, DB_NAME, DB_USER, DB_PASSWORD].some(v => v === undefined)) {
-	throw new Error(
-		"Not environment variable: DB_HOST, DB_NAME, DB_USER, DB_PASSWORD"
-	);
-}
-
-const dbName = DB_NAME || "";
-const dbUser = DB_USER || "";
-
-export const sequelize = new Sequelize(dbName, dbUser, DB_PASSWORD, {
-	host: DB_HOST,
+export const sequelize = new Sequelize(NEXT_PUBLIC_DB_NAME, NEXT_PUBLIC_DB_USER, NEXT_PUBLIC_DB_PASSWORD, {
+	host: NEXT_PUBLIC_DB_HOST,
 	dialect: "mysql",
 	dialectModule: require("mysql2"),
 });

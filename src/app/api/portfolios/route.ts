@@ -16,7 +16,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
 	const session = await getServerSession(authOptions);
-
+	console.log(session);
 	const userEmail = session?.user?.email;
 	if (!userEmail) {
 		return new Response("User is not authenticated", { status: 401 });

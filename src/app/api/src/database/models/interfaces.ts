@@ -1,6 +1,7 @@
+import { envVariables } from "@/app/lib/env";
 import { Model } from "sequelize";
 
-const { ADMIN_ROLE } = process.env;
+const { NEXT_PUBLIC_ADMIN_ROLE } = envVariables;
 
 export const PORTFOLIO_TYPES = {
 	backend: "backend",
@@ -27,7 +28,7 @@ export interface UserDocument {
 	githubUsername: string;
 	email: string;
 	password: string;
-	role: typeof ADMIN_ROLE | "user";
+	role: typeof NEXT_PUBLIC_ADMIN_ROLE | "user";
 	id: string;
 	github: string;
 	profilePic: string;

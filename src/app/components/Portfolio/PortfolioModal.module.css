@@ -1,0 +1,31 @@
+.container {
+	overflow: auto;
+	height: 75vh;
+}
+
+@media (min-width: 768px) {
+	.container {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		gap: 0px 0px;
+		grid-auto-flow: row;
+		grid-template-areas:
+			"info photo photo"
+			"comments photo photo";
+		align-items: start;
+		gap: 3rem;
+	}
+}
+
+.photo {
+	grid-area: photo;
+}
+
+.info {
+	grid-area: info;
+}
+
+.comments {
+	grid-area: comments;
+}
