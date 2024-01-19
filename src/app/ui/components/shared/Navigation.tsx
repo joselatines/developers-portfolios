@@ -14,8 +14,9 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 import RouterLink from "next/link";
-import { AuthContext } from "../../contexts/auth/AuthContext";
+
 import { redirect } from "next/navigation";
+import { AuthContext } from "@/app/lib/contexts/auth/AuthContext";
 
 export default function Navigation() {
 	const { user, setUser, setToken } = useContext(AuthContext);
