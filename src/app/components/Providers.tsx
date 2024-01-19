@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import { ChakraProvider } from "@chakra-ui/react";
-import SessionProvider from "./components/SessionProvider";
-import { AuthProvider } from "./contexts/auth/AuthContext";
+import SessionProvider from "../components/SessionProvider";
 
 export async function Providers({ children }: { children: React.ReactNode }) {
 	const session = await getServerSession();
