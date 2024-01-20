@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PortfoliosController } from "../src/controllers/portfolios";
-import { PortfoliosModel } from "../src/models/portfolios";
+import { RatingsController } from "../src/controllers/ratings";
+import { RatingsModel } from "../src/models/ratings";
 
-const model = new PortfoliosModel();
-const controller = new PortfoliosController(model);
+const model = new RatingsModel();
+const controller = new RatingsController(model);
 
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams;
 	const id = searchParams.get("id");
 	if (id) {
-		const portfolio = await controller.get(id);
-		return Response.json(portfolio);
+		const item = await controller.get(id);
+		return Response.json(item);
 	}
 
-	const item = await controller.getAll();
+	const ratings = await controller.getAll();
 
-	return Response.json(item);
+	return Response.json(ratings);
 }
 
 export async function POST(req: Request) {
@@ -34,7 +34,7 @@ export async function PUT(req: NextRequest) {
 	if (!id)
 		return NextResponse.json(
 			{
-				message: "Pass an id in search params please. /api/portfolios?id=64564",
+				message: "Pass an id in search params please. /api/ratings?id=64564",
 			},
 			{ status: 400 }
 		);
@@ -51,7 +51,7 @@ export async function DELETE(req: NextRequest) {
 	if (!id)
 		return NextResponse.json(
 			{
-				message: "Pass an id in search params please. /api/portfolios?id=64564",
+				message: "Pass an id in search params please. /api/ratings?id=64564",
 			},
 			{ status: 400 }
 		);
