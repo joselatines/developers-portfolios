@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { getAllPortfolios } from "./lib/services/portfolios.service";
 import PortfolioCard from "./ui/components/Portfolio/PortfolioCard";
-import { Portfolio } from "./lib/types/portfolios";
+import { Portfolio } from "./lib/types/portfolio";
 
 export default async function Home() {
 	const session = await getServerSession();

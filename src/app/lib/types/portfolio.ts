@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export interface Portfolio {
 	thumbnail: string;
 	created_by: string;
@@ -9,7 +11,9 @@ export interface Portfolio {
 	file_name: string;
 	avgRating: number;
 	github_link: string;
+	User: User;
 }
+
 export interface CreatePortfolio {
 	description: string;
 	github_link: string;

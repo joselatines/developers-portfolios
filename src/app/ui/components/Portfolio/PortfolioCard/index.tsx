@@ -10,37 +10,33 @@ import PortfolioModal from "../Modal";
 
 function PortfolioCard({ portfolio }: Props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { title, thumbnail, avgRating, type, description } = portfolio;
 
 	return (
 		<article onClick={onOpen} className="max-w-md w-96 overflow-hidden">
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
 			<Box pos="relative">
-				<h4 className="font-medium text-lg">{portfolio.title}</h4>
-				<NextImage
-					src={portfolio.thumbnail}
-					width={300}
-					height={500}
-					alt={portfolio.title}
-				/>
+				<h4 className="font-medium text-lg">{title}</h4>
+				<NextImage src={thumbnail} width={300} height={500} alt={title} />
 				<NextLink
 					target="_blank"
-					href={`/profiles/{portfolio.User.id}`}
+					href={`/profiles/{User.id}`}
 					className="opacity-95 text-sm"
 				>
-					{/* {portfolio.portfolioOwnerName} */}
+					{/* {portfolioOwnerName} */}
 				</NextLink>
 			</Box>
 
-			<span>{portfolio.description.slice(0, 30)}</span>
+			<span>{description.slice(0, 30)}...</span>
 
 			<section className="flex justify-between items-center my-2">
 				<div className="flex gap-1">
-					<Tag size="sm" colorScheme={getRateColor(portfolio.avgRating)}>
-						{portfolio.avgRating}/10
+					<Tag size="sm" colorScheme={getRateColor(avgRating)}>
+						{avgRating}/10
 					</Tag>
-					<Tag size="sm" colorScheme={getTypeColor(portfolio.type)}>
-						{portfolio.type}
+					<Tag size="sm" colorScheme={getTypeColor(type)}>
+						{type}
 					</Tag>
 				</div>
 				<OwnerFunctions />

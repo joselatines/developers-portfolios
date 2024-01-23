@@ -1,4 +1,4 @@
-import { PORTFOLIO_TYPES } from "@/app/lib/types/portfolios";
+import { PORTFOLIO_TYPES } from "@/app/lib/types/portfolio";
 
 const { backend, frontend, fullstack, mobile, software } = PORTFOLIO_TYPES;
 
@@ -25,4 +25,8 @@ export const getTypeColor = (type: string) => {
 		default:
 			return "gray";
 	}
+};
+
+export const getUserProfileUrl = (userId: string): string => {
+	return `/users/${userId}`;
 };

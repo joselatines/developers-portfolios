@@ -1,4 +1,4 @@
-import { Button, Flex, Tag, Text } from "@chakra-ui/react";
+import { Button, Flex, Link, Tag, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import NextImage from "next/image";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
@@ -39,20 +39,22 @@ function PortfolioModalBody({ portfolio }: Props) {
 			/>
 
 			<Flex justifyContent="space-between" marginY={2}>
-				<NextLink href={`/profiles/{User.id}`}>Created by JoseLatines</NextLink>
+				<Link as={NextLink} href={`/profiles/{User.id}`}>
+					Created by JoseLatines
+				</Link>
 
 				<Flex gap={5}>
 					{!github_link && (
 						<NextLink href={github_link} target="_blank">
 							<Button variant="ghost" size="xs">
-								Code <FaGithub />
+								<Text marginRight={1}>Code</Text> <FaGithub />
 							</Button>
 						</NextLink>
 					)}
 
 					<NextLink href={website_link} target="_blank">
 						<Button variant="ghost" size="xs">
-							Live <FaExternalLinkAlt />
+							<Text marginRight={1}>Live</Text> <FaExternalLinkAlt />
 						</Button>
 					</NextLink>
 				</Flex>
