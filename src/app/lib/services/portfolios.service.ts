@@ -1,7 +1,6 @@
 import { CreatePortfolio } from "@/app/lib/types/portfolio";
 import { Response } from "./types";
 const { API_URL } = process.env;
-console.log({ API_URL });
 
 export const createPortfolio = async (
 	portfolio: CreatePortfolio

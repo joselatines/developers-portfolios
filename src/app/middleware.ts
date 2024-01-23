@@ -1,18 +1,23 @@
-import type { NextRequest } from 'next/server'
- 
-// This function can be marked `async` if using `await` inside
-export function middleware(req: NextRequest) {
-    const getMethod = req.method === 'GET'
-    if(!getMethod) {
-        return Response.json(
-            { success: false, message: 'authentication failed' },
-            { status: 401 }
-          )
-        }
-    }
+import { getToken } from "next-auth/jwt";
+import { NextResponse, type NextRequest } from "next/server";
 
- 
+const { NEXTAUTH_SECRET } = process.env;
+
+// This function can be marked `async` if using `await` inside
+export async function middleware(req: NextRequest) {
+	const session = await getToken({ req, secret: NEXTAUTH_SECRET });
+
+	if (!session) {
+		const requestedPage = req.nextUrl.pathname;
+		const url = req.nextUrl.clone();
+		url.pathname = "/auth/signin";
+		url.search = `p=${requestedPage}`;
+
+		return NextResponse.redirect(url);
+	}
+}
+
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: '/api/',
-}
+	matcher: "/api/",
+};

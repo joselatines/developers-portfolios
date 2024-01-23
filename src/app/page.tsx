@@ -171,7 +171,6 @@ export default async function Home() {
 			},
 		},
 	];
-	console.log({ portfolios });
 
 	if (session)
 		return (
