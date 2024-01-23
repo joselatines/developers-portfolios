@@ -8,6 +8,7 @@ import { buildImageName } from "../utils";
 import { firebase } from "../utils/firebase/firebase";
 import { ModelResponse } from "./interfaces";
 
+// TODO: DELETE THIS INTERFACE
 interface BodyPortfolio extends PortfolioDocument {
 	createdBy: string;
 }
@@ -55,9 +56,9 @@ export class PortfoliosModel extends AbstractModel {
 	};
 
 	async create(body: BodyPortfolio): Promise<ModelResponse<Item>> {
-		const thumbnail = body.thumbnail;
+		const { thumbnail, title } = body;
 
-		const name = buildImageName(body.title, thumbnail);
+		const name = buildImageName(title, thumbnail);
 		const imgUrl = await firebase.uploadFile({
 			name,
 			ImageBase64: thumbnail,
@@ -86,8 +87,7 @@ export class PortfoliosModel extends AbstractModel {
 			where: { id },
 		});
 
-		// TODO: FIRABASE FAILING
-		//await firebase.deleteFile(imgFileName);
+		await firebase.deleteFile(imgFileName);
 
 		const message =
 			portfolioDeleted > 0 ? `${id} deleted` : `${id} couldn't be deleted`;
@@ -95,7 +95,7 @@ export class PortfoliosModel extends AbstractModel {
 		return { success: true, message };
 	}
 
-	async get(id: string): Promise<ModelResponse<Item>> {
+	async get(id: string): Promise<ModelResponse<PortfolioDocument>> {
 		const portfolioFound = await Portfolio.findByPk(id);
 
 		if (!portfolioFound)
@@ -108,10 +108,53 @@ export class PortfoliosModel extends AbstractModel {
 		id: string,
 		body: Partial<BodyPortfolio>
 	): Promise<ModelResponse<null>> {
-		const [portfolioEdited] = await Portfolio.update(body, {
-			where: { id: id },
+		const { thumbnail, title } = body;
+
+		if (!thumbnail) {
+			const [portfolioEdited] = await Portfolio.update(body, {
+				where: { id: id },
+			});
+			return { success: portfolioEdited > 0 };
+		}
+
+		const thumbnailSaved = thumbnail.includes("firebasestorage");
+
+		// no new image
+		if (thumbnailSaved) {
+			const [portfolioEdited] = await Portfolio.update(body, {
+				where: { id: id },
+			});
+			return { success: portfolioEdited > 0 };
+		}
+
+		// delete the old image
+		const portfolio = await Portfolio.findByPk(id);
+		if (!portfolio) {
+			return {
+				success: false,
+				message: `Current image couldn't be deleted from firebase (${id} couldn't be found in database)`,
+			};
+		}
+		const imgFileName = portfolio.dataValues.file_name;
+
+		await firebase.deleteFile(imgFileName);
+
+		// upload new image
+		const name = buildImageName(title, thumbnail);
+		const imgUrl = await firebase.uploadFile({
+			name,
+			ImageBase64: thumbnail,
 		});
 
+		const portfolioToEdit = {
+			...body,
+			thumbnail: imgUrl,
+			file_name: name,
+		};
+
+		const [portfolioEdited] = await Portfolio.update(portfolioToEdit, {
+			where: { id: id },
+		});
 		return { success: portfolioEdited > 0 };
 	}
 }

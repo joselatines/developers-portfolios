@@ -19,9 +19,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: Request) {
-	const body = await req.json();
+	const data = await req.json();
 
-	const itemCreated = await controller.create(body);
+	const itemCreated = await controller.create(data);
 
 	return Response.json(itemCreated);
 }

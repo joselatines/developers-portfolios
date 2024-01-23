@@ -35,6 +35,7 @@ export interface TextareaField extends Field {
 
 export interface Config {
 	getAllFields(): Field[];
+	setInitialValues(newValues: Record<string, any>): void;
 	getValidationSchema(): ObjectSchema<any>;
 	getInitialValues(): Record<string, any>;
 	getSelectionFields(): SelectionField[];

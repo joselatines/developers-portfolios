@@ -14,6 +14,10 @@ export class FormConfig implements Config {
 		private validationSchema: ObjectSchema<any>,
 		private initialValues: Record<string, any> // Specify the type for initialValues
 	) {}
+	setInitialValues(newValues: Record<string, any>): void {
+		this.initialValues = newValues;
+	}
+
 	getAllFields(): Field[] {
 		return this.fields;
 	}

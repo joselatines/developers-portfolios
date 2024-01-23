@@ -14,7 +14,7 @@ export function getDate() {
 	return formattedDate;
 }
 
-export function buildImageName(title: string, thumbnail: string) {
+export function buildImageName(title = "defaultTitle", thumbnail: string) {
 	const name = `${getDate()}-${title}.${thumbnail.split("/")[1].split(";")[0]}`;
 
 	return name;

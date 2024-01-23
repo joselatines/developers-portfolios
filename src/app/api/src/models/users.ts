@@ -7,35 +7,39 @@ export class UsersModel extends AbstractModel {
 	async getAll(): Promise<ModelResponse<Item[]>> {
 		const users = await User.findAll();
 
-		if(!users) return { success: false};
-		
+		if (!users) return { success: false };
+
 		return { success: true, body: users as any };
 	}
 
 	async get(id: string): Promise<ModelResponse<Item>> {
-		
 		const user = await User.findByPk(id);
 
-		if(!user) return { success: false};
-		
+		if (!user) return { success: false };
+
+		return { success: true, body: user as any };
+	}
+
+	async getByKey(key: string, value: string): Promise<ModelResponse<Item>> {
+		const user = await User.findOne({ where: { [key]: value } });
+
+		if (!user) return { success: false };
+
 		return { success: true, body: user as any };
 	}
 
 	async create(body: any): Promise<ModelResponse<Item>> {
 		const userCreated = await User.create(body);
 
-		if(!userCreated) return { success: false};
-		
+		if (!userCreated) return { success: false };
+
 		return { success: true, body: userCreated as any };
-		;
-		
 	}
 
 	async delete(id: string): Promise<ModelResponse<null>> {
 		const userFound = await User.findByPk(id);
 
-		if (!userFound)
-			return { success: false, message: "not found in database" };
+		if (!userFound) return { success: false, message: "not found in database" };
 
 		const userDeleted = await User.destroy({
 			where: { id },
@@ -51,11 +55,10 @@ export class UsersModel extends AbstractModel {
 		const userEdited = await User.update(body, {
 			where: { id },
 			returning: true,
-		  });
-		
-		if(!userEdited) return { success: false};
-		
+		});
+
+		if (!userEdited) return { success: false };
+
 		return { success: true, body: userEdited as any };
-		;
 	}
 }

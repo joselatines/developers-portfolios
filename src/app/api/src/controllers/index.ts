@@ -9,6 +9,11 @@ abstract class AbstractController implements Controller {
 		return response;
 	}
 
+	async getByKey(key: string, value: string): Promise<ControllerResponse<Item>> {
+		const response = await this.model.getByKey(key, value);
+		return response;
+	}
+
 	async getAll(): Promise<ControllerResponse<Item[]>> {
 		const response = await this.model.getAll();
 		return response;
@@ -29,6 +34,8 @@ abstract class AbstractController implements Controller {
 
 		return response;
 	}
+
+	
 }
 
 export default AbstractController;

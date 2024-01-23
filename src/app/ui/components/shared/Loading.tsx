@@ -1,6 +1,6 @@
 import { AbsoluteCenter, Box, Spinner } from "@chakra-ui/react";
 
-function LoaderHandler() {
+function Loading() {
 	return (
 		<Box position="relative" h="80vh">
 			<AbsoluteCenter>
@@ -16,4 +16,4 @@ function LoaderHandler() {
 	);
 }
 
-export default LoaderHandler;
+export default Loading;

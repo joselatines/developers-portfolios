@@ -9,6 +9,10 @@ abstract class AbstractModel implements Model<Item> {
 		return { success: false, message: "", body: { id: "" } };
 	}
 
+	async getByKey(key: string, value: string): Promise<ModelResponse<Item>> {
+		return { success: false, message: "", body: { id: "" } };
+	}
+
 	async getAll(): Promise<ModelResponse<Item[]>> {
 		return { success: false, message: "", body: [{ id: "" }] };
 	}

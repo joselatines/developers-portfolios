@@ -10,6 +10,7 @@ export interface ControllerResponse<T> {
 
 export interface Controller {
 	get(id: string): Promise<ControllerResponse<Item>>;
+	getByKey(key: string, value: string): Promise<ControllerResponse<Item>>;
 	getAll(): Promise<ControllerResponse<Item[]>>;
 	create(body: any): Promise<ControllerResponse<Item>>;
 	edit(id: string, body: any): Promise<ControllerResponse<null>>;

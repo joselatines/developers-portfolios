@@ -26,7 +26,7 @@ const uploadFile = ({ name, ImageBase64 }: UploadFileParams): Promise<string> =>
     }, 
 
     async () => {
-      const url:string = await getDownloadURL(fileRef);
+      const url = await getDownloadURL(fileRef);
       resolve(url);
     },
   );

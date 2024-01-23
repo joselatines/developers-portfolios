@@ -1,0 +1,13 @@
+{{host}}/portfolios
+###
+{{host}}/portfolios?id=33a7b5ba-897e-4912-854e-d9f139ec52d4
+###
+POST {{host}}/users
+content-type: application/json 
+
+{
+  "email": "test@test.com",
+  "password": "123"
+}
+###
+{{host}}/ratings

@@ -16,9 +16,10 @@ export class PortfoliosController extends AbstractController {
 		const userModel = new UsersModel();
 		const userController = new UsersController(userModel);
 
-		const user = await userController.get(userEmail);
+		const user = await userController.getByKey("email", userEmail);
 
-		if (!user) return { success: false, message: "user not in database" };
+		if (!user.success)
+			return { success: false, message: "user not in database" };
 
 		const portfolioToCreate = { ...body, created_by: user.body?.id };
 		const createdItem = await this.model.create(portfolioToCreate);
@@ -27,6 +28,7 @@ export class PortfoliosController extends AbstractController {
 		return {
 			body: x,
 			success: true,
+			message: "Portfolio created",
 		};
 	}
 }
