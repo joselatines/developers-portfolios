@@ -1,4 +1,3 @@
-// components/Portfolio/PortfolioModal.jsx
 import {
 	Modal,
 	ModalBody,
@@ -13,7 +12,7 @@ import { useRef } from "react";
 import PortfolioModalBody from "./PortfolioModalBody";
 import { Props } from "./types";
 
-function PortfolioModal({ isOpen, onClose, portfolio }: any) {
+function PortfolioModal({ isOpen, onClose, portfolio }: Props) {
 	const btnRef = useRef(null);
 
 	return (
@@ -26,7 +25,7 @@ function PortfolioModal({ isOpen, onClose, portfolio }: any) {
 		>
 			<ModalOverlay />
 			<ModalContent>
-				<ModalHeader>{portfolio.title}</ModalHeader>
+				<ModalHeader fontSize={34}>{portfolio.title}</ModalHeader>
 				<ModalCloseButton />
 				<ModalBody>
 					<PortfolioModalBody portfolio={portfolio} />

@@ -1,10 +1,9 @@
 import { Button, Flex, Link, Tag, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import NextImage from "next/image";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import NextImage from "next/image";
 
 import CommentsSection from "@/app/ui/components/Comments/CommentsSection";
-import OwnerFunctions from "@/app/ui/components/OwnerFunctions";
 import { Props } from "./types";
 import { getRateColor, getTypeColor } from "@/app/lib/utils/ui";
 
@@ -46,14 +45,14 @@ function PortfolioModalBody({ portfolio }: Props) {
 				<Flex gap={5}>
 					{!github_link && (
 						<NextLink href={github_link} target="_blank">
-							<Button variant="ghost" size="xs">
+							<Button variant="ghost" size="md">
 								<Text marginRight={1}>Code</Text> <FaGithub />
 							</Button>
 						</NextLink>
 					)}
 
 					<NextLink href={website_link} target="_blank">
-						<Button variant="ghost" size="xs">
+						<Button variant="ghost" size="md">
 							<Text marginRight={1}>Live</Text> <FaExternalLinkAlt />
 						</Button>
 					</NextLink>

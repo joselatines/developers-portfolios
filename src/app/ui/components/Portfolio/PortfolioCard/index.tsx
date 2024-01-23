@@ -1,5 +1,5 @@
 "use client";
-import { Box, Tag } from "@chakra-ui/react";
+import { Box, Tag, Text } from "@chakra-ui/react";
 import { getRateColor, getTypeColor } from "@/app/lib/utils/ui";
 import NextImage from "next/image";
 import NextLink from "next/link";
@@ -13,7 +13,7 @@ function PortfolioCard({ portfolio }: Props) {
 	const { title, thumbnail, avgRating, type, description } = portfolio;
 
 	return (
-		<article onClick={onOpen} className="max-w-md w-96 overflow-hidden">
+		<Box onClick={onOpen}>
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
 			<Box pos="relative">
@@ -28,7 +28,9 @@ function PortfolioCard({ portfolio }: Props) {
 				</NextLink>
 			</Box>
 
-			<span>{description.slice(0, 30)}...</span>
+			<Text as="sub" fontSize="sm">
+				{description.slice(0, 40)}...
+			</Text>
 
 			<section className="flex justify-between items-center my-2">
 				<div className="flex gap-1">
@@ -41,7 +43,7 @@ function PortfolioCard({ portfolio }: Props) {
 				</div>
 				<OwnerFunctions />
 			</section>
-		</article>
+		</Box>
 	);
 }
 

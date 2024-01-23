@@ -1,7 +1,8 @@
-import { Heading, Text } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 
 import CommentCard from "../CommentCard";
 import { Comment } from "@/app/lib/types/comment";
+import RatePortfolioForm from "../../Portfolio/Forms/RatePortfolioForm";
 
 function CommentsSection({ title = "Leave a comment" }) {
 	const comments: Comment[] = [
@@ -39,14 +40,20 @@ function CommentsSection({ title = "Leave a comment" }) {
 	];
 	return (
 		<>
-			<Heading>{title}</Heading>
-			{comments.map(e => (
-				<CommentCard
-					key={e.id}
-					data={e}
-					refreshParent={() => console.log("refreshed!")}
-				/>
-			))}
+			<Heading marginBottom={2}>{title}</Heading>
+			<RatePortfolioForm
+				portfolioId={"sdf"}
+				refreshParent={() => console.log(" refreshed!")}
+			/>
+			<Box as="section" marginTop={8}>
+				{comments.map(e => (
+					<CommentCard
+						key={e.id}
+						data={e}
+						refreshParent={() => console.log("refreshed!")}
+					/>
+				))}
+			</Box>
 		</>
 	);
 }
