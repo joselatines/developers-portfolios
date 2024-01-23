@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavMenu from "./ui/components/NavMenu";
 import { Providers } from "./ui/components/Providers";
-
+import Navigation from "./ui/components/shared/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +20,13 @@ export default async function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<main className="mx-auto max-w-5xl text-2xl flex gap-2 ">
-					<Providers>
+				<Providers>
+					<Navigation />
+					<main className="p-24">
 						<NavMenu />
 						{children}
-					</Providers>
-				</main>
+					</main>
+				</Providers>
 			</body>
 		</html>
 	);

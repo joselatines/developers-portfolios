@@ -1,10 +1,11 @@
+import { Tag } from "@chakra-ui/react";
+import NextImage from "next/image";
 import { formatDate } from "@/app/lib/utils/time";
 import { getRateColor, getUserProfileUrl } from "@/app/lib/utils/ui";
-import { Tag } from "@chakra-ui/react";
 import { Props } from "./types";
 
 function CommentCard({ data, refreshParent }: Props) {
-	const { User, comment, rating, id, createdAt, updatedAt } = data;
+	const { User, comment, rating, createdAt, updatedAt } = data;
 
 	return (
 		<div className="border relative pb-12 p-3  my-3 bg-white text-slate-950">
@@ -27,8 +28,11 @@ function CommentCard({ data, refreshParent }: Props) {
 				href={getUserProfileUrl(User.id)}
 				className="gap-3 items-center inline-flex"
 			>
-				<img
+				<NextImage
 					src={User.profilePic}
+					alt={User.githubUsername}
+					width={20}
+					height={20}
 					className="object-cover w-8 h-8 rounded-full 
                 border-2 border-emerald-400  shadow-emerald-400
                 "
