@@ -171,11 +171,12 @@ export default async function Home() {
 			},
 		},
 	];
+	console.log({ portfolios });
 
 	if (session)
 		return (
 			<Flex gap={12} className="flex-wrap">
-				{portfolios.map((f: any) => (
+				{portfolios.body.map((f: any) => (
 					<PortfolioCard key={f.title} portfolio={f} />
 				))}
 			</Flex>

@@ -3,8 +3,19 @@ const nextConfig = {
 	experimental: {
 		serverComponentsExternalPackages: ["sequelize"],
 	},
+
 	typescript: {
 		ignoreBuildErrors: true,
+	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "firebasestorage.googleapis.com",
+				port: "",
+				pathname: "/**",
+			},
+		],
 	},
 };
 

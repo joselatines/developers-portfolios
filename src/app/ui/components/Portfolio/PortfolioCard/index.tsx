@@ -17,7 +17,13 @@ function PortfolioCard({ portfolio }: Props) {
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
 			<Box as="section">
-				<NextImage src={thumbnail} width={400} height={400} alt={title} />
+				<NextImage
+					src={thumbnail}
+					objectFit="cover"
+					width={400}
+					height={400}
+					alt={title}
+				/>
 				<NextLink
 					target="_blank"
 					href={`/profiles/{User.id}`}

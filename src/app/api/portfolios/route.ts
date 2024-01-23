@@ -10,12 +10,12 @@ export async function GET(req: NextRequest) {
 	const id = searchParams.get("id");
 	if (id) {
 		const portfolio = await controller.get(id);
-		return Response.json(portfolio);
+		return NextResponse.json(portfolio);
 	}
 
-	const item = await controller.getAll();
+	const items = await controller.getAll();
 
-	return Response.json(item);
+	return NextResponse.json(items);
 }
 
 export async function POST(req: Request) {
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
 	const itemCreated = await controller.create(data);
 
-	return Response.json(itemCreated);
+	return NextResponse.json(itemCreated);
 }
 
 export async function PUT(req: NextRequest) {
@@ -40,8 +40,7 @@ export async function PUT(req: NextRequest) {
 		);
 
 	const itemCreated = await controller.edit(id, body);
-
-	return Response.json(itemCreated);
+	return NextResponse.json(itemCreated);
 }
 
 export async function DELETE(req: NextRequest) {
