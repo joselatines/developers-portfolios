@@ -19,6 +19,7 @@ export default async function Home() {
 			id: "1",
 			file_name: "fdf",
 			avgRating: 100,
+			github_link: "https://portfolio1.com",
 		},
 		{
 			thumbnail: "/photo.png",
@@ -26,6 +27,7 @@ export default async function Home() {
 			website_link: "https://portfolio20.com",
 			type: "fullstack",
 			title: "Portfolio 20",
+			github_link: "https://portfolio1.com",
 			description:
 				"As of v2.4.2 there is now the addition of ChakraBaseProvider. This is a minimal version of ChakraProvider that only supplies theme tokens and not the default component theming. One of the biggest causes of the large initial JS payload is the size of the component themes. With the following approach, you get to apply the default themes for just the components you need by using extendBaseTheme.",
 			id: "20",

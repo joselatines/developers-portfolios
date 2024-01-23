@@ -8,6 +8,7 @@ export interface Portfolio {
 	id: string;
 	file_name: string;
 	avgRating: number;
+	github_link: string;
 }
 export interface CreatePortfolio {
 	description: string;

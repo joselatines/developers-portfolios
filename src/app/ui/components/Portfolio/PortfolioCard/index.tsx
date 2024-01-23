@@ -15,14 +15,17 @@ import {
 } from "@chakra-ui/react";
 import NextImage from "next/image";
 import NextLink from "next/link";
-import PortfolioModalBody from "../Modal/PortfolioModalBody";
-import { useRef } from "react";
 
-function PortfolioCard({ portfolio }: any) {
+import PortfolioModalBody from "../PortfolioModalBody";
+import { useRef } from "react";
+import { Props } from "./types";
+import OwnerFunctions from "../../OwnerFunctions";
+
+function PortfolioCard({ portfolio }: Props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = useRef(null);
 
-	const { title, thumbnail, file_name, type, avgRating, description } = portfolio;
+	const { title, thumbnail, type, avgRating, description } = portfolio;
 
 	return (
 		<article onClick={onOpen} className="max-w-md w-96 overflow-hidden">
@@ -38,7 +41,7 @@ function PortfolioCard({ portfolio }: any) {
 					<ModalHeader>{title}</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
-						<PortfolioModalBody description={description} title={title} thumbnail={thumbnail} />
+						<PortfolioModalBody portfolio={portfolio} />
 					</ModalBody>
 					<ModalFooter>
 						<Button onClick={onClose}>Close</Button>
@@ -59,7 +62,7 @@ function PortfolioCard({ portfolio }: any) {
 				</NextLink>
 			</Box>
 
-			<span>{"aboutPortfolio"}</span>
+			<span>{description.slice(0, 30)}</span>
 
 			<section className="flex justify-between items-center my-2">
 				<div className="flex gap-1">
@@ -70,7 +73,7 @@ function PortfolioCard({ portfolio }: any) {
 						{type}
 					</Tag>
 				</div>
-				{/* {showOwnerFunctions && <OwnerFunctions portfolioId={id} />} */}
+			 <OwnerFunctions />
 			</section>
 		</article>
 	);
