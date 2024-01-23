@@ -1,11 +1,20 @@
-import { PortfolioType } from "@/app/lib/types";
 import { Model } from "sequelize";
 
 const { NEXT_PUBLIC_ADMIN_ROLE } = process.env;
 
+export const PORTFOLIO_TYPES = {
+	backend: "backend",
+	frontend: "frontend",
+	fullstack: "fullstack",
+	mobile: "mobile",
+	software: "software",
+} as const;
+
+export type PortfolioType = keyof typeof PORTFOLIO_TYPES;
+
 export interface PortfolioDocument extends Model {
 	thumbnail: string;
-	created_by: number;
+	created_by: string;
 	website_link: string;
 	type: PortfolioType;
 	title: string;

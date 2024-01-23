@@ -1,4 +1,4 @@
-import { CreatePortfolio } from "../types";
+import { CreatePortfolio } from "@/app/lib/types/portfolios";
 import { Response } from "./types";
 
 export const createPortfolio = async (
@@ -17,7 +17,7 @@ export const createPortfolio = async (
 };
 
 export async function getAllPortfolios() {
-	const res = await fetch("http://localhost:3000/api/portfolios");
+	const res = await fetch("/api/portfolios");
 
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
@@ -27,7 +27,7 @@ export async function getAllPortfolios() {
 }
 
 export async function getPortfolio(id: string) {
-	const res = await fetch(`http://localhost:3000/api/portfolios?id=${id}`);
+	const res = await fetch(`/api/portfolios?id=${id}`);
 
 	if (!res.ok) {
 		throw new Error("Failed to fetch data");
@@ -35,6 +35,8 @@ export async function getPortfolio(id: string) {
 
 	return await res.json();
 }
+
+// TODO: MAKE SAME REQUEST AS CREATE PORTFOLIO
 
 export const editPortfolio = async (
 	id: string,
@@ -51,17 +53,3 @@ export const editPortfolio = async (
 
 	return data;
 };
-
-/* class ApiRequest {
-	API_URL = process.env.API_URL;
-	constructor() {}
-	async getAllP() {
-		const res = await fetch("http://localhost:3000/api/portfolios");
-
-		if (!res.ok) {
-			throw new Error("Failed to fetch data");
-		}
-
-		return res.json();
-	}
-} */

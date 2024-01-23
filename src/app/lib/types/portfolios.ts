@@ -1,3 +1,14 @@
+export interface Portfolio {
+	thumbnail: string;
+	created_by: string;
+	website_link: string;
+	type: PortfolioType;
+	title: string;
+	description: string;
+	id: string;
+	file_name: string;
+	avgRating: number;
+}
 export interface CreatePortfolio {
 	description: string;
 	github_link: string;
