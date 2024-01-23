@@ -1,5 +1,5 @@
-import { FormConfig } from "@/app/ui/components/Forms";
-import { Field } from "@/app/ui/components/Forms/types";
+import { FormConfig } from "@/app/ui/shared/Forms";
+import { Field } from "@/app/ui/shared/Forms/types";
 import * as Yup from "yup";
 
 const initialValues = {

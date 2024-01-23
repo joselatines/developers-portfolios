@@ -1,12 +1,13 @@
 import { useFormik } from "formik";
 import { Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import TextareaField from "@/app/ui/components/Forms/components/TextareaField";
-import TextField from "../../../Forms/components/TextField";
+import TextareaField from "@/app/ui/components/shared/Forms/components/TextareaField";
+import TextField from "@/app/ui/components/shared/Forms/components/TextField";
 import { formConfig } from "./config";
-import SelectionField from "@/app/ui/components/Forms/components/SelectionField";
-import ImageUploader from "@/app/ui/components/Forms/components/ImageUploader";
+import SelectionField from "@/app/ui/components/shared/Forms/components/SelectionField";
+import ImageUploader from "@/app/ui/components/shared/Forms/components/ImageUploader";
 import { createPortfolio } from "@/app/lib/services/portfolios.service";
+import { Field, SelectionField as ISelectionField } from "../../../shared/Forms/types";
 
 const initialValues = formConfig.getInitialValues();
 const validationSchema = formConfig.getValidationSchema();
@@ -50,15 +51,15 @@ function CreatePortfolioForm() {
 
 	return (
 		<form onSubmit={formik.handleSubmit}>
-			{textFields.map(field => (
+			{textFields.map((field: Field) => (
 				<TextField key={field.name} formik={formik} {...field} />
 			))}
 
-			{textareaFields.map(field => (
+			{textareaFields.map((field: Field) => (
 				<TextareaField key={field.name} formik={formik} {...field} />
 			))}
 
-			{selectionFields.map(field => (
+			{selectionFields.map((field: ISelectionField) => (
 				<SelectionField
 					key={field.name}
 					formik={formik}
