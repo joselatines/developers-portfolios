@@ -1,34 +1,61 @@
 import AbstractModel from ".";
 import { Item } from "../controllers/interfaces";
 import { Ratings } from "../database/models//rating-portfolio";
+import { User } from "../database/models/user";
 import { ModelResponse } from "./interfaces";
 
 export class RatingsModel extends AbstractModel {
 	async getAll(): Promise<ModelResponse<Item[]>> {
-		const ratings = await Ratings.findAll();
+		const ratings = await Ratings.findAll({
+			include: [
+				{
+					model: User,
+					attributes: {
+						exclude: ["password", "role", "createdAt", "updatedAt", "provider"],
+					},
+				},
+			],
+		});
 
-		if(!ratings) return { success: false};
-		
+		if (!ratings) return { success: false };
+
+		return { success: true, body: ratings as any };
+	}
+
+	async getAllFromAPortfolio(
+		portfolioId: string
+	): Promise<ModelResponse<Item[]>> {
+		const ratings = await Ratings.findAll({
+			where: { portfolio_id: portfolioId },
+			order: [
+				["updatedAt", "ASC"],
+				["createdAt", "ASC"],
+			],
+		});
+
+		if (!ratings) return { success: false };
+
 		return { success: true, body: ratings as any };
 	}
 
 	async get(id: string): Promise<ModelResponse<Item>> {
-		
 		const rating = await Ratings.findByPk(id);
 
-		if(!rating) return { success: false};
-		
+		if (!rating) return { success: false };
+
 		return { success: true, body: rating as any };
 	}
 
 	async create(body: any): Promise<ModelResponse<Item>> {
 		const ratingCreated = await Ratings.create(body);
 
-		if(!ratingCreated) return { success: false};
-		
-		return { success: true, body: ratingCreated as any };
-		;
-		
+		if (!ratingCreated) return { success: false };
+
+		return {
+			success: true,
+			body: ratingCreated as any,
+			message: "Portfolio rated successfully",
+		};
 	}
 
 	async delete(id: string): Promise<ModelResponse<null>> {
@@ -51,11 +78,10 @@ export class RatingsModel extends AbstractModel {
 		const ratingEdited = await Ratings.update(body, {
 			where: { id },
 			returning: true,
-		  });
-		
-		if(!ratingEdited) return { success: false};
-		
+		});
+
+		if (!ratingEdited) return { success: false };
+
 		return { success: true, body: ratingEdited as any };
-		;
 	}
 }

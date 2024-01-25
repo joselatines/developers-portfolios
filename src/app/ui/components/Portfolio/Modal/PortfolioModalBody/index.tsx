@@ -16,6 +16,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 		description,
 		github_link,
 		website_link,
+		id,
 	} = portfolio;
 
 	return (
@@ -61,7 +62,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 
 			<Text marginY={3}>{description}</Text>
 
-			<CommentsSection />
+			<CommentsSection portfolioId={id} />
 		</>
 	);
 }

@@ -5,8 +5,10 @@ export interface Item {
 export interface ControllerResponse<T> {
 	success: boolean;
 	body?: T;
-	message?: string; // Corrected type of "message"
+	message?: string; 
 }
+
+
 
 export interface Controller {
 	get(id: string): Promise<ControllerResponse<Item>>;

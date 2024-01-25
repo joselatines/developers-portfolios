@@ -1,4 +1,4 @@
 export interface Props {
-	portfolioId: string;
+	commentId: string;
 	refetchComments: () => void;
 }

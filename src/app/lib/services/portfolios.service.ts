@@ -1,6 +1,7 @@
 import { CreatePortfolio } from "@/app/lib/types/portfolio";
 import { Response } from "./types";
-const { API_URL } = process.env;
+import { API_URL } from "./config";
+
 
 export const createPortfolio = async (
 	portfolio: CreatePortfolio
@@ -45,6 +46,18 @@ export const editPortfolio = async (
 	const res = await fetch(`${API_URL}/portfolios?id=${id}`, {
 		method: "PUT",
 		body: JSON.stringify(portfolio),
+	});
+
+	const data = await res.json();
+
+	if (!data.success) throw new Error(data.message);
+
+	return data;
+};
+
+export const deletePortfolio = async (id: string): Promise<Response> => {
+	const res = await fetch(`${API_URL}/portfolios?id=${id}`, {
+		method: "DELETE",
 	});
 
 	const data = await res.json();

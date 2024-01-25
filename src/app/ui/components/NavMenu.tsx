@@ -29,7 +29,7 @@ function AuthButton() {
 export default function NavMenu() {
 	const pathname = usePathname();
 	return (
-		<div className="flex bg-white fixed z-40 bottom-0 left-0">
+		<div className="flex bg-white z-40 bottom-0 left-0">
 			<AuthButton />
 			<hr className="my-4" />
 			<ul>

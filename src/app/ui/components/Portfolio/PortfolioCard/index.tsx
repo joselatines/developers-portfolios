@@ -10,16 +10,16 @@ import PortfolioModal from "../Modal";
 
 function PortfolioCard({ portfolio }: Props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { title, thumbnail, avgRating, type, description } = portfolio;
+	const { title, thumbnail, avgRating, type, description, id } = portfolio;
 
 	return (
-		<Box onClick={onOpen}>
+		<Box>
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
-			<Box as="section">
+			<Box style={{ cursor: "pointer" }} onClick={onOpen} as="section">
 				<NextImage
 					src={thumbnail}
-					objectFit="cover"
+					/* layout="responsive" */
 					width={400}
 					height={400}
 					alt={title}
@@ -38,7 +38,10 @@ function PortfolioCard({ portfolio }: Props) {
 				</Text>
 			</Box>
 
-			<section className="flex justify-between items-center my-2">
+			<section
+				onClick={onOpen}
+				className="flex justify-between items-center my-2"
+			>
 				<div className="flex gap-1">
 					<Tag size="sm" colorScheme={getRateColor(avgRating)}>
 						{avgRating}/10
@@ -47,8 +50,9 @@ function PortfolioCard({ portfolio }: Props) {
 						{type}
 					</Tag>
 				</div>
-				<OwnerFunctions />
 			</section>
+
+			<OwnerFunctions id={id} />
 		</Box>
 	);
 }

@@ -1,55 +1,76 @@
-import { Button, Textarea } from "@chakra-ui/react";
+import { Button, Textarea, useToast } from "@chakra-ui/react";
 import { FaRegStar } from "react-icons/fa";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
+import { giveRatingToPortfolio } from "@/app/lib/services/ratings.service";
 import { Props } from "./types";
 
-function RatePortfolioForm({ portfolioId, refreshParent }: Props) {
-	const [rateNumber, setRateNumber] = useState(0);
-	const [comment, setComment] = useState("");
+function RatePortfolioForm({ portfolioId, refetchComments }: Props) {
+	const toast = useToast();
+	const [ratingNum, setRatingNum] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleRateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setRateNumber(Number(e.target.value));
+		setRatingNum(Number(e.target.value));
 	};
 
-	const handleGiveRateClick = async () => {
+	const submitForm = async (e: FormEvent) => {
+		e.preventDefault();
+		const comment = (e.target as any).elements.comment.value;
+		const rating = ratingNum;
+
 		const body = {
 			comment,
-			rating: rateNumber,
+			rating,
 			portfolio_id: portfolioId,
 		};
+
+		setIsLoading(true);
+
+		const response = giveRatingToPortfolio(portfolioId, body);
+
+		toast.promise(response, {
+			success: (e: any) => {
+				refetchComments();
+				return { title: "Portfolio", description: e.message };
+			},
+			error: (e: any) => {
+				console.error("Server error", e);
+				return { title: "Portfolio", description: e.message };
+			},
+			loading: { title: "Portfolio", description: "Please wait" },
+		});
+
+		setIsLoading(false);
 	};
 
 	return (
-		<form>
+		<form onSubmit={submitForm}>
 			<Textarea
 				placeholder="Here is a sample placeholder"
+				name="comment"
 				className="mb-1"
-				onChange={e => setComment(e.target.value)}
 			/>
 
-			<section>
-				<input
-					type="range"
-					onChange={handleRateChange}
-					min={1}
-					max={10}
-					step={1}
-					value={rateNumber}
-					className="range range-xs w-[100%]"
-				/>
+			<input
+				type="range"
+				min={1}
+				max={10}
+				step={1}
+				value={ratingNum}
+				onChange={handleRateChange}
+				className="range range-xs w-[100%]"
+			/>
 
-				<Button
-					onClick={handleGiveRateClick}
-					className="flex gap-1"
-					disabled={isLoading}
-					isLoading={isLoading}
-					loadingText="Sending your opinion..."
-					colorScheme="whatsapp"
-				>
-					Give {rateNumber} <FaRegStar />
-				</Button>
-			</section>
+			<Button
+				type="submit"
+				className="flex gap-1"
+				disabled={isLoading}
+				isLoading={isLoading}
+				loadingText="Sending your opinion..."
+				colorScheme="whatsapp"
+			>
+				Give {ratingNum} <FaRegStar />
+			</Button>
 		</form>
 	);
 }

@@ -36,7 +36,7 @@ export interface UserDocument {
 
 export interface RatingsDocument {
 	rating: number;
-	portfolio_id: number;
-	rated_by: number;
+	portfolio_id: string;
+	rated_by: string;
 	comment?: string;
 }

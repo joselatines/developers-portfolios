@@ -3,3 +3,8 @@ export interface Response {
 	message?: string;
 	body?: any;
 }
+
+export interface ParamsRequest {
+  portfolioId?: string;
+  // Add more parameters as needed
+}

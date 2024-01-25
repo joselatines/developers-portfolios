@@ -1,12 +1,16 @@
 import { Tag } from "@chakra-ui/react";
 import NextImage from "next/image";
-import { formatDate } from "@/app/lib/utils/time";
+import NextLink from "next/link";
+
 import { getRateColor, getUserProfileUrl } from "@/app/lib/utils/ui";
+import DeleteCommentButton from "./DeleteCommentButton";
+import { formatDate } from "@/app/lib/utils/time";
 import { Props } from "./types";
 
-function CommentCard({ data, refreshParent }: Props) {
-	const { User, comment, rating, createdAt, updatedAt } = data;
+function CommentCard({ data, refetchComments }: Props) {
+	const { User, comment, rating, createdAt, updatedAt, id } = data;
 
+	const isPortfolioOwner = true;
 	return (
 		<div className="border relative pb-12 p-3  my-3 bg-white text-slate-950">
 			<Tag
@@ -24,7 +28,7 @@ function CommentCard({ data, refreshParent }: Props) {
 				{formatDate(updatedAt || createdAt)}
 			</Tag>
 
-			<a
+			<NextLink
 				href={getUserProfileUrl(User.id)}
 				className="gap-3 items-center inline-flex"
 			>
@@ -38,10 +42,14 @@ function CommentCard({ data, refreshParent }: Props) {
                 "
 				/>
 
-				{/* <h3 className="font-bold">
+				<h3 className="font-bold">
 					{isPortfolioOwner ? "You" : "@" + User.githubUsername}
-				</h3> */}
-			</a>
+				</h3>
+			</NextLink>
+
+			{isPortfolioOwner && (
+				<DeleteCommentButton commentId={id} refetchComments={refetchComments} />
+			)}
 
 			<p className="mt-2">{comment}</p>
 		</div>
