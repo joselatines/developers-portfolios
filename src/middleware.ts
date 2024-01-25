@@ -10,14 +10,13 @@ export async function middleware(req: NextRequest) {
 	if (!session) {
 		const requestedPage = req.nextUrl.pathname;
 		const url = req.nextUrl.clone();
-		url.pathname = "/auth/signin";
+		url.pathname = "/api/auth/signin";
 		url.search = `p=${requestedPage}`;
 
 		return NextResponse.redirect(url);
 	}
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-	matcher: "/api/",
+	matcher: ["/dashboard/:path*"],
 };

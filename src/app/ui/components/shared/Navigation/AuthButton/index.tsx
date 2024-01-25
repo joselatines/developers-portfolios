@@ -9,12 +9,12 @@ import {
 	Link,
 	MenuItem,
 	MenuDivider,
-	Flex,
 } from "@chakra-ui/react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import NextLink from "next/link";
 import { FaGithub } from "react-icons/fa";
 
+// TODO: refactor this component to be amenu not a button
 export function AuthButton() {
 	const { data: session } = useSession();
 
@@ -32,7 +32,7 @@ export function AuthButton() {
 				</MenuButton>
 
 				<MenuList>
-					<Link as={NextLink} href="/dashboard/me">
+					<Link as={NextLink} href="/dashboard">
 						<MenuItem>Me</MenuItem>
 					</Link>
 					<Link as={NextLink} href="/dashboard/portfolios/create">

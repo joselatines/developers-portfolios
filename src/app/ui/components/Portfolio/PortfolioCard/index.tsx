@@ -10,7 +10,8 @@ import PortfolioModal from "../Modal";
 
 function PortfolioCard({ portfolio }: Props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { title, thumbnail, avgRating, type, description, id } = portfolio;
+	const { title, thumbnail, avgRating, type, description, id, User } =
+		portfolio;
 
 	return (
 		<Box>
@@ -52,7 +53,7 @@ function PortfolioCard({ portfolio }: Props) {
 				</div>
 			</section>
 
-			<OwnerFunctions id={id} />
+			<OwnerFunctions id={id} userEmail={User.email} />
 		</Box>
 	);
 }

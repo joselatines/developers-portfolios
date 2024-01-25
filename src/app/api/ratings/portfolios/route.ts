@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 	if (!session?.user?.email)
 		return NextResponse.json(
 			{
-				message: "User session not presented",
+				message: "To rate a portfolio you have to be logged in",
 			},
 			{ status: 400 }
 		);
