@@ -1,5 +1,6 @@
 import {
 	FormControl,
+	FormErrorMessage,
 	FormHelperText,
 	FormLabel,
 	Select,
@@ -16,6 +17,9 @@ function SelectionField({
 }: Props) {
 	const value = formik.values[name];
 	const placeholder = options[0].label;
+	const error = formik.errors[name];
+
+	console.log(error);
 
 	return (
 		<FormControl mb={4}>
@@ -33,6 +37,7 @@ function SelectionField({
 				))}
 			</Select>
 			<FormHelperText>{helperText}</FormHelperText>
+			{error ?? <FormErrorMessage color='tomato'>{error}</FormErrorMessage>}
 		</FormControl>
 	);
 }

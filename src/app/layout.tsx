@@ -23,7 +23,7 @@ export default async function RootLayout({
 				<Providers>
 					<Navigation />
 					<main className="p-24">
-						<NavMenu />
+						{/* <NavMenu /> */}
 						{children}
 					</main>
 				</Providers>

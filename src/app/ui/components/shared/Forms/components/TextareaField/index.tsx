@@ -15,7 +15,7 @@ function TextareaField({ formik, name, label, helperText }: Props) {
 			<Textarea {...formik.getFieldProps(name)} type="textarea" />
 
 			<FormHelperText>{helperText}</FormHelperText>
-			{error ?? <FormErrorMessage>{error}</FormErrorMessage>}
+			{error ?? <FormErrorMessage color="tomato">{error}</FormErrorMessage>}
 		</FormControl>
 	);
 }

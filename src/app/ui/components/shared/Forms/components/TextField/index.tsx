@@ -15,7 +15,7 @@ function TextField({ formik, name, label, helperText }: Props) {
 			<Input {...formik.getFieldProps(name)} type="text" />
 
 			<FormHelperText>{helperText}</FormHelperText>
-			{error ?? <FormErrorMessage>{error}</FormErrorMessage>}
+			{error ?? <FormErrorMessage color='tomato'>{error}</FormErrorMessage>}
 		</FormControl>
 	);
 }

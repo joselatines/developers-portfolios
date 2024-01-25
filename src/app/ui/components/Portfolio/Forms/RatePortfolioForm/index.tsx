@@ -67,7 +67,7 @@ function RatePortfolioForm({ portfolioId, refetchComments }: Props) {
 				disabled={isLoading}
 				isLoading={isLoading}
 				loadingText="Sending your opinion..."
-				colorScheme="whatsapp"
+				colorScheme="blue"
 			>
 				Give {ratingNum} <FaRegStar />
 			</Button>
