@@ -10,7 +10,7 @@ import ScrollToTopButton from "./ui/components/shared/ScrollToTopButton";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Developer Showcase",
+	title: "Developers Portfolios",
 	description:
 		"🚀 Showcase your development portfolio, receive feedback, and explore projects from other developers!",
 	authors: [{ name: "Jose Latines", url: "https://www.joselatines.com" }],
