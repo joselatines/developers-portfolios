@@ -16,6 +16,10 @@ interface BodyPortfolio extends PortfolioDocument {
 export class PortfoliosModel extends AbstractModel {
 	async getAll(): Promise<ModelResponse<Item[]>> {
 		const portfolios = await Portfolio.findAll({
+			order: [
+				["updatedAt", "ASC"],
+				["createdAt", "ASC"],
+			],
 			include: [
 				{
 					model: User,
@@ -36,6 +40,7 @@ export class PortfoliosModel extends AbstractModel {
 		const portfolioPromises = portfolios.map(
 			async (portfolio: PortfolioDocument) => {
 				const averageRating: any = await Ratings.findOne({
+					order: [["rating", "ASC"]],
 					attributes: [
 						[sequelize.fn("AVG", sequelize.col("rating")), "averageRating"],
 					],
@@ -57,6 +62,10 @@ export class PortfoliosModel extends AbstractModel {
 
 	async getAllFromAUser(userId: string): Promise<ModelResponse<Item[]>> {
 		const portfolios = await Portfolio.findAll({
+			order: [
+				["updatedAt", "ASC"],
+				["createdAt", "ASC"],
+			],
 			where: { created_by: userId },
 			include: [
 				{

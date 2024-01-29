@@ -9,35 +9,31 @@ import { Providers } from "./ui/components/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Developers Portfolios",
+	title: "Developer Showcase",
 	description:
-		"📷 Show your Dev Portfolio and receive feedback from other developers!",
+		"🚀 Showcase your development portfolio, receive feedback, and explore projects from other developers!",
 	authors: [{ name: "Jose Latines", url: "https://www.joselatines.com" }],
 	creator: "Jose Latines",
-	generator: "Next js",
+	generator: "Next.js",
 	keywords: ["portfolios", "developers portfolios", "portfolios feedback"],
-	abstract: "Your abstract text goes here",
-	applicationName: "Your Application Name",
-	assets: "Your assets information goes here",
-	category: "Your category goes here",
-	classification: "Your classification goes here",
+	abstract:
+		"Developer Showcase is a web app that empowers developers to exhibit their work, exchange feedback, and explore a diverse range of projects.",
+	applicationName: "Developers Portfolios",
+	assets: "Icons, logos, and images related to developer portfolios",
+	category: "Web Development",
+	classification: "Developer Community Platform",
 	openGraph: {
 		type: "website",
-		url: "https://example.com",
-		title: "My Website",
-		description: "My Website Description",
-		siteName: "My Website",
+		url: "https://developers-portfolios.vercel.app",
+		title: "Developers Portfolios",
+		description:
+			"Empower developers to showcase their work, receive feedback, and explore projects from a vibrant developer community.",
+		siteName: "Developers Portfolios",
 		images: [
 			{
-				url: "https://example.com/og.png",
+				url: "https://developers-portfolios.vercel.app/og.jpg",
 			},
 		],
-	},
-	twitter: {
-		card: "summary_large_image",
-		site: "@site",
-		creator: "@creator",
-		images: "https://example.com/og.png",
 	},
 };
 
@@ -52,10 +48,7 @@ export default async function RootLayout({
 				<NextTopLoader />
 				<Providers>
 					<Navigation />
-					<main className="p-5 md:p-24">
-						{/* <NavMenu /> */}
-						{children}
-					</main>
+					<main className="p-5 md:p-24">{children}</main>
 				</Providers>
 			</body>
 		</html>

@@ -45,7 +45,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 				</Link>
 
 				<Flex gap={5}>
-					{!github_link && (
+					{github_link.length > 3 && (
 						<NextLink href={github_link} target="_blank">
 							<Button variant="ghost" size="md">
 								<Text marginRight={1}>Code</Text> <FaGithub />
