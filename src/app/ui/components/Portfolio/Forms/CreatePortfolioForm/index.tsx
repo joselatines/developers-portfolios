@@ -80,6 +80,8 @@ function CreatePortfolioForm() {
 				isLoading={formik.isSubmitting}
 				type="submit"
 				colorScheme="blue"
+				loadingText="Submitting"
+				spinnerPlacement="start"
 			>
 				Create
 			</Button>

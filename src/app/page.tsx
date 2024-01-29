@@ -1,7 +1,13 @@
 import { Flex } from "@chakra-ui/react";
-import { Portfolio } from "./lib/types/portfolio";
-import PortfolioCard from "./ui/components/Portfolio/PortfolioCard";
+import dynamic from "next/dynamic";
+
 import { API_URL } from "@/app/lib/services/config";
+import { Portfolio } from "./lib/types/portfolio";
+
+
+const LazyPortfolioCard = dynamic(
+	() => import("./ui/components/Portfolio/PortfolioCard")
+);
 
 export async function getAllPortfolios() {
 	const res = await fetch(`${API_URL}/portfolios`, { cache: "no-store" });
@@ -18,7 +24,7 @@ export default async function Home() {
 	return (
 		<Flex gap={12} className="flex-wrap">
 			{portfolios.body.map((f: Portfolio) => (
-				<PortfolioCard key={f.title} portfolio={f} />
+				<LazyPortfolioCard key={f.title} portfolio={f} />
 			))}
 		</Flex>
 	);

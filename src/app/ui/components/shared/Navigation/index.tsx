@@ -24,7 +24,7 @@ export default function Navigation() {
 							fontSize={{ base: "sm", sm: "md" }}
 							href="/"
 						>
-							Developers Portfolios
+							💻 Developers Portfolios
 						</Link>
 					</Box>
 				</HStack>

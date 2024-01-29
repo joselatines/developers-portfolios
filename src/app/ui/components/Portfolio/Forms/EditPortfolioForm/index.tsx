@@ -80,6 +80,8 @@ const EditPortfolioForm = ({ initialValues, id }: Props) => {
 				isLoading={formik.isSubmitting}
 				type="submit"
 				colorScheme="blue"
+				loadingText="Submitting"
+				spinnerPlacement="start"
 			>
 				Edit
 			</Button>
