@@ -36,7 +36,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 				height={500}
 				className={`w-full md:col-span-2 object-contain md:h-[100%]`}
 				src={thumbnail}
-				alt={file_name}
+				alt={file_name + "portfolio"}
 			/>
 
 			<Flex justifyContent="space-between" marginY={2}>

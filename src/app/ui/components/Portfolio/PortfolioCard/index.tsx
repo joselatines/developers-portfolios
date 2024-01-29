@@ -29,8 +29,7 @@ function PortfolioCard({ portfolio }: Props) {
 					/>
 				</div>
 				<NextLink href={`/profiles/${User.id}`} className="opacity-95 text-sm">
-					Owner
-					{/* {portfolioOwnerName} */}
+					{User.githubUsername}
 				</NextLink>
 
 				<Heading size={"md"}>{title}</Heading>

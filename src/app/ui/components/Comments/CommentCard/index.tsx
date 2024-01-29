@@ -6,11 +6,13 @@ import { getRateColor, getUserProfileUrl } from "@/app/lib/utils/ui";
 import DeleteCommentButton from "./DeleteCommentButton";
 import { formatDate } from "@/app/lib/utils/time";
 import { Props } from "./types";
+import { usePortfolioOwnership } from "@/app/lib/hooks/usePortfolioOwnership";
 
 function CommentCard({ data, refetchComments }: Props) {
 	const { User, comment, rating, createdAt, updatedAt, id } = data;
 
-	const isPortfolioOwner = true;
+	const isPortfolioOwner = usePortfolioOwnership(User.email);
+
 	return (
 		<div className="border relative pb-12 p-3  my-3 bg-white text-slate-950">
 			<Tag
