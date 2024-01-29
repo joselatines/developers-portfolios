@@ -42,7 +42,7 @@ export function AuthButton() {
 	}
 
 	return (
-		<Button size={"lg"} className="flex gap-1" onClick={() => signIn()}>
+		<Button size={["sm", "md", "lg"]} className="flex gap-1" onClick={() => signIn()}>
 			Sign In <FaGithub />
 		</Button>
 	);

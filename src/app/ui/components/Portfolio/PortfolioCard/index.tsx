@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Box, Heading, Tag, Text } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import NextImage from "next/image";
@@ -20,15 +20,13 @@ const PortfolioCard = ({ portfolio }: Props) => {
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
 			<Box style={{ cursor: "pointer" }} onClick={onOpen} as="section">
-				<div className={styles.imageWrapper}>
-					<NextImage
-						src={thumbnail}
-						width={500}
-						height={500}
-						alt={title}
-						priority={true}
-					/>
-				</div>
+				<NextImage
+					src={thumbnail}
+					width={420}
+					height={380}
+					alt={title}
+					priority={true}
+				/>
 
 				<NextLink href={`/profiles/${User.id}`} className="opacity-95 text-sm">
 					{User.githubUsername}

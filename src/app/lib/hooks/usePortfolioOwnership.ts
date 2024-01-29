@@ -6,13 +6,14 @@ import { useSession } from "next-auth/react";
 export function usePortfolioOwnership(userPortfolioEmail: string) {
 	const [isPortfolioOwner, setIsPortfolioOwner] = useState<boolean>(false);
 	const { data: session } = useSession();
-	const currentUser = session?.user;
+	const currentUserEmail = session?.user?.email;
 
 	useEffect(() => {
-		const doesUserOwnPortfolio = currentUser?.email === userPortfolioEmail;
+		const doesUserOwnPortfolio = currentUserEmail === userPortfolioEmail;
 
+		console.info({doesUserOwnPortfolio, currentUserEmail, userPortfolioEmail })
 		setIsPortfolioOwner(doesUserOwnPortfolio);
-	}, [currentUser, userPortfolioEmail]);
+	}, [currentUserEmail, userPortfolioEmail]);
 
 	return [isPortfolioOwner];
 }

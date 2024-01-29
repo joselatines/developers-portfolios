@@ -8,12 +8,10 @@ import Loading from "../Loading";
 export default function Navigation() {
 	return (
 		<Box
-			position={"fixed"}
 			color={"white"}
 			width={"100vw"}
 			bg={"gray.900"}
-			zIndex={1000}
-			className="p-24 py-1"
+			className="p-5 py-1 md:p-24 md:py-2"
 		>
 			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
 				<HStack spacing={8} alignItems={"center"}>

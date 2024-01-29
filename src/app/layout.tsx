@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 
 import Navigation from "./ui/components/shared/Navigation";
 import { Providers } from "./ui/components/Providers";
+import ScrollToTopButton from "./ui/components/shared/ScrollToTopButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,7 +49,8 @@ export default async function RootLayout({
 				<NextTopLoader />
 				<Providers>
 					<Navigation />
-					<main className="p-5 md:p-24">{children}</main>
+					<main className="p-5 py-5 md:px-24 ">{children}</main>
+					<ScrollToTopButton />
 				</Providers>
 			</body>
 		</html>
