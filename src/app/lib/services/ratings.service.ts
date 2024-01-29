@@ -1,18 +1,15 @@
 import { CreateRating } from "@/app/lib/types/comment";
 import { ParamsRequest, Response } from "./types";
-import { NEXT_PUBLIC_API_URL } from "./config";
+import { API_URL } from "./config";
 
 export const giveRatingToPortfolio = async (
 	id: string,
 	ratingBody: CreateRating
 ): Promise<Response> => {
-	const res = await fetch(
-		`${NEXT_PUBLIC_API_URL}/ratings/portfolios?portfolioId=${id}`,
-		{
-			method: "POST",
-			body: JSON.stringify(ratingBody),
-		}
-	);
+	const res = await fetch(`${API_URL}/ratings/portfolios?portfolioId=${id}`, {
+		method: "POST",
+		body: JSON.stringify(ratingBody),
+	});
 
 	const data = await res.json();
 
@@ -25,7 +22,7 @@ export async function getAllRatingsFromAPortfolio({
 	portfolioId,
 }: ParamsRequest) {
 	const res = await fetch(
-		`${NEXT_PUBLIC_API_URL}/ratings/portfolios?portfolioId=${portfolioId}`
+		`${API_URL}/ratings/portfolios?portfolioId=${portfolioId}`
 	);
 
 	const data = await res.json();
@@ -35,7 +32,7 @@ export async function getAllRatingsFromAPortfolio({
 }
 
 export async function deleteRating(id: string) {
-	const res = await fetch(`${NEXT_PUBLIC_API_URL}/ratings?id=${id}`, {
+	const res = await fetch(`${API_URL}/ratings?id=${id}`, {
 		method: "DELETE",
 	});
 
