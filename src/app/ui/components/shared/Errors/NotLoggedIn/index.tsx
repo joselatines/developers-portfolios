@@ -1,5 +1,5 @@
-function NotFoundError() {
-	return <div>NotFoundError</div>;
+function NotLoggedIn() {
+	return <div>NotLoggedIn</div>;
 }
 
-export default NotFoundError;
+export default NotLoggedIn;

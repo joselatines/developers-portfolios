@@ -6,11 +6,7 @@ export async function Providers({ children }: { children: React.ReactNode }) {
 	const session = await getServerSession();
 	return (
 		<ChakraProvider>
-			<SessionProvider session={session}>
-				{/* <AuthProvider> */}
-				{children}
-				{/* </AuthProvider> */}
-			</SessionProvider>
+			<SessionProvider session={session}>{children}</SessionProvider>
 		</ChakraProvider>
 	);
 }

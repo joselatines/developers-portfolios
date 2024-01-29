@@ -1,11 +1,40 @@
-import { Button, Flex, Heading} from "@chakra-ui/react";
+"use client";
+import { Button, Flex, Heading } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 import { getAllPortfolios } from "../lib/services/portfolios.service";
 import PortfolioCard from "../ui/components/Portfolio/PortfolioCard";
+import NotLoggedIn from "../ui/components/shared/Errors/NotLoggedIn";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { Portfolio } from "../lib/types/portfolio";
+import Loading from "../ui/components/shared/Loading";
 
-export default async function Home() {
-	const portfolios = await getAllPortfolios();
+export default function Home() {
+	const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+	const [loading, setLoading] = useState(true);
+	const { data: session } = useSession();
+
+	const makeRequest = async () => {
+		try {
+			setLoading(true);
+			const res = await getAllPortfolios({
+				userEmail: session?.user?.email as string,
+			});
+
+			setPortfolios(res.body);
+		} catch (error) {
+			setPortfolios([]);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		makeRequest();
+	}, []);
+
+	if (!session) return <NotLoggedIn />;
 
 	return (
 		<>
@@ -18,11 +47,15 @@ export default async function Home() {
 				</NextLink>
 			</Flex>
 
-			<Flex gap={12} className="flex-wrap">
-				{portfolios.body.map((f: any) => (
-					<PortfolioCard key={f.title} portfolio={f} />
-				))}
-			</Flex>
+			{loading ? (
+				<Loading />
+			) : (
+				<Flex gap={12} className="flex-wrap">
+					{portfolios.map((f: Portfolio) => (
+						<PortfolioCard key={f.title} portfolio={f} />
+					))}
+				</Flex>
+			)}
 		</>
 	);
 }

@@ -28,7 +28,6 @@ function CommentsSection({ portfolioId }: Props) {
 		makeRequest();
 	}, []);
 
-	console.log(comments);
 	return (
 		<>
 			<Heading marginBottom={2}>Leave a comment</Heading>

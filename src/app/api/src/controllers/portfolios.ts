@@ -31,4 +31,20 @@ export class PortfoliosController extends AbstractController {
 			message: "Portfolio created",
 		};
 	}
+
+	async getAllFromAUser(
+		userEmail: string
+	): Promise<ControllerResponse<Item[]>> {
+		const userModel = new UsersModel();
+		const userController = new UsersController(userModel);
+
+		const { success, body, message } = await userController.getByKey(
+			"email",
+			userEmail
+		);
+
+		if (!success) return { success, message };
+
+		return await this.model.getAllFromAUser(body?.id as string) ;
+	}
 }

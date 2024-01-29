@@ -19,7 +19,7 @@ function SelectionField({
 	const placeholder = options[0].label;
 	const error = formik.errors[name];
 
-	console.log(error);
+	console.error(error);
 
 	return (
 		<FormControl mb={4}>

@@ -18,9 +18,13 @@ export const createPortfolio = async (
 };
 
 export async function getAllPortfolios(params?: ParamsRequest) {
-	const filterByUser = params?.userId ?? `?userId=${params?.userId}`;
-	
-	const res = await fetch(`${API_URL}/portfolios${filterByUser}`);
+	const filterByEmail = params?.userEmail
+		? `?userEmail=${params?.userEmail}`
+		: "";
+
+	const searchParams = `${filterByEmail}`;
+
+	const res = await fetch(`${API_URL}/portfolios${searchParams}`);
 
 	const data = await res.json();
 	if (!data.success) throw new Error(data.message);

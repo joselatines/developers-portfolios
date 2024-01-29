@@ -7,4 +7,5 @@ export interface Response {
 export interface ParamsRequest {
 	portfolioId?: string;
 	userId?: string;
+	userEmail?: string;
 }
