@@ -28,7 +28,7 @@ export default async function RootLayout({
 			<body className={inter.className}>
 				<Providers>
 					<Navigation />
-					<main className="p-24">
+					<main className="p-5 md:p-24">
 						{/* <NavMenu /> */}
 						{children}
 					</main>

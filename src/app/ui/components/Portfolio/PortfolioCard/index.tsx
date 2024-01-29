@@ -1,12 +1,13 @@
 "use client";
 import { Box, Heading, Tag, Text } from "@chakra-ui/react";
-import { getRateColor, getTypeColor } from "@/app/lib/utils/ui";
+import { useDisclosure } from "@chakra-ui/react";
 import NextImage from "next/image";
 import NextLink from "next/link";
-import { useDisclosure } from "@chakra-ui/react";
+import { getRateColor, getTypeColor } from "@/app/lib/utils/ui";
 import OwnerFunctions from "@/app/ui/components/OwnerFunctions";
 import { Props } from "./types";
-import PortfolioModal from "../Modal";
+import PortfolioModal from "@/app/ui/components/Portfolio/Modal";
+import styles from "./styles.module.css";
 
 function PortfolioCard({ portfolio }: Props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -18,13 +19,15 @@ function PortfolioCard({ portfolio }: Props) {
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
 			<Box style={{ cursor: "pointer" }} onClick={onOpen} as="section">
-				<NextImage
-					src={thumbnail}
-					/* layout="responsive" */
-					width={400}
-					height={400}
-					alt={title}
-				/>
+				<div className={styles.imageWrapper}>
+					<NextImage
+						src={thumbnail}
+						width={500}
+						height={500}
+						alt={title}
+						priority={true}
+					/>
+				</div>
 				<NextLink href={`/profiles/${User.id}`} className="opacity-95 text-sm">
 					Owner
 					{/* {portfolioOwnerName} */}
