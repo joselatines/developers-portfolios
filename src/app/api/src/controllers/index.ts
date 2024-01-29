@@ -22,6 +22,11 @@ abstract class AbstractController implements Controller {
 		return response;
 	}
 
+	async getAllFromAUser(userId: string): Promise<ControllerResponse<Item[]>> {
+		const response = await this.model.getAll();
+		return response;
+	}
+
 	async create(body: any): Promise<ControllerResponse<Item>> {
 		const createdItem = await this.model.create(body);
 		return createdItem;

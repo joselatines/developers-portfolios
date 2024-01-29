@@ -55,6 +55,26 @@ export class PortfoliosModel extends AbstractModel {
 		return Promise.all(portfolioPromises);
 	};
 
+	async getAllFromAUser(userId: string): Promise<ModelResponse<Item[]>> {
+		const portfolios = await Portfolio.findAll({
+			where: { created_by: userId },
+			include: [
+				{
+					model: User,
+					attributes: {
+						exclude: ["password", "role", "createdAt", "updatedAt"],
+					},
+				},
+			],
+		});
+
+		const portfoliosWithAverageRating = await this.getPortfoliosWithRatings(
+			portfolios as any
+		);
+		
+		return { success: true, body: portfoliosWithAverageRating };
+	}
+
 	async create(body: BodyPortfolio): Promise<ModelResponse<Item>> {
 		const { thumbnail, title } = body;
 

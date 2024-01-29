@@ -17,6 +17,10 @@ abstract class AbstractModel implements Model<Item> {
 		return { success: false, message: "", body: [{ id: "" }] };
 	}
 
+	async getAllFromAUser(userId: string): Promise<ModelResponse<Item[]>> {
+		return { success: false, message: "", body: [{ id: "" }] };
+	}
+
 	async edit(id: string, body: any): Promise<ModelResponse<null>> {
 		return { success: false, message: "" };
 	}

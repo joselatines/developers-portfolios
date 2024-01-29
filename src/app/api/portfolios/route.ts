@@ -8,8 +8,15 @@ const controller = new PortfoliosController(model);
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams;
 	const id = searchParams.get("id");
+	const userId = searchParams.get("userId");
+
 	if (id) {
 		const portfolio = await controller.get(id);
+		return NextResponse.json(portfolio);
+	}
+
+	if (userId) {
+		const portfolio = await controller.getAllFromAUser(userId);
 		return NextResponse.json(portfolio);
 	}
 
