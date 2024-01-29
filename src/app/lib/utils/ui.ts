@@ -28,5 +28,5 @@ export const getTypeColor = (type: string) => {
 };
 
 export const getUserProfileUrl = (userId: string): string => {
-	return `/users/${userId}`;
+	return `/profiles/${userId}`;
 };

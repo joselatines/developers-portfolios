@@ -17,6 +17,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 		github_link,
 		website_link,
 		id,
+		User,
 	} = portfolio;
 
 	return (
@@ -39,7 +40,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 			/>
 
 			<Flex justifyContent="space-between" marginY={2}>
-				<Link as={NextLink} href={`/profiles/{User.id}`}>
+				<Link as={NextLink} href={`/profiles/${User.id}`}>
 					Created by JoseLatines
 				</Link>
 

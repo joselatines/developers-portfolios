@@ -25,11 +25,8 @@ function PortfolioCard({ portfolio }: Props) {
 					height={400}
 					alt={title}
 				/>
-				<NextLink
-					target="_blank"
-					href={`/profiles/{User.id}`}
-					className="opacity-95 text-sm"
-				>
+				<NextLink href={`/profiles/${User.id}`} className="opacity-95 text-sm">
+					Owner
 					{/* {portfolioOwnerName} */}
 				</NextLink>
 
