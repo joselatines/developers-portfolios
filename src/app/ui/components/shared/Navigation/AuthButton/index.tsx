@@ -27,7 +27,7 @@ export function AuthButton() {
 					cursor={"pointer"}
 					minW={0}
 				>
-					<Avatar size={"sm"} src={session?.user?.image || ""} />
+					<Avatar size={"md"} src={session?.user?.image || ""} />
 				</MenuButton>
 
 				<MenuList>
@@ -42,7 +42,7 @@ export function AuthButton() {
 	}
 
 	return (
-		<Button className="flex gap-1" onClick={() => signIn()}>
+		<Button size={"lg"} className="flex gap-1" onClick={() => signIn()}>
 			Sign In <FaGithub />
 		</Button>
 	);

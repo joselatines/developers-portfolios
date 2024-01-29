@@ -62,14 +62,14 @@ export class RatingsModel extends AbstractModel {
 		const ratingFound = await Ratings.findByPk(id);
 
 		if (!ratingFound)
-			return { success: false, message: "not found in database" };
+			return { success: false, message: "Not found in database" };
 
 		const ratingDeleted = await Ratings.destroy({
 			where: { id },
 		});
 
 		const message =
-			ratingDeleted > 0 ? `${id} deleted` : `${id} couldn't be deleted`;
+			ratingDeleted > 0 ? "Item deleted" : "Item could'n be deleted";
 
 		return { success: true, message };
 	}

@@ -36,6 +36,8 @@ export default function Home() {
 
 	if (!session) return <NotLoggedIn />;
 
+	console.log({ portfolios });
+
 	return (
 		<>
 			<Heading size="xl">Dashboard</Heading>

@@ -39,14 +39,14 @@ export class UsersModel extends AbstractModel {
 	async delete(id: string): Promise<ModelResponse<null>> {
 		const userFound = await User.findByPk(id);
 
-		if (!userFound) return { success: false, message: "not found in database" };
+		if (!userFound) return { success: false, message: "Not found in database" };
 
 		const userDeleted = await User.destroy({
 			where: { id },
 		});
 
 		const message =
-			userDeleted > 0 ? `${id} deleted` : `${id} couldn't be deleted`;
+			userDeleted > 0 ? "Item deleted" : "Item could'n be deleted";
 
 		return { success: true, message };
 	}

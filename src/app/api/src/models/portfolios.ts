@@ -71,7 +71,7 @@ export class PortfoliosModel extends AbstractModel {
 		const portfoliosWithAverageRating = await this.getPortfoliosWithRatings(
 			portfolios as any
 		);
-		
+
 		return { success: true, body: portfoliosWithAverageRating };
 	}
 
@@ -99,7 +99,7 @@ export class PortfoliosModel extends AbstractModel {
 		const portfolioFound = await Portfolio.findByPk(id);
 
 		if (!portfolioFound)
-			return { success: false, message: "not found in database" };
+			return { success: false, message: "Not found in database" };
 
 		const imgFileName = portfolioFound.dataValues.file_name;
 
@@ -110,7 +110,7 @@ export class PortfoliosModel extends AbstractModel {
 		await firebase.deleteFile(imgFileName);
 
 		const message =
-			portfolioDeleted > 0 ? `${id} deleted` : `${id} couldn't be deleted`;
+			portfolioDeleted > 0 ? "Item deleted" : "Item could'n be deleted";
 
 		return { success: true, message };
 	}
@@ -119,7 +119,7 @@ export class PortfoliosModel extends AbstractModel {
 		const portfolioFound = await Portfolio.findByPk(id);
 
 		if (!portfolioFound)
-			return { success: false, message: "not found in database" };
+			return { success: false, message: "Not found in database" };
 
 		return { success: true, body: portfolioFound as any };
 	}

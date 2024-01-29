@@ -42,7 +42,7 @@ const fields: Field[] = [
 	},
 	{
 		name: "github_link",
-		label: "Github Link (Optional)",
+		label: "Github Link",
 		helperText: "Enter the link to the repository.",
 		type: "text",
 	},
