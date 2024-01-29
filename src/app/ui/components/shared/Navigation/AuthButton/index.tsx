@@ -35,9 +35,6 @@ export function AuthButton() {
 					<Link as={NextLink} href="/dashboard">
 						<MenuItem>Me</MenuItem>
 					</Link>
-					<Link as={NextLink} href="/dashboard/portfolios/create">
-						<MenuItem>Create portfolio</MenuItem>
-					</Link>
 					<MenuDivider />
 					<MenuItem onClick={() => signOut()}>Sign out</MenuItem>
 				</MenuList>

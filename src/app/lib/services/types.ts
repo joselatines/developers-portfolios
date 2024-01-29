@@ -5,6 +5,6 @@ export interface Response {
 }
 
 export interface ParamsRequest {
-  portfolioId?: string;
-  // Add more parameters as needed
+	portfolioId?: string;
+	userId?: string;
 }

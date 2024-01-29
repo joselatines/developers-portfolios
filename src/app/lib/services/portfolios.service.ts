@@ -1,5 +1,5 @@
 import { CreatePortfolio } from "@/app/lib/types/portfolio";
-import { Response } from "./types";
+import { ParamsRequest, Response } from "./types";
 import { API_URL } from "./config";
 
 export const createPortfolio = async (
@@ -17,8 +17,10 @@ export const createPortfolio = async (
 	return data;
 };
 
-export async function getAllPortfolios() {
-	const res = await fetch(`${API_URL}/portfolios`);
+export async function getAllPortfolios(params?: ParamsRequest) {
+	const filterByUser = params?.userId ?? `?userId=${params?.userId}`;
+	
+	const res = await fetch(`${API_URL}/portfolios${filterByUser}`);
 
 	const data = await res.json();
 	if (!data.success) throw new Error(data.message);
