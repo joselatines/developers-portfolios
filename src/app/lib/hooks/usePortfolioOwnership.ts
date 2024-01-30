@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 // TODO: change hook name cause we are using it to only check the current user and put "You" instead of "User.name"
@@ -11,8 +11,13 @@ export function usePortfolioOwnership(userPortfolioEmail: string) {
 	useEffect(() => {
 		const doesUserOwnPortfolio = currentUserEmail === userPortfolioEmail;
 
-		console.info({doesUserOwnPortfolio, currentUserEmail, userPortfolioEmail })
 		setIsPortfolioOwner(doesUserOwnPortfolio);
+		console.info({
+			doesUserOwnPortfolio,
+			currentUserEmail,
+			userPortfolioEmail,
+			isPortfolioOwner,
+		});
 	}, [currentUserEmail, userPortfolioEmail]);
 
 	return [isPortfolioOwner];

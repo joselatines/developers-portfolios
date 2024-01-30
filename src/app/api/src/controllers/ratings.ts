@@ -27,14 +27,19 @@ export class RatingsController extends AbstractController {
 		const userModel = new UsersModel();
 		const userController = new UsersController(userModel);
 
-		const userRes = await userController.getByKey("email", userEmail);
+		const {
+			success: useRes,
+			message,
+			body: userBody,
+		} = await userController.getByKey("email", userEmail);
 
-		if (!userRes.success) return { success: userRes.success };
+		if (!useRes)
+			return { success: useRes, message: "User not found in database" };
 
-		const userId = userRes.body?.id;
+		const userId = userBody?.id;
 
 		const bodyParsed = { ...body, rated_by: userId };
 
-		return await this.create(bodyParsed);
+		return await this.model.create(bodyParsed);
 	}
 }

@@ -34,7 +34,7 @@ function RatePortfolioForm({ portfolioId, refetchComments }: Props) {
 				return { title: "Portfolio", description: e.message };
 			},
 			error: (e: any) => {
-				console.error("Server error", e);
+				console.error("Server error:", e);
 				return { title: "Portfolio", description: e.message };
 			},
 			loading: { title: "Portfolio", description: "Please wait" },

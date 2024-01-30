@@ -13,6 +13,7 @@ export const giveRatingToPortfolio = async (
 
 	const data = await res.json();
 
+	console.log(data);
 	if (!data.success) throw new Error(data.message);
 
 	return data;

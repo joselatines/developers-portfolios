@@ -11,7 +11,7 @@ import { usePortfolioOwnership } from "@/app/lib/hooks/usePortfolioOwnership";
 function CommentCard({ data, refetchComments }: Props) {
 	const { User, comment, rating, createdAt, updatedAt, id } = data;
 
-	const isPortfolioOwner = usePortfolioOwnership(User.email);
+	const [isPortfolioOwner] = usePortfolioOwnership(User.email);
 
 	return (
 		<div className="border relative pb-12 p-3  my-3 bg-white text-slate-950">

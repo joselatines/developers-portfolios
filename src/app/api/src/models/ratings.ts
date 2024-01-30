@@ -49,7 +49,11 @@ export class RatingsModel extends AbstractModel {
 	async create(body: any): Promise<ModelResponse<Item>> {
 		const ratingCreated = await Ratings.create(body);
 
-		if (!ratingCreated) return { success: false };
+		if (!ratingCreated)
+			return {
+				success: false,
+				message: "Error creating a rating to portfolio",
+			};
 
 		return {
 			success: true,

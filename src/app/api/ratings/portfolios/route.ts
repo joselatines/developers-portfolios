@@ -47,6 +47,6 @@ export async function POST(req: NextRequest) {
 		);
 
 	const itemCreated = await controller.createRating(body, session.user.email);
-
+	console.log({ itemCreated });
 	return Response.json(itemCreated);
 }
