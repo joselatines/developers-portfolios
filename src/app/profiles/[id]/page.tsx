@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 	return (
 		<Suspense fallback={<Loading />}>
 			<Head>
-				<title>{githubUsername}'s Portfolios</title>
+				<title>{githubUsername}&apos;s Portfolios</title>
 			</Head>
 
 			<Flex gap={2} mb={10} alignItems={"center"} as={"section"}>
