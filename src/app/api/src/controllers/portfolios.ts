@@ -33,18 +33,19 @@ export class PortfoliosController extends AbstractController {
 	}
 
 	async getAllFromAUser(
-		userEmail: string
+		key: string,
+		value: string
 	): Promise<ControllerResponse<Item[]>> {
 		const userModel = new UsersModel();
 		const userController = new UsersController(userModel);
 
 		const { success, body, message } = await userController.getByKey(
-			"email",
-			userEmail
+			key,
+			value
 		);
 
 		if (!success) return { success, message };
 
-		return await this.model.getAllFromAUser(body?.id as string) ;
+		return await this.model.getAllFromAUser(body?.id as string);
 	}
 }

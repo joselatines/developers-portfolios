@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 
 	// portfolios from a specific user
 	if (userEmail) {
-		const portfolio = await controller.getAllFromAUser(userEmail);
+		const portfolio = await controller.getAllFromAUser("email", userEmail);
 		return NextResponse.json(portfolio);
 	}
 

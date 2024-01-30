@@ -8,11 +8,6 @@ import { buildImageName } from "../utils";
 import { firebase } from "../utils/firebase/firebase";
 import { ModelResponse } from "./interfaces";
 
-// TODO: DELETE THIS INTERFACE
-interface BodyPortfolio extends PortfolioDocument {
-	createdBy: string;
-}
-
 export class PortfoliosModel extends AbstractModel {
 	async getAll(): Promise<ModelResponse<Item[]>> {
 		const portfolios = await Portfolio.findAll({
@@ -86,7 +81,7 @@ export class PortfoliosModel extends AbstractModel {
 		return { success: true, body: portfoliosWithAverageRating };
 	}
 
-	async create(body: BodyPortfolio): Promise<ModelResponse<Item>> {
+	async create(body: PortfolioDocument): Promise<ModelResponse<Item>> {
 		const { thumbnail, title } = body;
 
 		const name = buildImageName(title, thumbnail);
@@ -137,7 +132,7 @@ export class PortfoliosModel extends AbstractModel {
 
 	async edit(
 		id: string,
-		body: Partial<BodyPortfolio>
+		body: Partial<PortfolioDocument>
 	): Promise<ModelResponse<null>> {
 		const { thumbnail, title } = body;
 

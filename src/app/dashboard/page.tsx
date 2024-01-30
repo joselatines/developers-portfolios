@@ -36,11 +36,9 @@ export default function Home() {
 
 	if (!session) return <NotLoggedIn />;
 
-	console.log({ portfolios });
-
 	return (
 		<>
-			<Heading size="xl">Dashboard</Heading>
+			<Heading size="xl">Welcome to your Dashboard!</Heading>
 			<Flex mt={3} mb={8} as="section">
 				<NextLink href="/dashboard/portfolios/create">
 					<Button colorScheme="green" size="md">

@@ -21,6 +21,7 @@ export interface PortfolioDocument extends Model {
 	description?: string;
 	id: string;
 	file_name: string;
+	avgRating?: number; // this property is added when returning to the client 
 }
 
 export interface UserDocument {

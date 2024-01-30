@@ -22,7 +22,10 @@ abstract class AbstractController implements Controller {
 		return response;
 	}
 
-	async getAllFromAUser(userId: string): Promise<ControllerResponse<Item[]>> {
+	async getAllFromAUser(
+		key: string,
+		value: string
+	): Promise<ControllerResponse<Item[]>> {
 		const response = await this.model.getAll();
 		return response;
 	}
