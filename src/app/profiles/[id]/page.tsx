@@ -1,5 +1,4 @@
 import { getPortfolio } from "@/app/lib/services/portfolios.service";
-import EditPortfolioForm from "@/app/ui/components/Portfolio/Forms/EditPortfolioForm";
 import NotFoundError from "@/app/ui/components/shared/Errors/NotFoundError";
 import Loading from "@/app/ui/components/shared/Loading";
 import { Suspense } from "react";

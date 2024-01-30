@@ -18,11 +18,10 @@ function SelectionField({
 	const value = formik.values[name];
 	const placeholder = options[0].label;
 	const error = formik.errors[name];
-
-	console.error(error);
+	const isInvalid = error && formik.touched[name];
 
 	return (
-		<FormControl mb={4}>
+		<FormControl mb={4} id={name} isInvalid={isInvalid}>
 			<FormLabel>{label}</FormLabel>
 			<Select
 				name={name}
@@ -37,7 +36,7 @@ function SelectionField({
 				))}
 			</Select>
 			<FormHelperText>{helperText}</FormHelperText>
-			{error ?? <FormErrorMessage color='tomato'>{error}</FormErrorMessage>}
+			{error ?? <FormErrorMessage>{error}</FormErrorMessage>}
 		</FormControl>
 	);
 }

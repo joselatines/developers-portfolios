@@ -10,8 +10,8 @@ import {
 	MenuDivider,
 } from "@chakra-ui/react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { FaUserAstronaut } from "react-icons/fa";
 import NextLink from "next/link";
-import { FaGithub } from "react-icons/fa";
 
 // TODO: refactor this component to be amenu not a button
 export function AuthButton() {
@@ -43,7 +43,7 @@ export function AuthButton() {
 
 	return (
 		<Button size={["sm", "md", "lg"]} className="flex gap-1" onClick={() => signIn()}>
-			Sign In <FaGithub />
+			Sign In <FaUserAstronaut />
 		</Button>
 	);
 }

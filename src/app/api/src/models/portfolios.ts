@@ -39,7 +39,7 @@ export class PortfoliosModel extends AbstractModel {
 	getPortfoliosWithRatings = async (portfolios: PortfolioDocument[]) => {
 		const portfolioPromises = portfolios.map(
 			async (portfolio: PortfolioDocument) => {
-				const averageRating: any = await Ratings.findOne({
+				const result = await Ratings.findOne({
 					order: [["rating", "ASC"]],
 					attributes: [
 						[sequelize.fn("AVG", sequelize.col("rating")), "averageRating"],
@@ -49,7 +49,9 @@ export class PortfoliosModel extends AbstractModel {
 					},
 				});
 
-				const avgRating = averageRating?.get("averageRating") | 10;
+				if (!result) return null;
+
+				const avgRating = Number(result.dataValues.averageRating);
 				return {
 					...portfolio.toJSON(),
 					avgRating: Number(avgRating.toFixed(2)),

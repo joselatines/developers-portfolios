@@ -49,7 +49,7 @@ function CommentCard({ data, refetchComments }: Props) {
 				</h3>
 			</NextLink>
 
-			{isPortfolioOwner ?? (
+			{isPortfolioOwner && (
 				<DeleteCommentButton commentId={id} refetchComments={refetchComments} />
 			)}
 

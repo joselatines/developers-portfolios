@@ -15,30 +15,34 @@ const PortfolioCard = ({ portfolio }: Props) => {
 	const { title, thumbnail, avgRating, type, description, id, User } =
 		portfolio;
 
+	const desc = description.length > 3 ? description.slice(0, 40) + "..." : "";
+
 	return (
 		<Box as="article">
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
 			<Box style={{ cursor: "pointer" }} onClick={onOpen} as="section">
-				<NextImage
-					src={thumbnail}
-					width={420}
-					height={380}
-					alt={title}
-					priority={true}
-				/>
+				<div className={styles.imageWrapper}>
+					<NextImage
+						src={thumbnail}
+						width={420}
+						height={380}
+						alt={title}
+						priority={true}
+					/>
+				</div>
+			</Box>
 
+			<section>
 				<NextLink href={`/profiles/${User.id}`} className="opacity-95 text-sm">
 					{User.githubUsername}
 				</NextLink>
 
-				<Heading mt={3} size={"md"}>
-					{title}
-				</Heading>
-				<Text as="sub" fontSize="sm">
-					{description.slice(0, 40)}...
+				<Heading size={"md"}>{title}</Heading>
+				<Text mt={1} mb={2} as="sub" fontSize="sm">
+					{desc}
 				</Text>
-			</Box>
+			</section>
 
 			<section className="flex justify-between items-center my-2">
 				<section onClick={onOpen}>

@@ -1,8 +1,11 @@
-import { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import { UsersModel } from "../src/models/users";
+import { NextAuthOptions } from "next-auth";
+
 import { UsersController } from "../src/controllers/users";
-const { GITHUB_ID, GITHUB_SECRET } = process.env;
+const { GITHUB_ID, GITHUB_SECRET, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID } =
+	process.env;
+import { UsersModel } from "../src/models/users";
 
 const model = new UsersModel();
 const controller = new UsersController(model);
@@ -12,6 +15,10 @@ export const authOptions: NextAuthOptions = {
 		GitHubProvider({
 			clientId: GITHUB_ID as string,
 			clientSecret: GITHUB_SECRET as string,
+		}),
+		GoogleProvider({
+			clientId: GOOGLE_CLIENT_ID as string,
+			clientSecret: GOOGLE_CLIENT_SECRET as string,
 		}),
 	],
 	callbacks: {
