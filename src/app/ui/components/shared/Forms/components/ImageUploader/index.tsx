@@ -31,7 +31,7 @@ function ImageUploader({
 				value={images}
 				onChange={onChange}
 				maxNumber={maxImages}
-				// TODO: ADD MAX SIZE
+				maxFileSize={3000}
 				dataURLKey="data_url"
 			>
 				{({

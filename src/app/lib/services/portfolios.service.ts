@@ -42,8 +42,6 @@ export async function getPortfolio(id: string) {
 	return await res.json();
 }
 
-// TODO: MAKE SAME REQUEST AS CREATE PORTFOLIO
-
 export const editPortfolio = async (
 	id: string,
 	portfolio: Partial<CreatePortfolio>

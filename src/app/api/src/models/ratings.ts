@@ -7,6 +7,7 @@ import { ModelResponse } from "./interfaces";
 export class RatingsModel extends AbstractModel {
 	async getAll(): Promise<ModelResponse<Item[]>> {
 		const ratings = await Ratings.findAll({
+			order: [["createdAt", "DESC"]],
 			include: [
 				{
 					model: User,

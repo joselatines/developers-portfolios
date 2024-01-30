@@ -60,8 +60,9 @@ export class PortfoliosModel extends AbstractModel {
 	async getAllFromAUser(userId: string): Promise<ModelResponse<Item[]>> {
 		const portfolios = await Portfolio.findAll({
 			order: [
-				["updatedAt", "ASC"],
+				[sequelize.fn("max", sequelize.col("avgRating")), "DESC"],
 				["createdAt", "ASC"],
+				["updatedAt", "ASC"],
 			],
 			where: { created_by: userId },
 			include: [

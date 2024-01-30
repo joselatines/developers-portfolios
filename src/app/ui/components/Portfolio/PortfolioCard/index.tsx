@@ -18,7 +18,7 @@ const PortfolioCard = ({ portfolio }: Props) => {
 	const desc = description.length > 3 ? description.slice(0, 40) + "..." : "";
 
 	return (
-		<Box as="article">
+		<Box width={400} as="article">
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
 			<Box style={{ cursor: "pointer" }} onClick={onOpen} as="section">

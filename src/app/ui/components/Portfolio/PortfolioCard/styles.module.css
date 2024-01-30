@@ -1,13 +1,11 @@
 .imageWrapper {
-	aspect-ratio: 1 / 1;
-	width: 28rem;
-	height: 17rem;
-	min-width: auto;
+	max-width: 28rem;
+	max-height: 17rem;
 	overflow: hidden;
 }
 
 .imageWrapper img {
-	object-fit: cover;
+	object-fit: contain;
 	width: 100%;
 	height: 100%;
 }

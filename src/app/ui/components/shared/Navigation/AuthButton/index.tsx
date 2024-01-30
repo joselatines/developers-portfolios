@@ -13,7 +13,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { FaUserAstronaut } from "react-icons/fa";
 import NextLink from "next/link";
 
-// TODO: refactor this component to be amenu not a button
 export function AuthButton() {
 	const { data: session } = useSession();
 

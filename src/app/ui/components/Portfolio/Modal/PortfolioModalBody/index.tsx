@@ -61,7 +61,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 				</Flex>
 			</Flex>
 
-			<Text marginY={3}>{description}</Text>
+			<Text mt={3} mb={6}>{description}</Text>
 
 			<CommentsSection portfolioId={id} />
 		</>

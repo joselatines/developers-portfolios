@@ -37,6 +37,7 @@ function CommentsSection({ portfolioId }: Props) {
 			/>
 
 			<Box as="section" marginTop={8}>
+				<Heading size={"md"} marginBottom={2}>Comments</Heading>
 				{loading ? (
 					<Loading />
 				) : comments.length ? (
