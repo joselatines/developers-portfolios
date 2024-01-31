@@ -21,18 +21,18 @@ function PortfolioModal({ isOpen, onClose, portfolio }: Props) {
 			finalFocusRef={btnRef}
 			isOpen={isOpen}
 			scrollBehavior="inside"
-			size="xl"
+			size="full"
 		>
 			<ModalOverlay />
-			<ModalContent>
+			<ModalContent maxW={900}>
 				<ModalHeader fontSize={34}>{portfolio.title}</ModalHeader>
 				<ModalCloseButton />
 				<ModalBody>
 					<PortfolioModalBody portfolio={portfolio} />
 				</ModalBody>
-				<ModalFooter>
+				{/* <ModalFooter>
 					<Button onClick={onClose}>Close</Button>
-				</ModalFooter>
+				</ModalFooter> */}
 			</ModalContent>
 		</Modal>
 	);

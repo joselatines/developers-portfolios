@@ -1,11 +1,20 @@
-import { Button, Flex, Link, Tag, Text } from "@chakra-ui/react";
+import {
+	Button,
+	Flex,
+	Grid,
+	GridItem,
+	Link,
+	Tag,
+	Text,
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import NextImage from "next/image";
 
 import CommentsSection from "@/app/ui/components/Comments/CommentsSection";
-import { Props } from "./types";
 import { getRateColor, getTypeColor } from "@/app/lib/utils/ui";
+import styles from "./styles.module.css";
+import { Props } from "./types";
 
 function PortfolioModalBody({ portfolio }: Props) {
 	const {
@@ -31,37 +40,50 @@ function PortfolioModalBody({ portfolio }: Props) {
 				</Tag>
 			</Flex>
 
-			<NextImage
-				width={500}
-				height={500}
-				className={`w-full md:col-span-2 object-contain md:h-[100%]`}
-				src={thumbnail}
-				alt={file_name + "portfolio"}
-			/>
+			<div className={styles.imageWrapper}>
+				<NextImage
+					width={420}
+					height={380}
+					/* 	className={`w-full md:col-span-2 object-contain md:h-[100%]`} */
+					src={thumbnail}
+					alt={file_name + "portfolio"}
+				/>
+			</div>
 
-			<Flex justifyContent="space-between" marginY={2}>
-				<Link as={NextLink} href={`/profiles/${User.id}`}>
-					Created by JoseLatines
-				</Link>
+			<Grid
+				templateColumns="repeat(2, 1fr)"
+				alignItems={"center"}
+				justifyContent="space-between"
+				marginY={2}
+			>
+				<GridItem w="100%">
+					<Link as={NextLink} href={`/profiles/${User.id}`}>
+						Created by JoseLatines
+					</Link>
+				</GridItem>
 
-				<Flex gap={5}>
-					{!github_link ?? (
-						<NextLink href={github_link} target="_blank">
+				<GridItem w="100%">
+					<Flex justifyContent={"right"} gap={5}>
+						{!github_link ?? (
+							<NextLink href={github_link} target="_blank">
+								<Button variant="ghost" size="md">
+									<Text marginRight={1}>Code</Text> <FaGithub />
+								</Button>
+							</NextLink>
+						)}
+
+						<NextLink href={website_link} target="_blank">
 							<Button variant="ghost" size="md">
-								<Text marginRight={1}>Code</Text> <FaGithub />
+								<Text marginRight={1}>Live</Text> <FaExternalLinkAlt />
 							</Button>
 						</NextLink>
-					)}
+					</Flex>
+				</GridItem>
+			</Grid>
 
-					<NextLink href={website_link} target="_blank">
-						<Button variant="ghost" size="md">
-							<Text marginRight={1}>Live</Text> <FaExternalLinkAlt />
-						</Button>
-					</NextLink>
-				</Flex>
-			</Flex>
-
-			<Text mt={3} mb={6}>{description}</Text>
+			<Text mt={3} mb={6}>
+				{description}
+			</Text>
 
 			<CommentsSection portfolioId={id} />
 		</>

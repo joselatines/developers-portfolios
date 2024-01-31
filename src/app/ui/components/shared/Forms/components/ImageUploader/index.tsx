@@ -3,13 +3,11 @@ import ReactImageUploading, { ImageListType } from "react-images-uploading";
 import { MdDelete } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 import { Props } from "./types";
+import FileErrors from "./FileErrors";
+import { config } from "./config";
+const { maxFileSize, resolutionHeight, resolutionWidth } = config;
 
-function ImageUploader({
-	images,
-	setImages,
-	maxImages = 10,
-	note = "Recommended up to 1320x720",
-}: Props) {
+function ImageUploader({ images, setImages, maxImages = 10 }: Props) {
 	const onChange = (imageList: ImageListType, addUpdateIndex: any) => {
 		console.info({ onChange: { imageList, addUpdateIndex } });
 		setImages(imageList);
@@ -31,8 +29,10 @@ function ImageUploader({
 				value={images}
 				onChange={onChange}
 				maxNumber={maxImages}
-				maxFileSize={3000}
+				maxFileSize={maxFileSize}
 				dataURLKey="data_url"
+				resolutionWidth={resolutionWidth}
+				resolutionHeight={resolutionHeight}
 			>
 				{({
 					imageList,
@@ -42,9 +42,9 @@ function ImageUploader({
 					onImageRemove,
 					isDragging,
 					dragProps,
+					errors,
 				}) => (
 					<div className="upload__image-wrapper">
-						<span className="text-sm">{note}</span>
 						<div className="flex gap-3">
 							<Button
 								style={isDragging ? { color: "red" } : undefined}
@@ -59,6 +59,17 @@ function ImageUploader({
 								</Button>
 							)}
 						</div>
+
+						{errors && (
+							<FileErrors
+								resolutionHeight={resolutionHeight}
+								resolutionWidth={resolutionWidth}
+								maxImages={maxImages}
+								fileSize={maxFileSize}
+								errors={errors}
+							/>
+						)}
+
 						<section className="flex gap-3 flex-wrap my-3">
 							{imageList.map((image, index) => (
 								<div key={index} className="image-item relative">

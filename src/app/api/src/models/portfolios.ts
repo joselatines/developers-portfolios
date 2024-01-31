@@ -12,8 +12,8 @@ export class PortfoliosModel extends AbstractModel {
 	async getAll(): Promise<ModelResponse<Item[]>> {
 		const portfolios = await Portfolio.findAll({
 			order: [
-				["updatedAt", "ASC"],
-				["createdAt", "ASC"],
+				["createdAt", "DESC"],
+				["updatedAt", "DESC"],
 			],
 			include: [
 				{
@@ -35,18 +35,21 @@ export class PortfoliosModel extends AbstractModel {
 		const portfolioPromises = portfolios.map(
 			async (portfolio: PortfolioDocument) => {
 				const result = await Ratings.findOne({
-					order: [["rating", "ASC"]],
 					attributes: [
 						[sequelize.fn("AVG", sequelize.col("rating")), "averageRating"],
 					],
 					where: {
 						portfolio_id: portfolio.id,
 					},
+					order: [
+						[sequelize.fn("max", sequelize.col("rating")), "ASC"],
+						["rating", "ASC"],
+					],
 				});
 
 				if (!result) return null;
 
-				const avgRating = Number(result.dataValues.averageRating);
+				const avgRating = Number(result.dataValues.averageRating) || 10;
 				return {
 					...portfolio.toJSON(),
 					avgRating: Number(avgRating.toFixed(2)),
@@ -60,9 +63,8 @@ export class PortfoliosModel extends AbstractModel {
 	async getAllFromAUser(userId: string): Promise<ModelResponse<Item[]>> {
 		const portfolios = await Portfolio.findAll({
 			order: [
-				[sequelize.fn("max", sequelize.col("avgRating")), "DESC"],
-				["createdAt", "ASC"],
-				["updatedAt", "ASC"],
+				["createdAt", "DESC"],
+				["updatedAt", "DESC"],
 			],
 			where: { created_by: userId },
 			include: [

@@ -30,14 +30,18 @@ function CommentsSection({ portfolioId }: Props) {
 
 	return (
 		<>
-			<Heading marginBottom={2}>Leave a comment</Heading>
+			<Heading size={"md"} marginBottom={2}>
+				Leave a comment
+			</Heading>
 			<RatePortfolioForm
 				portfolioId={portfolioId}
 				refetchComments={makeRequest}
 			/>
 
 			<Box as="section" marginTop={8}>
-				<Heading size={"md"} marginBottom={2}>Comments</Heading>
+				<Heading size={"md"} marginBottom={2}>
+					Comments
+				</Heading>
 				{loading ? (
 					<Loading />
 				) : comments.length ? (

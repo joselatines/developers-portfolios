@@ -6,3 +6,16 @@ export interface Props {
 	maxImages?: number;
 	note?: string;
 }
+
+export interface FileErrorsProps {
+	maxImages: number;
+	fileSize: number;
+	resolutionHeight: number;
+	resolutionWidth: number;
+	errors: {
+		maxFileSize?: boolean;
+		maxNumber?: boolean;
+		acceptType?: boolean;
+		resolution?: boolean;
+	};
+}

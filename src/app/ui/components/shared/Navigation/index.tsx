@@ -14,7 +14,7 @@ export default function Navigation() {
 						<Link
 							textDecorationLine={"none"}
 							as={NextLink}
-							fontSize={{ base: "sm", sm: "md" }}
+							fontSize={{ base: "sm", sm: "lg" }}
 							href="/"
 						>
 							💻 Developers Portfolios
