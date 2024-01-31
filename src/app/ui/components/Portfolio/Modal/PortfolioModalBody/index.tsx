@@ -42,8 +42,8 @@ function PortfolioModalBody({ portfolio }: Props) {
 
 			<div className={styles.imageWrapper}>
 				<NextImage
-					width={420}
-					height={380}
+					width={1000}
+					height={1000}
 					/* 	className={`w-full md:col-span-2 object-contain md:h-[100%]`} */
 					src={thumbnail}
 					alt={file_name + "portfolio"}
@@ -58,7 +58,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 			>
 				<GridItem w="100%">
 					<Link as={NextLink} href={`/profiles/${User.id}`}>
-						Created by JoseLatines
+						Created by {User.githubUsername}
 					</Link>
 				</GridItem>
 

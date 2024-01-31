@@ -19,6 +19,7 @@ const EditPortfolioForm = ({ initialValues, id }: Props) => {
 	const { push } = useRouter();
 
 	const { thumbnail } = initialValues as any;
+	const [submitting, setSubmitting] = useState(false);
 	const [images, setImages] = useState<Image[]>([{ data_url: thumbnail }]);
 	const toast = useToast();
 
@@ -33,7 +34,7 @@ const EditPortfolioForm = ({ initialValues, id }: Props) => {
 	});
 
 	const submitForm = async (values: any, id: string, images: Image[]) => {
-		formik.setSubmitting(true);
+		setSubmitting(true);
 		const body = {
 			...values,
 			thumbnail: images[0].data_url,
@@ -44,15 +45,16 @@ const EditPortfolioForm = ({ initialValues, id }: Props) => {
 		toast.promise(response, {
 			success: (e: any) => {
 				push("/dashboard");
+				setSubmitting(false);
 				return { title: "Portfolio", description: e.message };
 			},
 			error: (e: any) => {
 				console.error("Server error", e);
+				setSubmitting(false);
 				return { title: "Portfolio", description: e.message };
 			},
 			loading: { title: "Portfolio", description: "Please wait" },
 		});
-		formik.setSubmitting(false);
 	};
 
 	return (

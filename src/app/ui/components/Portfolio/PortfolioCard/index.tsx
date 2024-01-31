@@ -25,8 +25,8 @@ const PortfolioCard = ({ portfolio }: Props) => {
 				<div className={styles.imageWrapper}>
 					<NextImage
 						src={thumbnail}
-						width={420}
-						height={380}
+						width={500}
+						height={500}
 						alt={title}
 						priority={true}
 					/>

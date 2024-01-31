@@ -5,9 +5,11 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Props } from "./types";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 function OwnerFunctions({ id, userEmail }: Props) {
 	const toast = useToast();
+	const [isLoading, setIsLoading] = useState(false);
 	const { data: session } = useSession();
 
 	const ownsThisPortfolio = session?.user?.email === userEmail;
@@ -21,8 +23,9 @@ function OwnerFunctions({ id, userEmail }: Props) {
 					</Button>
 				</NextLink>
 				<Button
-					onClick={() => handleDelete(id, toast)}
+					onClick={() => handleDelete(id, toast, setIsLoading)}
 					colorScheme="red"
+					isDisabled={isLoading}
 					size="sm"
 				>
 					<MdDelete color="white" />
@@ -31,13 +34,17 @@ function OwnerFunctions({ id, userEmail }: Props) {
 		);
 }
 
-const handleDelete = async (id: string, toast: any) => {
+const handleDelete = async (id: string, toast: any, setIsLoading: any) => {
 	const response = deletePortfolio(id);
-
+	setIsLoading(true);
 	toast.promise(response, {
-		success: (e: any) => ({ title: "Portfolio", description: e.message }),
+		success: (e: any) => {
+			setIsLoading(false);
+			return { title: "Portfolio", description: e.message };
+		},
 		error: (e: any) => {
 			console.error("Server error", e);
+			setIsLoading(false);
 			return { title: "Portfolio", description: e.message };
 		},
 		loading: { title: "Portfolio", description: "Please wait" },

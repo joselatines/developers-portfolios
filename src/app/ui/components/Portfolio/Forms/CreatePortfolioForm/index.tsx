@@ -23,6 +23,7 @@ function CreatePortfolioForm() {
 	const selectionFields = formConfig.getSelectionFields();
 	const textareaFields = formConfig.getTextareaField();
 
+	const [submitting, setSubmitting] = useState(false);
 	const [images, setImages] = useState<Image[]>([]);
 	const toast = useToast();
 
@@ -33,7 +34,7 @@ function CreatePortfolioForm() {
 	});
 
 	const submitForm = async (values: any, images: { data_url: string }[]) => {
-		formik.setSubmitting(true);
+		setSubmitting(true);
 		const body = {
 			...values,
 			thumbnail: images[0].data_url,
@@ -44,15 +45,16 @@ function CreatePortfolioForm() {
 		toast.promise(response, {
 			success: (e: any) => {
 				push("/dashboard");
+				setSubmitting(false);
 				return { title: "Portfolio", description: e.message };
 			},
 			error: (e: any) => {
 				console.error("Server error", e);
+				setSubmitting(false);
 				return { title: "Portfolio", description: e.message };
 			},
 			loading: { title: "Portfolio", description: "Please wait" },
 		});
-		formik.setSubmitting(false);
 	};
 
 	return (
@@ -78,8 +80,8 @@ function CreatePortfolioForm() {
 				<ImageUploader images={images} setImages={setImages} maxImages={1} />
 			</Grid>
 			<Button
-				isDisabled={formik.isSubmitting}
-				isLoading={formik.isSubmitting}
+				isDisabled={submitting}
+				isLoading={submitting}
 				type="submit"
 				colorScheme="blue"
 				loadingText="Submitting"

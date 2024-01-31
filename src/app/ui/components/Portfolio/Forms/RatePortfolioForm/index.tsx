@@ -31,16 +31,16 @@ function RatePortfolioForm({ portfolioId, refetchComments }: Props) {
 		toast.promise(response, {
 			success: (e: any) => {
 				refetchComments();
+				setIsLoading(false);
 				return { title: "Portfolio", description: e.message };
 			},
 			error: (e: any) => {
 				console.error("Server error:", e);
+				setIsLoading(false);
 				return { title: "Portfolio", description: e.message };
 			},
 			loading: { title: "Portfolio", description: "Please wait" },
 		});
-
-		setIsLoading(false);
 	};
 
 	return (
@@ -64,7 +64,7 @@ function RatePortfolioForm({ portfolioId, refetchComments }: Props) {
 			<Button
 				type="submit"
 				className="flex gap-1"
-				disabled={isLoading}
+				isDisabled={isLoading}
 				isLoading={isLoading}
 				loadingText="Sending your opinion..."
 				colorScheme="blue"
