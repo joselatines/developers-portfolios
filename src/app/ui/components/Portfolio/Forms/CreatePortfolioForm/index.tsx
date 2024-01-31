@@ -29,10 +29,11 @@ function CreatePortfolioForm() {
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
-		onSubmit: async values => submitForm(values, images),
+		onSubmit: async values => await submitForm(values, images),
 	});
 
 	const submitForm = async (values: any, images: { data_url: string }[]) => {
+		formik.setSubmitting(true);
 		const body = {
 			...values,
 			thumbnail: images[0].data_url,
@@ -51,6 +52,7 @@ function CreatePortfolioForm() {
 			},
 			loading: { title: "Portfolio", description: "Please wait" },
 		});
+		formik.setSubmitting(false);
 	};
 
 	return (
@@ -76,14 +78,14 @@ function CreatePortfolioForm() {
 				<ImageUploader images={images} setImages={setImages} maxImages={1} />
 			</Grid>
 			<Button
-				disabled={formik.isSubmitting}
+				isDisabled={formik.isSubmitting}
 				isLoading={formik.isSubmitting}
 				type="submit"
 				colorScheme="blue"
 				loadingText="Submitting"
 				spinnerPlacement="start"
 			>
-				Create
+				Create portfolio
 			</Button>
 		</form>
 	);

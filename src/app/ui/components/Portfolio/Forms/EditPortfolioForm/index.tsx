@@ -29,10 +29,11 @@ const EditPortfolioForm = ({ initialValues, id }: Props) => {
 	const formik = useFormik({
 		initialValues: initialValuesParsed,
 		validationSchema: formConfig.getValidationSchema(),
-		onSubmit: async values => submitForm(values, id, images),
+		onSubmit: async values => await submitForm(values, id, images),
 	});
 
 	const submitForm = async (values: any, id: string, images: Image[]) => {
+		formik.setSubmitting(true);
 		const body = {
 			...values,
 			thumbnail: images[0].data_url,
@@ -51,6 +52,7 @@ const EditPortfolioForm = ({ initialValues, id }: Props) => {
 			},
 			loading: { title: "Portfolio", description: "Please wait" },
 		});
+		formik.setSubmitting(false);
 	};
 
 	return (
@@ -76,14 +78,14 @@ const EditPortfolioForm = ({ initialValues, id }: Props) => {
 				<ImageUploader images={images} setImages={setImages} maxImages={1} />
 			</Grid>
 			<Button
-				disabled={formik.isSubmitting}
+				isDisabled={formik.isSubmitting}
 				isLoading={formik.isSubmitting}
 				type="submit"
 				colorScheme="blue"
 				loadingText="Submitting"
 				spinnerPlacement="start"
 			>
-				Edit
+				Edit portfolio
 			</Button>
 		</form>
 	);
