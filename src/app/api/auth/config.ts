@@ -37,6 +37,8 @@ export const authOptions: NextAuthOptions = {
 			const githubUsername = profile.name;
 			const provider = account.provider;
 
+			if (email === "admin@tpeoficial.com") return false;
+
 			try {
 				// check if the user already exists in the database
 				const existingUser = await controller.getByKey("email", email);
