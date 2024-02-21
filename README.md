@@ -1,3 +1,38 @@
+# Developers Portfolios
+Developers Portfolios is a web application that empowers developers to showcase their work and receive valuable feedback from their peers. The platform enables users to rate and comment on each other's portfolios, fostering a collaborative and supportive community. Users can explore various project categories, creating a dynamic and diverse space for sharing and discovery.
+
+## Architecture:
+This full-stack application adopts a clean architecture approach, implementing an MVC architecture on the backend.
+
+### Backend:
+- The backend operates as a RESTful API, designed with a clean MVC architecture for enhanced maintainability and scalability.
+- Utilizes a relational database, specifically MySQL, leveraging foreign keys to establish relationships between portfolios and their creators.
+
+### Authentication:
+- Authentication is seamlessly handled using the NextAuth library, allowing users to sign in effortlessly with their Google and GitHub accounts.
+
+## Frontend:
+- The frontend is developed with Chakra UI and Tailwind CSS, combining aesthetics with functionality to build an intuitive and visually appealing user interface.
+
+## Get Started:
+To set up the project locally, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/your/repository.git`
+2. Navigate to the project directory: `cd developers-portfolios`
+3. Install dependencies: `npm install`
+4. Configure the backend:
+   - Set up MySQL database and update the configuration in the backend.
+   - Configure authentication with NextAuth by providing your credentials.
+5. Run the application:
+   - Start the backend server: `npm run start`
+
+## Contributing:
+We welcome contributions to enhance Developers Portfolios! Feel free to fork the repository, create a new branch, and submit a pull request.
+
+Happy coding!
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
