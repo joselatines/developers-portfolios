@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { rateLimit } from "../src/utils/rate-limit";
 
-const ratelimit = rateLimit();
+
 
 export async function POST(request: NextRequest) {
 	try {
 		const data = await request.json();
-
+		const ratelimit = rateLimit();
 		const ip = request.headers.get("x-forwarded-for") ?? "";
 		const { success } = await ratelimit.limit(ip);
 
@@ -20,7 +20,6 @@ export async function POST(request: NextRequest) {
 			status: 200,
 		});
 	} catch (err: any) {
-		console.log(err.message);
 		return new NextResponse(err.message, {
 			status: 400,
 		});

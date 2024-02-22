@@ -10,6 +10,7 @@ export interface Portfolio {
 	id: string;
 	file_name: string;
 	avgRating: number;
+	peopleRated: number;
 	github_link: string;
 	User: User;
 }

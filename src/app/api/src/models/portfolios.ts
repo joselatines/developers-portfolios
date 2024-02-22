@@ -1,3 +1,4 @@
+import { QueryTypes } from "sequelize";
 import AbstractModel from ".";
 import { Item } from "../controllers/interfaces";
 import { sequelize } from "../database/connection";
@@ -10,11 +11,28 @@ import { ModelResponse } from "./interfaces";
 
 export class PortfoliosModel extends AbstractModel {
 	async getAll(): Promise<ModelResponse<Item[]>> {
+		const portfolios = await this.fetchPortfolios({});
+		const portfoliosWithAverageRating = await this.getPortfoliosWithRatings(
+			portfolios
+		);
+		return { success: true, body: portfoliosWithAverageRating };
+	}
+
+	async getAllFromAUser(userId: string): Promise<ModelResponse<Item[]>> {
+		const portfolios = await this.fetchPortfolios({ created_by: userId });
+		const portfoliosWithAverageRating = await this.getPortfoliosWithRatings(
+			portfolios
+		);
+		return { success: true, body: portfoliosWithAverageRating };
+	}
+
+	async fetchPortfolios(whereClause: object): Promise<PortfolioDocument[]> {
 		const portfolios = await Portfolio.findAll({
 			order: [
-				["createdAt", "DESC"],
-				["updatedAt", "DESC"],
+				["createdAt", "ASC"],
+				["updatedAt", "ASC"],
 			],
+			where: whereClause as any,
 			include: [
 				{
 					model: User,
@@ -25,63 +43,42 @@ export class PortfoliosModel extends AbstractModel {
 			],
 		});
 
-		const portfoliosWithAverageRating = await this.getPortfoliosWithRatings(
-			portfolios as any
-		);
-		return { success: true, body: portfoliosWithAverageRating };
+		return portfolios as PortfolioDocument[];
 	}
 
-	getPortfoliosWithRatings = async (portfolios: PortfolioDocument[]) => {
+	async getPortfoliosWithRatings(
+		portfolios: PortfolioDocument[]
+	): Promise<any[]> {
 		const portfolioPromises = portfolios.map(
 			async (portfolio: PortfolioDocument) => {
-				const result = await Ratings.findOne({
+				const ratingsResult = await Ratings.findOne({
 					attributes: [
 						[sequelize.fn("AVG", sequelize.col("rating")), "averageRating"],
 					],
 					where: {
 						portfolio_id: portfolio.id,
 					},
-					order: [
-						[sequelize.fn("max", sequelize.col("rating")), "ASC"],
-						["rating", "ASC"],
-					],
 				});
 
-				if (!result) return null;
+				if (!ratingsResult) return null;
 
-				const avgRating = Number(result.dataValues.averageRating) || 10;
+				const peopleRatedQuery = `SELECT COUNT(rating) AS peopleRated FROM ratings WHERE portfolio_id = "${portfolio.id}";`;
+				const [peopleRatedResult] = await sequelize.query(peopleRatedQuery, {
+					type: QueryTypes.SELECT,
+				});
+
+				const avgRating = Number(ratingsResult.dataValues.averageRating) || 10;
+				const peopleRated = (peopleRatedResult as any)?.peopleRated || 0;
+
 				return {
 					...portfolio.toJSON(),
 					avgRating: Number(avgRating.toFixed(2)),
+					peopleRated,
 				};
 			}
 		);
 
 		return Promise.all(portfolioPromises);
-	};
-
-	async getAllFromAUser(userId: string): Promise<ModelResponse<Item[]>> {
-		const portfolios = await Portfolio.findAll({
-			order: [
-				["createdAt", "DESC"],
-				["updatedAt", "DESC"],
-			],
-			where: { created_by: userId },
-			include: [
-				{
-					model: User,
-					attributes: {
-						exclude: ["password", "role", "createdAt", "updatedAt"],
-					},
-				},
-			],
-		});
-
-		const portfoliosWithAverageRating = await this.getPortfoliosWithRatings(
-			portfolios as any
-		);
-
-		return { success: true, body: portfoliosWithAverageRating };
 	}
 
 	async create(body: PortfolioDocument): Promise<ModelResponse<Item>> {

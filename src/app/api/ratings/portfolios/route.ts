@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Ratelimit } from "@upstash/ratelimit";
 import { getServerSession } from "next-auth";
-import { Redis } from "@upstash/redis";
 
 import { RatingsModel } from "@/app/api/src/models/ratings";
 import { RatingsController } from "@/app/api/src/controllers/ratings";

@@ -6,6 +6,37 @@ import { UsersController } from "./users";
 import { authOptions } from "../../auth/config";
 
 export class PortfoliosController extends AbstractController {
+	async getAll(): Promise<ControllerResponse<Item[]>> {
+		const { body } = await this.model.getAll();
+
+		if (!body)
+			return {
+				success: true,
+				message: "There is no portfolios in yet",
+			};
+
+		const orderedPortfolios = body.sort((a: any, b: any) => {
+			// First compare avgRating
+			if (a.avgRating !== b.avgRating) {
+				return b.avgRating - a.avgRating; // Sort by avgRating in descending order
+			}
+
+			// If avgRating is the same, compare peopleRated
+			if (a.peopleRated !== b.peopleRated) {
+				return b.peopleRated - a.peopleRated; // Sort by peopleRated in descending order
+			}
+
+			// If both peopleRated and avgRating are the same, compare updatedAt
+			return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+		});
+
+		return {
+			body: orderedPortfolios,
+			success: true,
+			message: "All portfolios",
+		};
+	}
+
 	async create(body: any): Promise<ControllerResponse<Item>> {
 		const session = await getServerSession(authOptions);
 
