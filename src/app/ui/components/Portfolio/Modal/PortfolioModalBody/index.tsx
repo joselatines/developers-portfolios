@@ -33,14 +33,10 @@ function PortfolioModalBody({ portfolio }: Props) {
 	return (
 		<>
 			<Flex gap={1} marginBottom={2}>
-				<Tag size="md" colorScheme={getRateColor(avgRating)}>
-					{avgRating}/10
-				</Tag>
-				<Tag size="md" colorScheme={getTypeColor(type)}>
-					{type}
-				</Tag>
+				<Tag colorScheme={getRateColor(avgRating)}>{avgRating}/10</Tag>
+				<Tag colorScheme={getTypeColor(type)}>{type}</Tag>
+				<Tag>Rated by {peopleRated} developers</Tag>
 			</Flex>
-			<span>Rated by {peopleRated} developers</span>
 
 			<div className={styles.imageWrapper}>
 				<NextImage
@@ -86,6 +82,12 @@ function PortfolioModalBody({ portfolio }: Props) {
 			<Text mt={3} mb={6}>
 				{description}
 			</Text>
+
+			<Flex gap={1} marginBottom={2}>
+				<Tag colorScheme={getRateColor(avgRating)}>{avgRating}/10</Tag>
+				<Tag colorScheme={getTypeColor(type)}>{type}</Tag>
+				<Tag>Rated by {peopleRated} developers</Tag>
+			</Flex>
 
 			<CommentsSection portfolioId={id} />
 		</>

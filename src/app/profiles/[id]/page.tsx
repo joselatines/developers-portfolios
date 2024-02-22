@@ -1,8 +1,6 @@
-import { Box, Flex, Heading, Image, Tag, Text } from "@chakra-ui/react";
+import { Flex, Heading, Image, Tag, Text } from "@chakra-ui/react";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import NextImage from "next/image";
-
 import Head from "next/head";
 
 import NotFoundError from "@/app/ui/components/shared/Errors/NotFoundError";

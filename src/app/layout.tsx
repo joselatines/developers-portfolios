@@ -1,4 +1,5 @@
 import "./ui/globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import NextTopLoader from "nextjs-toploader";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
@@ -46,6 +47,7 @@ export default async function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
+				<GoogleAnalytics gaId="G-7BXXPPNTBV" />
 				<NextTopLoader />
 				<Providers>
 					<Navigation />
