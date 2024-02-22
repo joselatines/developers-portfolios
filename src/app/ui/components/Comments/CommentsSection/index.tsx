@@ -16,7 +16,9 @@ function CommentsSection({ portfolioId }: Props) {
 		try {
 			setLoading(true);
 			const res = await getAllRatingsFromAPortfolio({ portfolioId });
-			setComments(res.body);
+			
+			const comments = res.body.filter((el: Comment) => el.comment.length > 0)
+			setComments(comments);
 		} catch (error) {
 			setComments([]);
 		} finally {

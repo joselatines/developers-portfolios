@@ -18,7 +18,7 @@ const PortfolioCard = ({ portfolio }: Props) => {
 	const desc = description.length > 3 ? description.slice(0, 40) + "..." : "";
 
 	return (
-		<Box width={400} as="article">
+		<Box width={400} as="article" className='transition  hover:shadow-2xl hover:scale-105 p-3 rounded-lg'>
 			<PortfolioModal isOpen={isOpen} onClose={onClose} portfolio={portfolio} />
 
 			<Box style={{ cursor: "pointer" }} onClick={onOpen} as="section">
@@ -29,12 +29,13 @@ const PortfolioCard = ({ portfolio }: Props) => {
 						height={500}
 						alt={title}
 						priority={true}
+						className="rounded-lg"
 					/>
 				</div>
 			</Box>
 
 			<section>
-				<NextLink href={`/profiles/${User.id}`} className="opacity-95 text-sm">
+				<NextLink href={`/profiles/${User.id}`} className="opacity-95 text-sm hover:opacity-100">
 					{User.githubUsername}
 				</NextLink>
 

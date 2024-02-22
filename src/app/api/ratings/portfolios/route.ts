@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Ratelimit } from "@upstash/ratelimit";
 import { getServerSession } from "next-auth";
+import { Redis } from "@upstash/redis";
 
 import { RatingsModel } from "@/app/api/src/models/ratings";
 import { RatingsController } from "@/app/api/src/controllers/ratings";
+import { rateLimit } from "../../src/utils/rate-limit";
 
 const model = new RatingsModel();
 const controller = new RatingsController(model);
+
+const requests = 10;
+const minutes = 30;
+const ratelimit = rateLimit(requests, minutes);
 
 export async function GET(req: NextRequest) {
 	const searchParams = req.nextUrl.searchParams;
@@ -28,6 +35,15 @@ export async function POST(req: NextRequest) {
 	const portfolioId = searchParams.get("portfolioId");
 
 	const session = await getServerSession();
+	const ip = req.headers.get("x-forwarded-for") ?? "";
+	const { success } = await ratelimit.limit(ip);
+
+	if (!success) {
+		return NextResponse.json({
+			message: `You can only rate a portfolio ${requests} times per ${minutes} minutes.`,
+			status: 429,
+		});
+	}
 
 	if (!session?.user?.email)
 		return NextResponse.json(
@@ -47,6 +63,5 @@ export async function POST(req: NextRequest) {
 		);
 
 	const itemCreated = await controller.createRating(body, session.user.email);
-	console.log({ itemCreated });
 	return Response.json(itemCreated);
 }

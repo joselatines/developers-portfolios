@@ -29,7 +29,6 @@ export default async function Page({ params }: { params: { id: string } }) {
 	const portfolios = res.body.portfolios;
 
 	const { githubUsername, email, profilePic } = user;
-	console.log();
 
 	return (
 		<Suspense fallback={<Loading />}>
