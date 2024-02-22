@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 
 import Navigation from "./ui/components/shared/Navigation";
 import { Providers } from "./ui/components/Providers";
+import Footer from "./ui/components/shared/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,6 +50,7 @@ export default async function RootLayout({
 				<Providers>
 					<Navigation />
 					<main className="p-5 py-5 md:px-24 ">{children}</main>
+					<Footer />
 				</Providers>
 			</body>
 		</html>

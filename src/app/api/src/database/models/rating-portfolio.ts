@@ -65,6 +65,9 @@ const Ratings = sequelize.define("Ratings", {
 	comment: {
 		type: DataTypes.TEXT,
 		allowNull: true,
+		validate: {
+			not: /^(?!.*(.)\1{4,})[A-Za-z0-9]*$/,
+		},
 	},
 	rating: {
 		type: DataTypes.INTEGER,

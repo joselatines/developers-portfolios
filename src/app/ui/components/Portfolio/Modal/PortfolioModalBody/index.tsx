@@ -27,6 +27,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 		website_link,
 		id,
 		User,
+		peopleRated,
 	} = portfolio;
 
 	return (
@@ -39,6 +40,7 @@ function PortfolioModalBody({ portfolio }: Props) {
 					{type}
 				</Tag>
 			</Flex>
+			<span>Rated by {peopleRated} developers</span>
 
 			<div className={styles.imageWrapper}>
 				<NextImage
