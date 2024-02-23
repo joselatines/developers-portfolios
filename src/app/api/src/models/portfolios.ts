@@ -62,7 +62,7 @@ export class PortfoliosModel extends AbstractModel {
 
 				if (!ratingsResult) return null;
 
-				const peopleRatedQuery = `SELECT COUNT(rating) AS peopleRated FROM ratings WHERE portfolio_id = "${portfolio.id}";`;
+				const peopleRatedQuery = `SELECT COUNT(rating) AS peopleRated FROM Ratings WHERE portfolio_id = "${portfolio.id}";`;
 				const [peopleRatedResult] = await sequelize.query(peopleRatedQuery, {
 					type: QueryTypes.SELECT,
 				});
