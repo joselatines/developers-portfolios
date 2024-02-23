@@ -51,7 +51,7 @@ export default async function RootLayout({
 				<NextTopLoader />
 				<Providers>
 					<Navigation />
-					<main className="p-5 py-5 md:px-24 ">{children}</main>
+					<main className="p-5 py-8 md:px-24 ">{children}</main>
 					<Footer />
 				</Providers>
 			</body>
