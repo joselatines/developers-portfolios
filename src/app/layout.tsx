@@ -3,7 +3,6 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import NextTopLoader from "nextjs-toploader";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
-import Script from "next/script";
 
 import Navigation from "./ui/components/shared/Navigation";
 import { Providers } from "./ui/components/Providers";
@@ -48,16 +47,6 @@ export default async function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<Script
-					id="Adsense-id"
-					/* 			data-ad-client="ca-pub-987************676" */
-					async
-					strategy="afterInteractive"
-					onError={e => {
-						console.error("Script failed to load", e);
-					}}
-					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1868447189296885"
-				/>
 
 				<GoogleAnalytics gaId="G-7BXXPPNTBV" />
 				<NextTopLoader />
