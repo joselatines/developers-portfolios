@@ -1,13 +1,7 @@
-import "./ui/globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import NextTopLoader from "nextjs-toploader";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
-
-import Navigation from "./ui/components/shared/Navigation";
-import { Providers } from "./ui/components/Providers";
-import Footer from "./ui/components/shared/Footer";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -47,14 +41,10 @@ export default async function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-
 				<GoogleAnalytics gaId="G-7BXXPPNTBV" />
 				<NextTopLoader />
-				<Providers>
-					<Navigation />
-					<main className="p-5 py-8 md:px-24 ">{children}</main>
-					<Footer />
-				</Providers>
+
+				<main>{children}</main>
 			</body>
 		</html>
 	);
