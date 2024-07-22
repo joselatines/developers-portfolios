@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DB_URL")
+}
+
+model portfolios {
+  id           String    @id @db.Char(36)
+  thumbnail    String    @db.Text
+  created_by   String    @db.Char(36)
+  website_link String    @db.VarChar(255)
+  github_link  String?   @db.VarChar(255)
+  title        String    @db.VarChar(255)
+  description  String?   @db.VarChar(255)
+  type         String    @default("frontend") @db.VarChar(255)
+  updatedAt    DateTime  @db.DateTime(0)
+  file_name    String?   @db.Text
+  createdAt    DateTime  @db.DateTime(0)
+  users        users     @relation(fields: [created_by], references: [id], map: "Portfolios_ibfk_1")
+  reviews      reviews[]
+
+  @@index([created_by], map: "created_by")
+}
+
+model reviews {
+  id           String     @id @db.Char(36)
+  comment      String?    @db.Text
+  rating       Int        @default(10)
+  portfolio_id String     @db.Char(36)
+  rated_by     String     @db.Char(36)
+  createdAt    DateTime   @db.DateTime(0)
+  updatedAt    DateTime   @db.DateTime(0)
+  portfolios   portfolios @relation(fields: [portfolio_id], references: [id], onDelete: Cascade, map: "Ratings_ibfk_5")
+  users        users      @relation(fields: [rated_by], references: [id], map: "Ratings_ibfk_6")
+
+  @@index([portfolio_id], map: "portfolio_id")
+  @@index([rated_by], map: "rated_by")
+}
+
+model users {
+  id             String       @id @db.Char(36)
+  githubUsername String?      @db.VarChar(255)
+  email          String       @db.VarChar(255)
+  password       String?      @db.VarChar(255)
+  role           String?      @default("user") @db.VarChar(255)
+  profilePic     String?      @db.Text
+  provider       String?      @db.VarChar(255)
+  createdAt      DateTime     @db.DateTime(0)
+  updatedAt      DateTime     @db.DateTime(0)
+  portfolios     portfolios[]
+  reviews        reviews[]
+}
