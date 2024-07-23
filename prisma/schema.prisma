@@ -8,7 +8,7 @@ datasource db {
 }
 
 model portfolios {
-  id           String    @id @db.Char(36)
+  id           String    @id @default(uuid())
   thumbnail    String    @db.Text
   created_by   String    @db.Char(36)
   website_link String    @db.VarChar(255)
@@ -16,9 +16,9 @@ model portfolios {
   title        String    @db.VarChar(255)
   description  String?   @db.VarChar(255)
   type         String    @default("frontend") @db.VarChar(255)
-  updatedAt    DateTime  @db.DateTime(0)
   file_name    String?   @db.Text
-  createdAt    DateTime  @db.DateTime(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
   users        users     @relation(fields: [created_by], references: [id], map: "Portfolios_ibfk_1")
   reviews      reviews[]
 
@@ -26,13 +26,13 @@ model portfolios {
 }
 
 model reviews {
-  id           String     @id @db.Char(36)
+  id           String     @id @default(uuid())
   comment      String?    @db.Text
   rating       Int        @default(10)
   portfolio_id String     @db.Char(36)
   rated_by     String     @db.Char(36)
-  createdAt    DateTime   @db.DateTime(0)
-  updatedAt    DateTime   @db.DateTime(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
   portfolios   portfolios @relation(fields: [portfolio_id], references: [id], onDelete: Cascade, map: "Ratings_ibfk_5")
   users        users      @relation(fields: [rated_by], references: [id], map: "Ratings_ibfk_6")
 
@@ -41,15 +41,15 @@ model reviews {
 }
 
 model users {
-  id             String       @id @db.Char(36)
+  id             String       @id @default(uuid())
   githubUsername String?      @db.VarChar(255)
   email          String       @db.VarChar(255)
   password       String?      @db.VarChar(255)
   role           String?      @default("user") @db.VarChar(255)
   profilePic     String?      @db.Text
   provider       String?      @db.VarChar(255)
-  createdAt      DateTime     @db.DateTime(0)
-  updatedAt      DateTime     @db.DateTime(0)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
   portfolios     portfolios[]
   reviews        reviews[]
 }

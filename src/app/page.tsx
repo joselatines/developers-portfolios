@@ -1,12 +1,8 @@
-import { Flex } from "@chakra-ui/react";
+import { getPortfolios } from "@/services/portfolios";
+import PortfolioSection from "@/components/Portfolio/PortfolioSection";
 
 export default async function Home() {
-	return (
-		<Flex gap={12} className="flex-wrap">
-			hola
-			{/* {portfolios.body.map((p: Portfolio) => (
-				<PortfolioCard key={p.title} portfolio={p} />
-			))} */}
-		</Flex>
-	);
+	const res = await getPortfolios({});
+
+	if (res.data) return <PortfolioSection portfolios={res.data} />;
 }

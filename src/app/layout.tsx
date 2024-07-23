@@ -1,7 +1,9 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
-import NextTopLoader from "nextjs-toploader";
+import Navbar from "@/components/shared/Navbar";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
+import Providers from "@/components/shared/Providers";
+import NextTopLoader from "nextjs-toploader";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -38,13 +40,18 @@ export default async function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
+	const defaultLinks = [{ name: "About", href: "/about" }];
+	const loggedLinks = [{ name: "Dashboard", href: "/dashboard" }];
+
 	return (
 		<html lang="en">
+			<GoogleAnalytics gaId="G-7BXXPPNTBV" />
 			<body className={inter.className}>
-				<GoogleAnalytics gaId="G-7BXXPPNTBV" />
-				<NextTopLoader />
-
-				<main>{children}</main>
+				<Providers>
+					<NextTopLoader />
+					<Navbar defaultLinks={defaultLinks} loggedLinks={loggedLinks} />
+					{children}
+				</Providers>
 			</body>
 		</html>
 	);
