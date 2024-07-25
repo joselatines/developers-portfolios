@@ -24,7 +24,14 @@ export default function Navbar({ defaultLinks, loggedLinks }: Props) {
 
 	return (
 		<>
-			<Box as="nav" bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+			<Box
+				borderRadius={"lg"}
+				as="header"
+				bg={useColorModeValue("gray.100", "gray.900")}
+				zIndex={100}
+				w={"90vw"}
+				px={4}
+			>
 				<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
 					<IconButton
 						size={"md"}

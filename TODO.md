@@ -10,4 +10,7 @@
 - fix hydration error
 - add logic to auto close session
 - FIX eDITfORM NOT LOADING CURRENT VALUES AND extra rendering
+- change password funcionality
+- add top ranking
+
 

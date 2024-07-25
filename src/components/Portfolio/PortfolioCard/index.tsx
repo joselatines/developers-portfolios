@@ -10,7 +10,7 @@ import PortfolioModal from "../PortfolioModal";
 import { getRateColor, getTypeColor } from "@/helpers/utils";
 import OwnerFunctions from "../../OwnerFunctions";
 
-const PortfolioCard = ({ portfolio }: Props) => {
+const PortfolioCard = ({ portfolio, refreshPortfolios }: Props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		title,
@@ -48,7 +48,7 @@ const PortfolioCard = ({ portfolio }: Props) => {
 
 			<section>
 				<NextLink
-					href={`/profiles/${user.id}`}
+					href={`/users/${user.id}`}
 					className="opacity-95 text-sm hover:opacity-100"
 				>
 					{user.githubUsername}
@@ -77,7 +77,11 @@ const PortfolioCard = ({ portfolio }: Props) => {
 				</section>
 			</section>
 
-			<OwnerFunctions authorPortfolioId={created_by} portfolioId={id} />
+			<OwnerFunctions
+				refreshPortfolios={refreshPortfolios }
+				authorPortfolioId={created_by}
+				portfolioId={id}
+			/>
 		</Box>
 	);
 };

@@ -54,7 +54,7 @@ function PortfolioModalBody({ portfolio }: PortfolioModalBodyProps) {
 				marginY={2}
 			>
 				<GridItem w="100%">
-					<Link as={NextLink} href={`/profiles/${user.id}`}>
+					<Link as={NextLink} href={`/users/${user.id}`}>
 						Created by {user.githubUsername}
 					</Link>
 				</GridItem>

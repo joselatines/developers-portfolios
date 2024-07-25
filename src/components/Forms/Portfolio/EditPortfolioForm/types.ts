@@ -1,10 +1,6 @@
-import { ObjectSchema } from "yup";
+import { Portfolio } from "@/types/portfolio";
 
 export interface Props {
-	initialValues: ObjectSchema<any>;
-	id: string;
-}
-
-export interface Image {
-	data_url: string;
+	initialValues: Portfolio;
+	portfolioId: string;
 }

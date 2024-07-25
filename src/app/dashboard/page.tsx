@@ -20,7 +20,7 @@ export default async function Dashboard() {
 					</Button>
 				</NextLink>
 			</Flex>
-			<PortfolioSection portfolios={portfolios} />
+			<PortfolioSection userId={session.user.id} />
 		</>
 	);
 }

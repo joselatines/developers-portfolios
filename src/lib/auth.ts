@@ -6,7 +6,6 @@ import { prisma } from "@/database";
 import { checkPassword, hashPassword } from "@/helpers/encrypt";
 import { redirect } from "next/navigation";
 
-
 const { GITHUB_ID, GITHUB_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } =
 	process.env;
 

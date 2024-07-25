@@ -8,9 +8,9 @@ import { formatDate } from "@/helpers/time";
 import { usePortfolioOwnership } from "@/hooks/usePortfolioOwnership";
 
 function CommentCard({ review, refetchReviews }: Props) {
+	console.log({ review });
 	const { user, comment, rating, updatedAt, id } = review;
-
-	const [isPortfolioOwner] = usePortfolioOwnership(user.email);
+	const [isPortfolioOwner] = usePortfolioOwnership(user.id);
 
 	return (
 		<div className="border relative pb-12 p-3  my-3 bg-white text-slate-950">

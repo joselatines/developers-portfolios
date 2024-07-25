@@ -12,62 +12,70 @@ export async function GET(req: Request) {
 	const title = searchParams.get("title") || undefined;
 	const type = searchParams.get("type") || undefined;
 	const authorId = searchParams.get("author");
+	try {
+		if (portfolioId) {
+			const portfolio = await prisma.portfolios.findFirst({
+				where: { id: portfolioId },
+			});
+			return Response.json({ success: true, data: portfolio });
+		}
 
-	if (portfolioId) {
-		const portfolio = await prisma.portfolios.findFirst({
-			where: { id: portfolioId },
-		});
-		return Response.json({ success: true, data: portfolio });
-	}
+		const date = (searchParams.get("date") as "desc" | "asc") || "desc";
 
-	const date = (searchParams.get("date") as "desc" | "asc") || "desc";
+		if (date !== "desc" && date !== "asc")
+			return Response.json({
+				success: false,
+				message: "Invalid date (asc or desc)",
+			});
 
-	if (date !== "desc" && date !== "asc")
-		return Response.json({
-			success: false,
-			message: "Invalid date (asc or desc)",
-		});
-
-	let portfolios = await prisma.portfolios.findMany({
-		orderBy: { updatedAt: date },
-		include: {
-			users: {
-				select: {
-					id: true,
-					githubUsername: true,
-					email: true,
-					profilePic: true,
+		let portfolios = await prisma.portfolios.findMany({
+			orderBy: { updatedAt: date },
+			include: {
+				users: {
+					select: {
+						id: true,
+						githubUsername: true,
+						email: true,
+						profilePic: true,
+					},
 				},
 			},
-		},
-		where: { title, type },
-	});
+			where: { title, type },
+		});
 
-	if (authorId)
-		portfolios = portfolios.filter(
-			portfolio => portfolio.created_by === authorId
+		if (authorId)
+			portfolios = portfolios.filter(
+				portfolio => portfolio.created_by === authorId
+			);
+
+		// Map and fetch average ratings for each portfolio
+		const renamedPortfolios = await Promise.all(
+			portfolios.map(async portfolio => {
+				const avgRating = await getPortfolioAvgReview(portfolio.id);
+				const peopleRated = await getNumberOfPeopleRatedPortfolio(portfolio.id);
+
+				return {
+					...portfolio,
+					avgRating,
+					peopleRated,
+					user: portfolio.users,
+					users: undefined, // Remove the original 'users' field
+				};
+			})
 		);
 
-	// Map and fetch average ratings for each portfolio
-	const renamedPortfolios = await Promise.all(
-		portfolios.map(async portfolio => {
-			const avgRating = await getPortfolioAvgReview(portfolio.id);
-			const peopleRated = await getNumberOfPeopleRatedPortfolio(portfolio.id);
+		// Sort portfolios by avgRating, peopleRated, and updatedAt
+		const orderedPortfolios = sortPortfolios(renamedPortfolios as any);
 
-			return {
-				...portfolio,
-				avgRating,
-				peopleRated,
-				user: portfolio.users,
-				users: undefined, // Remove the original 'users' field
-			};
-		})
-	);
-
-	// Sort portfolios by avgRating, peopleRated, and updatedAt
-	const orderedPortfolios = sortPortfolios(renamedPortfolios as any);
-
-	return Response.json({ success: true, data: orderedPortfolios });
+		return Response.json({ success: true, data: orderedPortfolios });
+	} catch (error: any) {
+		console.error(error);
+		return Response.json({
+			success: false,
+			message: error?.message || error?.meta?.cause,
+			error,
+		});
+	}
 }
 
 export async function POST(req: Request) {

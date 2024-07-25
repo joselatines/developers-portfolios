@@ -2,7 +2,7 @@ import { User } from "./user";
 
 export interface CreatePortfolio {
 	thumbnail: string;
-	websdite_link: string;
+	website_link: string;
 	github_link: string;
 	title: string;
 	description: string;

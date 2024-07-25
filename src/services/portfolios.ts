@@ -1,5 +1,5 @@
 import { API_URL } from "@/const";
-import { CreatePortfolio } from "@/types/portfolio";
+import { CreatePortfolio, Portfolio } from "@/types/portfolio";
 
 export async function deletePortfolio(id: string) {
 	const res = await fetch(`${API_URL}/portfolios?id=${id}`, {
@@ -18,7 +18,7 @@ export async function createPortfolio(data: CreatePortfolio) {
 	return await res.json();
 }
 
-export async function updatePortfolio(id: string, newData: CreatePortfolio) {
+export async function updatePortfolio(id: string, newData: Partial<Portfolio>) {
 	const res = await fetch(`${API_URL}/portfolios?id=${id}`, {
 		method: "PATCH",
 		body: JSON.stringify(newData),
@@ -31,7 +31,7 @@ export async function getPortfolios({ portfolioId, authorId }: Filters) {
 	const queryParams = new URLSearchParams();
 
 	if (portfolioId) {
-		queryParams.append("portfolio", portfolioId);
+		queryParams.append("id", portfolioId);
 	}
 
 	if (authorId) {

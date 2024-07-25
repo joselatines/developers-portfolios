@@ -4,7 +4,7 @@ const { backend, frontend, fullstack, mobile, software } = PORTFOLIO_TYPES;
 
 // Determine rate color based on rating
 export const getRateColor = (ratingNumber: number) => {
-	let rateColor = ratingNumber > 5 ? "teal" : "red"; // 7: green | 4: red
+	let rateColor = ratingNumber > 5 ? "green" : "red"; // 7: green | 4: red
 	rateColor = ratingNumber >= 5 && ratingNumber <= 7 ? "orange" : rateColor; // 5: orange
 	return rateColor;
 };
@@ -28,7 +28,7 @@ export const getTypeColor = (type: string) => {
 };
 
 export const getUserProfileUrl = (userId: string): string => {
-	return `/profiles/${userId}`;
+	return `/users/${userId}`;
 };
 
 export function sortPortfolios(portfolios: Portfolio[]): Portfolio[] {

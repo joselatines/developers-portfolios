@@ -8,9 +8,7 @@ function DeleteCommentButton({ reviewId, refetchReviews }: Props) {
 	const toast = useToast();
 
 	const handleDelete = async () => {
-		const res = deleteReview(reviewId);
-
-		toast.promise(res, {
+		toast.promise(deleteReview(reviewId), {
 			success: (e: any) => {
 				refetchReviews();
 				return { title: "Portfolio", description: e.message };

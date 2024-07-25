@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
 	return (
 		<Suspense fallback={<Loader />}>
-			<EditPortfolioForm initialValues={res.data} id={params.id} />
+			<EditPortfolioForm initialValues={res.data} portfolioId={params.id} />
 		</Suspense>
 	);
 }

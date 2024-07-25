@@ -5,6 +5,7 @@ export interface Props {
 	setImages: (images: ImageListType | any) => void; // initialize in []
 	maxImages?: number;
 	note?: string;
+	required: boolean;
 }
 
 export interface FileErrorsProps {
@@ -18,4 +19,8 @@ export interface FileErrorsProps {
 		acceptType?: boolean;
 		resolution?: boolean;
 	};
+}
+
+export interface Image {
+	data_url: string;
 }

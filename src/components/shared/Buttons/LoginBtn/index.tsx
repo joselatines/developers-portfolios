@@ -28,7 +28,7 @@ export default function AuthButton({ isLoggedIn, user }: Props) {
 				</MenuButton>
 
 				<MenuList>
-					<Link as={NextLink} href="/dashboard">
+					<Link as={NextLink} href={`/dashboard/users/${user.id}`}>
 						<MenuItem>Me</MenuItem>
 					</Link>
 					<MenuDivider />

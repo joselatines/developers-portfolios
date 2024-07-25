@@ -1,9 +1,11 @@
+import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Navbar from "@/components/shared/Navbar";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import Providers from "@/components/shared/Providers";
 import NextTopLoader from "nextjs-toploader";
+import Footer from "@/components/shared/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -40,7 +42,7 @@ export default async function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	const defaultLinks = [{ name: "About", href: "/about" }];
+	const defaultLinks: any = [];
 	const loggedLinks = [{ name: "Dashboard", href: "/dashboard" }];
 
 	return (
@@ -49,8 +51,10 @@ export default async function RootLayout({
 			<body className={inter.className}>
 				<Providers>
 					<NextTopLoader />
+
 					<Navbar defaultLinks={defaultLinks} loggedLinks={loggedLinks} />
-					{children}
+					<main>{children}</main>
+					<Footer />
 				</Providers>
 			</body>
 		</html>

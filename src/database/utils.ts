@@ -9,7 +9,7 @@ export const getPortfolioAvgReview = async (portfolioId: string) => {
 			portfolio_id: portfolioId,
 		},
 	});
-	return ratingsResult._avg.rating || 10;
+	return Number(ratingsResult._avg.rating?.toFixed(2) || 10);
 };
 
 export async function getNumberOfPeopleRatedPortfolio(portfolioId: string) {

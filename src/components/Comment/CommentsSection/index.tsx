@@ -6,28 +6,26 @@ import { getReviews } from "@/services/reviews";
 import { Comment } from "@/types/comment";
 import RatePortfolioForm from "@/components/Forms/Portfolio/RatePortfolioForm";
 import Loader from "@/components/shared/Loader";
+import { Review } from "@/types/reviews";
 
 function CommentsSection({ portfolioId }: Props) {
-	const [comments, setComments] = useState<Comment[]>([]);
-	const [loading, setLoading] = useState(true);
+	const [reviews, setReviews] = useState<any>({ data: [], loading: true });
+	const [refresh, setRefresh] = useState(0);
 
 	const makeRequest = async () => {
-		try {
-			setLoading(true);
-			const res = await getReviews({ portfolio: portfolioId });
+		setReviews({ loading: true });
+		const res = await getReviews({ portfolio: portfolioId });
 
-			const comments = res.data.filter((el: Comment) => el.comment.length > 0);
-			setComments(comments);
-		} catch (error) {
-			setComments([]);
-		} finally {
-			setLoading(false);
-		}
+		setReviews({ data: res.data, loading: false });
+		console.log(reviews);
 	};
 
+	const handleRefresh = () => setRefresh(prev => prev + 1);
 	useEffect(() => {
 		makeRequest();
-	}, []);
+	}, [refresh]);
+
+	if (reviews.loading) return <Loader />;
 
 	return (
 		<>
@@ -36,21 +34,19 @@ function CommentsSection({ portfolioId }: Props) {
 			</Heading>
 			<RatePortfolioForm
 				portfolioId={portfolioId}
-				refetchReviews={makeRequest}
+				refetchReviews={handleRefresh}
 			/>
 
 			<Box as="section" marginTop={8}>
 				<Heading size={"md"} marginBottom={2}>
 					Comments
 				</Heading>
-				{loading ? (
-					<Loader />
-				) : comments.length ? (
-					comments.map((c: Comment) => (
-						<CommentCard key={c.id} review={c} refetchReviews={makeRequest} />
-					))
+				{reviews.length === 0 ? (
+					<p>No comments yet</p>
 				) : (
-					<p>No comments</p>
+					reviews.data.map((c: Review) => (
+						<CommentCard key={c.id} review={c} refetchReviews={handleRefresh} />
+					))
 				)}
 			</Box>
 		</>

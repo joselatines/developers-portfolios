@@ -10,11 +10,11 @@ function RatePortfolioForm({ portfolioId, refetchReviews }: Props) {
 	const [ratingNum, setRatingNum] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const handleRateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleRateChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 		setRatingNum(Number(e.target.value));
-	};
 
 	const submitForm = async (e: FormEvent) => {
+		setIsLoading(true);
 		e.preventDefault();
 		const comment = (e.target as any).elements.comment.value;
 		const rating = ratingNum;
@@ -27,21 +27,20 @@ function RatePortfolioForm({ portfolioId, refetchReviews }: Props) {
 
 		setIsLoading(true);
 
-		const response = giveReview(portfolioId, body);
-
-		toast.promise(response, {
+		toast.promise(giveReview(portfolioId, body), {
 			success: (e: any) => {
 				refetchReviews();
-				setIsLoading(false);
 				return { title: "Portfolio", description: e.message };
 			},
 			error: (e: any) => {
 				console.error("Server error:", e);
-				setIsLoading(false);
+
 				return { title: "Portfolio", description: e.message };
 			},
 			loading: { title: "Portfolio", description: "Please wait" },
 		});
+
+		setIsLoading(false);
 	};
 
 	return (

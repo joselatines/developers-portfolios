@@ -7,7 +7,12 @@ import FileErrors from "./FileErrors";
 import { config } from "./config";
 const { maxFileSize, resolutionHeight, resolutionWidth } = config;
 
-function ImageUploader({ images, setImages, maxImages = 10 }: Props) {
+function ImageUploader({
+	images,
+	setImages,
+	maxImages = 10,
+	required = true,
+}: Props) {
 	const onChange = (imageList: ImageListType, addUpdateIndex: any) => {
 		console.info({ onChange: { imageList, addUpdateIndex } });
 		setImages(imageList);
@@ -17,7 +22,7 @@ function ImageUploader({ images, setImages, maxImages = 10 }: Props) {
 
 	return (
 		<div className="App">
-			{images.length <= 0 && (
+			{required && images.length <= 0 && (
 				<span className="text-red-600">Thumbnail is required</span>
 			)}
 			<Text fontWeight="medium" fontSize="md" marginBottom={2}>
@@ -75,7 +80,7 @@ function ImageUploader({ images, setImages, maxImages = 10 }: Props) {
 								<div key={index} className="image-item relative">
 									<div className="bg-indigo-30">
 										<img
-											className="object-cover h-32 w-32"
+											className="object-contain h-36 w-36"
 											src={image.data_url}
 											alt={image.file?.name}
 										/>

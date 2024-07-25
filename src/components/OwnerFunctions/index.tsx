@@ -6,12 +6,34 @@ import { Props } from "./types";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { deletePortfolio } from "@/services/portfolios";
+import { useRouter } from "next/navigation";
 
-function OwnerFunctions({ portfolioId, authorPortfolioId }: Props) {
+function OwnerFunctions({
+	portfolioId,
+	authorPortfolioId,
+	refreshPortfolios,
+}: Props) {
 	const toast = useToast();
 	const [isLoading, setIsLoading] = useState(false);
+	const { push } = useRouter();
 	const { data: session } = useSession() as any;
 	const ownsThisPortfolio = session?.user?.id === authorPortfolioId;
+
+	const handleDelete = async (id: string) => {
+		setIsLoading(true);
+		toast.promise(deletePortfolio(id), {
+			success: (e: any) => {
+				refreshPortfolios && refreshPortfolios();
+				return { title: "Portfolio", description: e.message };
+			},
+			error: (e: any) => {
+				return { title: "Portfolio", description: e.message };
+			},
+			loading: { title: "Portfolio", description: "Please wait" },
+		});
+
+		setIsLoading(false);
+	};
 
 	if (ownsThisPortfolio)
 		return (
@@ -22,7 +44,7 @@ function OwnerFunctions({ portfolioId, authorPortfolioId }: Props) {
 					</Button>
 				</NextLink>
 				<Button
-					onClick={() => handleDelete(portfolioId, toast, setIsLoading)}
+					onClick={() => handleDelete(portfolioId)}
 					colorScheme="red"
 					isDisabled={isLoading}
 					size="sm"
@@ -32,22 +54,5 @@ function OwnerFunctions({ portfolioId, authorPortfolioId }: Props) {
 			</Flex>
 		);
 }
-
-const handleDelete = async (id: string, toast: any, setIsLoading: any) => {
-	const response = deletePortfolio(id);
-	setIsLoading(true);
-	toast.promise(response, {
-		success: (e: any) => {
-			setIsLoading(false);
-			return { title: "Portfolio", description: e.message };
-		},
-		error: (e: any) => {
-			console.error("Server error", e);
-			setIsLoading(false);
-			return { title: "Portfolio", description: e.message };
-		},
-		loading: { title: "Portfolio", description: "Please wait" },
-	});
-};
 
 export default OwnerFunctions;
