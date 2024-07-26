@@ -41,12 +41,12 @@ const UserProfile = ({ data }: Props) => {
 					borderRadius="full"
 					boxSize="150px"
 					src={data.profilePic}
-					alt={`${data.githubUsername}'s profile picture`}
+					alt={`${data.username}'s profile picture`}
 					mx="auto"
 				/>
 				<VStack spacing="4" mt="4">
 					<Text fontWeight="bold" fontSize="xl">
-						{data.githubUsername}
+						{data.username}
 					</Text>
 					<UserLinks githubUsername={data.githubUsername} email={data.email} />
 				</VStack>

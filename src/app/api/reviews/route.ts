@@ -16,7 +16,7 @@ export async function GET(req: Request) {
 				users: {
 					select: {
 						id: true,
-						githubUsername: true,
+						username: true,
 						email: true,
 						profilePic: true,
 					},

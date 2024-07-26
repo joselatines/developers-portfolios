@@ -51,7 +51,7 @@ const PortfolioCard = ({ portfolio, refreshPortfolios }: Props) => {
 					href={`/users/${user.id}`}
 					className="opacity-95 text-sm hover:opacity-100"
 				>
-					{user.githubUsername}
+					{user.username}
 				</NextLink>
 
 				<Heading size={"md"}>{title}</Heading>

@@ -5,6 +5,7 @@ import { getServerSession, NextAuthOptions } from "next-auth";
 import { prisma } from "@/database";
 import { checkPassword, hashPassword } from "@/helpers/encrypt";
 import { redirect } from "next/navigation";
+import { generateRandomUsername } from "@/helpers/utils";
 
 const { GITHUB_ID, GITHUB_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } =
 	process.env;
@@ -37,6 +38,7 @@ export const authConfig: NextAuthOptions = {
 							email,
 							password: await hashPassword(password),
 							provider: null,
+							username: generateRandomUsername(),
 						},
 					});
 
@@ -83,10 +85,13 @@ export const authConfig: NextAuthOptions = {
 				return false;
 			}
 
+			console.log({ user, account, profile });
+
 			const userEmail = profile.email as string;
 			const profilePic = profile.image || user.image;
-			const githubUsername = profile.name;
+			const username = profile.name;
 			const provider = account.provider;
+			const githubUsername = provider === "github" ? profile.name : null;
 
 			try {
 				// Check if the user already exists in the database
@@ -98,13 +103,11 @@ export const authConfig: NextAuthOptions = {
 				if (!existingUser) {
 					await prisma.users.create({
 						data: {
-							id: user.id, // Generate a unique ID
 							email: userEmail,
+							username,
 							githubUsername,
 							profilePic,
 							provider,
-							createdAt: new Date(), // Set the creation date
-							updatedAt: new Date(), // Set the update date
 						},
 					});
 				}
@@ -134,4 +137,3 @@ export async function loginIsRequiredServer(redirectRoute = "/") {
 	const session = await getServerSession(authConfig);
 	if (!session) return redirect(redirectRoute);
 }
-

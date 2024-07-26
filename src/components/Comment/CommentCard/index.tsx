@@ -35,7 +35,7 @@ function CommentCard({ review, refetchReviews }: Props) {
 			>
 				<NextImage
 					src={user.profilePic}
-					alt={user.githubUsername}
+					alt={user.username}
 					width={20}
 					height={20}
 					className="object-cover w-8 h-8 rounded-full 
@@ -44,7 +44,7 @@ function CommentCard({ review, refetchReviews }: Props) {
 				/>
 
 				<h3 className="font-bold">
-					{isPortfolioOwner ? "You" : "@" + user.githubUsername}
+					{isPortfolioOwner ? "You" : "@" + user.username}
 				</h3>
 			</NextLink>
 

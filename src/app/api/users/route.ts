@@ -3,30 +3,24 @@ import {
 	getNumberOfPeopleRatedPortfolio,
 	getPortfolioAvgReview,
 } from "@/database/utils";
+import { hashPassword } from "@/helpers/encrypt";
 
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);
 	const userId = searchParams.get("id");
-	if (!userId)
-		return Response.json(
-			{
-				success: false,
-				message: "Id is required",
-			},
-			{ status: 401 }
-		);
 
+	if (!userId) {
+		const users = await prisma.users.findMany();
+		return Response.json({
+			success: true,
+			data: users,
+			message: "All users",
+		});
+	}
 	const user = await prisma.users.findFirst({
 		where: { id: userId },
-		select: {
-			id: true,
-			githubUsername: true,
-			email: true,
-			profilePic: true,
-			provider: true,
-			role: true,
-		},
 	});
+
 	if (!user)
 		return Response.json({ success: false, message: "User not found in db" });
 
@@ -58,4 +52,44 @@ export async function GET(req: Request) {
 			portfoliosUploaded: portfolios.length,
 		},
 	});
+}
+
+export async function PATCH(req: Request) {
+	let body = await req.json();
+	const { searchParams } = new URL(req.url);
+	const id = searchParams.get("id");
+
+	if (!id)
+		return Response.json(
+			{
+				message: "Pass an id in search params please. /api/users?id=64564",
+			},
+			{ status: 400 }
+		);
+
+	if (body.password.length > 0) {
+		const hashedPassword = await hashPassword(body.password);
+		body = { ...body, password: hashedPassword };
+	}
+
+	try {
+		const itemCreated = await prisma.users.update({
+			data: body,
+			where: { id: id },
+		});
+		return Response.json({
+			data: itemCreated,
+			success: true,
+			message: "user updated",
+		});
+	} catch (error: any) {
+		return Response.json(
+			{
+				success: false,
+				message: error?.message || error?.meta?.cause,
+				error,
+			},
+			{ status: 500 }
+		);
+	}
 }

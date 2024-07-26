@@ -27,7 +27,8 @@ export default function Navbar({ defaultLinks, loggedLinks }: Props) {
 			<Box
 				borderRadius={"lg"}
 				as="header"
-				bg={useColorModeValue("gray.100", "gray.900")}
+				bg={useColorModeValue("blue.500", "blue.900")}
+				color={"white"}
 				zIndex={100}
 				w={"90vw"}
 				px={4}

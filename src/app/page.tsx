@@ -7,6 +7,7 @@ export default async function Home() {
 	const res = await getPortfolios({});
 
 	if (!res.success) return <p>{res.message}</p>;
+	if (res.data.length === 0) return <p>There is no portfolios</p>;
 
 	return (
 		<Flex as={"section"} gap={12} flexWrap={"wrap"}>

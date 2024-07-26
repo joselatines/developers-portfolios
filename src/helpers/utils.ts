@@ -45,3 +45,8 @@ export function sortPortfolios(portfolios: Portfolio[]): Portfolio[] {
 		return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
 	});
 }
+
+export function generateRandomUsername(){
+	const now = new Date()
+	return `user-${now.getTime().toString().slice(0, 10)}`
+}

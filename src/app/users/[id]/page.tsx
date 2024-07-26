@@ -13,7 +13,7 @@ export default async function User({ params }: { params: { id: string } }) {
 			<section className="mt-10">
 				<PortfolioSection
 					userId={params.id}
-					title={`${res.data.githubUsername} portfolios`}
+					title={`${res.data.username} portfolios`}
 				/>
 			</section>
 		</>
