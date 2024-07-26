@@ -16,7 +16,7 @@ import { Props } from "./types";
 export default function AuthButton({ isLoggedIn, user }: Props) {
 	if (isLoggedIn && user) {
 		return (
-			<Menu>
+			<Menu >
 				<MenuButton
 					as={Button}
 					rounded={"full"}
@@ -27,7 +27,7 @@ export default function AuthButton({ isLoggedIn, user }: Props) {
 					<Avatar size={"md"} src={user.image} />
 				</MenuButton>
 
-				<MenuList>
+				<MenuList color={"black"}>
 					<Link as={NextLink} href={`/dashboard/me`}>
 						<MenuItem>Me</MenuItem>
 					</Link>

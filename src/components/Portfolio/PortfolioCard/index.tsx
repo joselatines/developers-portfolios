@@ -51,7 +51,7 @@ const PortfolioCard = ({ portfolio, refreshPortfolios }: Props) => {
 					href={`/users/${user.id}`}
 					className="opacity-95 text-sm hover:opacity-100"
 				>
-					{user.username}
+					{user.username || user.githubUsername || user.email}
 				</NextLink>
 
 				<Heading size={"md"}>{title}</Heading>
@@ -78,7 +78,7 @@ const PortfolioCard = ({ portfolio, refreshPortfolios }: Props) => {
 			</section>
 
 			<OwnerFunctions
-				refreshPortfolios={refreshPortfolios }
+				refreshPortfolios={refreshPortfolios}
 				authorPortfolioId={created_by}
 				portfolioId={id}
 			/>

@@ -44,7 +44,9 @@ function CommentCard({ review, refetchReviews }: Props) {
 				/>
 
 				<h3 className="font-bold">
-					{isPortfolioOwner ? "You" : "@" + user.username}
+					{isPortfolioOwner
+						? "You"
+						: "@" + user.username || user.githubUsername || user.email}
 				</h3>
 			</NextLink>
 

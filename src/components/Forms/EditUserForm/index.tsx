@@ -62,7 +62,7 @@ export default function EditUserForm({ initialValues, userId }: Props) {
 
 		toast.promise(updateUser(userId, updatedFields), {
 			success: (res: any) => {
-				push("/dashboard/me");
+				push("/dashboard");
 				return { title: "User", description: res.message };
 			},
 			error: (res: any) => {

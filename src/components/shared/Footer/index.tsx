@@ -6,10 +6,10 @@ export default function Footer() {
 	return (
 		<Flex
 			as={"footer"}
-      position={"absolute"}
-      bottom={"0px"}
-      left={"0px"}
-      w="100%"
+			position={"absolute"}
+			bottom={"0px"}
+			left={"0px"}
+			w="100%"
 			color={"white"}
 			bg={"gray.900"}
 			className="p-5 py-6 md:p-24 md:py-10 "
@@ -23,9 +23,9 @@ export default function Footer() {
 					href={"https://github.com/joselatines/developers-portfolios"}
 					target="_blank"
 				>
-					{/* <Button bg={"white"} size={["sm", "md"]} className="flex gap-1">
+					<Button bg={"white"} size={["sm", "md"]} className="flex gap-1">
 						Github Repository <FaGithub />
-					</Button> */}
+					</Button>
 				</NextLink>
 				<NextLink href={"/about"}>
 					<Button bg={"white"} size={["sm", "md"]} className="flex gap-1">
