@@ -7,7 +7,6 @@ import { buildImageName, sortPortfolios } from "@/helpers/utils";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { firebase } from "@/lib/firebase/firebase";
-import puppeteer from "puppeteer";
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);
 	const portfolioId = searchParams.get("id");
@@ -82,30 +81,6 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-	const browser = await puppeteer.launch();
-	const page = await browser.newPage();
-
-	// Navigate the page to a URL.
-	await page.goto("https://developer.chrome.com/");
-
-	await page.setViewport({width: 1080, height: 1024});
-
-// Type into search box.
-await page.locator('.devsite-search-field').fill('automate beyond recorder');
-
-// Wait and click on first result.
-await page.locator('.devsite-result-item-link').click();
-
-// Locate the full title with a unique string.
-const textSelector = await page
-  .locator('text/Customize and automate')
-  .waitHandle();
-const fullTitle = await textSelector?.evaluate(el => el.textContent);
-
-// Print the full title.
-console.log('The title of this blog post is "%s".', fullTitle);
-
-await browser.close();
 	const data = await req.json();
 	const session = await getServerSession(authConfig);
 
