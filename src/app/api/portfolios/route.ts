@@ -7,7 +7,7 @@ import { buildImageName, sortPortfolios } from "@/helpers/utils";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { firebase } from "@/lib/firebase/firebase";
-
+import puppeteer from "puppeteer";
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);
 	const portfolioId = searchParams.get("id");
@@ -82,6 +82,11 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+	const browser = await puppeteer.launch({ headless: false });
+	const page = await browser.newPage();
+
+	// Navigate the page to a URL.
+	await page.goto("https://developer.chrome.com/");
 	const data = await req.json();
 	const session = await getServerSession(authConfig);
 
