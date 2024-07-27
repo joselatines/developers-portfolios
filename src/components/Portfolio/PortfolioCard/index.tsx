@@ -24,6 +24,7 @@ const PortfolioCard = ({ portfolio, refreshPortfolios }: Props) => {
 	} = portfolio;
 
 	const desc = description.length > 3 ? description.slice(0, 40) + "..." : "";
+	const author = user.username || user.githubUsername || user.email;
 
 	return (
 		<Box
@@ -51,7 +52,7 @@ const PortfolioCard = ({ portfolio, refreshPortfolios }: Props) => {
 					href={`/users/${user.id}`}
 					className="opacity-95 text-sm hover:opacity-100"
 				>
-					{user.username || user.githubUsername || user.email}
+					{author}
 				</NextLink>
 
 				<Heading size={"md"}>{title}</Heading>

@@ -7,6 +7,8 @@ import NextLink from "next/link";
 export default async function Dashboard() {
 	const session = (await getServerSession(authConfig)) as any;
 
+	if(!session) return <h1>No session stored</h1>
+
 	return (
 		<>
 			<Heading size="xl">Welcome to your Dashboard!</Heading>

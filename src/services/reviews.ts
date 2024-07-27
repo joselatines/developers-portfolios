@@ -21,7 +21,6 @@ export const giveReview = async (
 	portfolioId: string,
 	body: CreateReview
 ): Promise<Response> => {
-	console.log({ body });
 	const res = await fetch(`${API_URL}/reviews?portfolioId=${portfolioId}`, {
 		method: "POST",
 		body: JSON.stringify(body),

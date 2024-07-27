@@ -85,8 +85,6 @@ export const authConfig: NextAuthOptions = {
 				return false;
 			}
 
-			console.log({ user, account, profile });
-
 			const userEmail = profile.email as string;
 			const profilePic = profile.image || user.image;
 			const username = profile.name;
@@ -120,7 +118,7 @@ export const authConfig: NextAuthOptions = {
 		},
 		async session({ session, token, user }: any) {
 			const userDb = await prisma.users.findFirst({
-				where: { email: user?.email },
+				where: { email: session.user.email },
 			});
 
 			if (userDb) {

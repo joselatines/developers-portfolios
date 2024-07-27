@@ -8,7 +8,6 @@ import { formatDate } from "@/helpers/time";
 import { usePortfolioOwnership } from "@/hooks/usePortfolioOwnership";
 
 function CommentCard({ review, refetchReviews }: Props) {
-	console.log({ review });
 	const { user, comment, rating, updatedAt, id } = review;
 	const [isPortfolioOwner] = usePortfolioOwnership(user.id);
 

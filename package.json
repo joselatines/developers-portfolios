@@ -25,6 +25,7 @@
 		"next-auth": "^4.24.7",
 		"nextjs-toploader": "^1.6.4",
 		"prisma": "^5.17.0",
+		"puppeteer": "^22.14.0",
 		"react": "^18",
 		"react-dom": "^18",
 		"react-hook-form": "^7.52.1",

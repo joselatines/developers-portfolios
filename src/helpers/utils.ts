@@ -1,4 +1,5 @@
 import { Portfolio, PORTFOLIO_TYPES } from "@/types/portfolio";
+import { getDate } from "./time";
 
 const { backend, frontend, fullstack, mobile, software } = PORTFOLIO_TYPES;
 
@@ -49,4 +50,10 @@ export function sortPortfolios(portfolios: Portfolio[]): Portfolio[] {
 export function generateRandomUsername(){
 	const now = new Date()
 	return `user-${now.getTime().toString().slice(0, 10)}`
+}
+
+export function buildImageName(title = "defaultTitle", thumbnail: string) {
+	const name = `${getDate()}-${title}.${thumbnail.split("/")[1].split(";")[0]}`;
+
+	return name;
 }

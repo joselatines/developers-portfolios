@@ -17,7 +17,6 @@ function CommentsSection({ portfolioId }: Props) {
 		const res = await getReviews({ portfolio: portfolioId });
 
 		setReviews({ data: res.data, loading: false });
-		console.log(reviews);
 	};
 
 	const handleRefresh = () => setRefresh(prev => prev + 1);

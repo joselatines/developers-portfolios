@@ -3,15 +3,22 @@ import {
 	getPortfolioAvgReview,
 } from "@/database/utils";
 import { prisma } from "../../../database";
-import { sortPortfolios } from "@/helpers/utils";
+import { buildImageName, sortPortfolios } from "@/helpers/utils";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
+import { firebase } from "@/lib/firebase/firebase";
+import puppeteer from "puppeteer";
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);
 	const portfolioId = searchParams.get("id");
 	const title = searchParams.get("title") || undefined;
 	const type = searchParams.get("type") || undefined;
 	const authorId = searchParams.get("author");
+	const browser = await puppeteer.launch({ headless: false });
+	const page = await browser.newPage();
+
+	// Navigate the page to a URL.
+	await page.goto("https://developer.chrome.com/");
 	try {
 		if (portfolioId) {
 			const portfolio = await prisma.portfolios.findFirst({
@@ -93,8 +100,21 @@ export async function POST(req: Request) {
 		);
 
 	try {
+		const name = buildImageName(data.title, data.thumbnail);
+		const imgUrl = await firebase.uploadFile({
+			name,
+			ImageBase64: data.thumbnail.thumbnail,
+		});
+
+		const portfolio = {
+			...data,
+			thumbnail: imgUrl,
+			file_name: name,
+			created_by: user.id,
+		};
+
 		const portfolioCreated = await prisma.portfolios.create({
-			data: { ...data, created_by: user.id },
+			data: portfolio,
 		});
 
 		return Response.json({

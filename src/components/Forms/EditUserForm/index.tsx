@@ -58,8 +58,6 @@ export default function EditUserForm({ initialValues, userId }: Props) {
 				description: "You have not made any changes ",
 			});
 
-		console.log({ updatedFields });
-
 		toast.promise(updateUser(userId, updatedFields), {
 			success: (res: any) => {
 				push("/dashboard");
