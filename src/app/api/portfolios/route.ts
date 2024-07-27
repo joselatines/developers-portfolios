@@ -7,18 +7,14 @@ import { buildImageName, sortPortfolios } from "@/helpers/utils";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/lib/auth";
 import { firebase } from "@/lib/firebase/firebase";
-import puppeteer from "puppeteer";
+
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);
 	const portfolioId = searchParams.get("id");
 	const title = searchParams.get("title") || undefined;
 	const type = searchParams.get("type") || undefined;
 	const authorId = searchParams.get("author");
-	const browser = await puppeteer.launch({ headless: false });
-	const page = await browser.newPage();
 
-	// Navigate the page to a URL.
-	await page.goto("https://developer.chrome.com/");
 	try {
 		if (portfolioId) {
 			const portfolio = await prisma.portfolios.findFirst({
