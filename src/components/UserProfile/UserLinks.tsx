@@ -24,7 +24,7 @@ function UserLinks({
 			</Link>
 			<Link as={NextLink} href={`mailto:${email}`} isExternal>
 				<Button size="md">
-					<Text marginRight={1}>Github</Text>
+					<Text marginRight={1}>Gmail</Text>
 					<MdEmail />
 				</Button>
 			</Link>
