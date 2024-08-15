@@ -10,6 +10,8 @@ import { usePortfolioOwnership } from "@/hooks/usePortfolioOwnership";
 function CommentCard({ review, refetchReviews }: Props) {
 	const { user, comment, rating, updatedAt, id } = review;
 	const [isPortfolioOwner] = usePortfolioOwnership(user.id);
+	const notPortfolioOwner = user?.username || user?.githubUsername || user?.email;
+	const commentatorName = isPortfolioOwner ? "You" : "@" + notPortfolioOwner;
 
 	return (
 		<div className="border relative pb-12 p-3  my-3 bg-white text-slate-950">
@@ -34,7 +36,7 @@ function CommentCard({ review, refetchReviews }: Props) {
 			>
 				<NextImage
 					src={user.profilePic}
-					alt={user.username}
+					alt={commentatorName}
 					width={20}
 					height={20}
 					className="object-cover w-8 h-8 rounded-full 
@@ -42,11 +44,7 @@ function CommentCard({ review, refetchReviews }: Props) {
                 "
 				/>
 
-				<h3 className="font-bold">
-					{isPortfolioOwner
-						? "You"
-						: "@" + user.username || user.githubUsername || user.email}
-				</h3>
+				<h3 className="font-bold">{commentatorName}</h3>
 			</NextLink>
 
 			{isPortfolioOwner && (

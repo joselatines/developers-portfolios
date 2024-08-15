@@ -6,47 +6,42 @@ export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);
 	const portfolioId = searchParams.get("portfolio");
 
+	const include = {
+		users: {
+			select: {
+				id: true,
+				username: true,
+				githubUsername: true,
+				email: true,
+				profilePic: true,
+			},
+		},
+	};
 	let reviews = [];
 	if (portfolioId) {
 		reviews = await prisma.reviews.findMany({
 			orderBy: {
 				updatedAt: "desc",
 			},
-			include: {
-				users: {
-					select: {
-						id: true,
-						username: true,
-						email: true,
-						profilePic: true,
-					},
-				},
-			},
+			include: include,
 			where: {
 				portfolio_id: portfolioId,
 			},
 		});
 	} else {
 		reviews = await prisma.reviews.findMany({
-			include: {
-				users: {
-					select: {
-						id: true,
-						githubUsername: true,
-						email: true,
-						profilePic: true,
-					},
-				},
-			},
+			include: include,
 		});
 	}
 
 	// rename the 'users' field to 'user'
 	reviews = reviews.map(review => ({
 		...review,
-		users: undefined,
 		user: review.users,
+		users: undefined,
 	}));
+
+	console.log({reviews})
 
 	return Response.json({ success: true, data: reviews });
 }

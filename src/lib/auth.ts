@@ -126,6 +126,8 @@ export const authConfig: NextAuthOptions = {
 				session.user.image = userDb.profilePic;
 				session.user.id = userDb.id;
 			}
+
+			console.info({ session });
 			return session;
 		},
 	},

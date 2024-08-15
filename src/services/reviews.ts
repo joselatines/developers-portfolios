@@ -4,6 +4,7 @@ import { CreateReview } from "@/types/reviews";
 export async function getReviews({ portfolio }: { portfolio: string }) {
 	const res = await fetch(`${API_URL}/reviews?portfolio=${portfolio}`, {
 		cache: "no-store",
+		
 	});
 
 	return await res.json();
