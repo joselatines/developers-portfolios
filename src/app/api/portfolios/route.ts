@@ -98,7 +98,7 @@ export async function POST(req: Request) {
 		const name = buildImageName(data.title, data.thumbnail);
 		const imgUrl = await firebase.uploadFile({
 			name,
-			ImageBase64: data.thumbnail.thumbnail,
+			ImageBase64: data.thumbnail,
 		});
 
 		const portfolio = {

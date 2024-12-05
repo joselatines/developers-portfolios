@@ -1,0 +1,1 @@
+export const image_example = "https://th.bing.com/th/id/OIP.VVqpn5JIUpEh2K6DvSUZ2wHaE8?rs=1&pid=ImgDetMain"

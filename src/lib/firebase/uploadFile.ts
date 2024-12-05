@@ -7,6 +7,7 @@ interface UploadFileParams {
 }
 
 const uploadFile = ({ name, ImageBase64 }: UploadFileParams): Promise<string> => new Promise((resolve, reject) => {
+  console.log({name, ImageBase64})
   const base64Image = ImageBase64.split(';base64,').pop();
   if (base64Image == undefined) return reject('image isn\'t base 64');
   const buffer = Buffer.from(base64Image, 'base64');

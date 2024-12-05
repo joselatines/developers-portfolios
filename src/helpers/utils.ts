@@ -53,6 +53,7 @@ export function generateRandomUsername(){
 }
 
 export function buildImageName(title = "defaultTitle", thumbnail: string) {
+	console.log({title, thumbnail})
 	const name = `${getDate()}-${title}.${thumbnail.split("/")[1].split(";")[0]}`;
 
 	return name;
